@@ -21,9 +21,15 @@ class ProgramTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $programId = $this->route('program_type') ?  $this->route('program_type')->id : null;
+        $programId = $this->route('program_type') ? $this->route('program_type')->id : null;
+
         return [
-            'program_name'  => 'required|string|max:50|unique:program_types,program_name,' . $programId,
+            'program_name'  => [
+                'required',
+                'string',
+                'max:50',
+                'unique:program_types,program_name' . ($programId ? ',' . $programId : ''),
+            ],
             'description'  => 'nullable|string|max:250',
             'is_active'   => 'required|boolean',
         ];

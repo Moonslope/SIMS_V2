@@ -21,16 +21,17 @@ class AcademicYearRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method() === 'POST') {
-            // Create: No exclusion needed
-            $yearNameRule = 'required|string|max:50|unique:academic_years,year_name';
+        $academicYearId = $this->route('academic_year') ? $this->route('academic_year')->id : null;
+
+        $yearNameRules = ['required', 'string', 'max:50'];
+        if ($academicYearId) {
+            $yearNameRules[] = 'unique:academic_years,year_name,' . $academicYearId;
         } else {
-            // Update: Exclude the current record's ID
-            $yearNameRule = 'required|string|max:50|unique:academic_years,year_name,' . $this->route('academic_year')->id;
+            $yearNameRules[] = 'unique:academic_years,year_name';
         }
 
         return [
-            'year_name'   => $yearNameRule,
+            'year_name'   => $yearNameRules,
             'start_date'  => 'required|date|before_or_equal:end_date',
             'end_date'    => 'required|date|after_or_equal:start_date',
             'is_active'   => 'required|boolean',

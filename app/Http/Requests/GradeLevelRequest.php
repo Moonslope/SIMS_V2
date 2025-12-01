@@ -21,9 +21,15 @@ class GradeLevelRequest extends FormRequest
      */
     public function rules(): array
     {
-        $gradeId = $this->route('grade_level') ?  $this->route('grade_level')->id : null;
+        $gradeId = $this->route('grade_level') ? $this->route('grade_level')->id : null;
+
         return [
-            'grade_name'  => 'required|string|max:30|unique:grade_levels,grade_name,' . $gradeId,
+            'grade_name'  => [
+                'required',
+                'string',
+                'max:30',
+                'unique:grade_levels,grade_name' . ($gradeId ? ',' . $gradeId : ''),
+            ],
             'description'  => 'nullable|string|max:250',
             'is_active'   => 'required|boolean',
         ];

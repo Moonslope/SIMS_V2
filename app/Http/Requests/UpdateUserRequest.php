@@ -15,11 +15,18 @@ class UpdateUserRequest extends FormRequest
     {
         $userId = $this->route('user'); // Get the user ID from route parameter
 
+        $emailRules = ['required', 'email', 'max:255'];
+        if ($userId) {
+            $emailRules[] = 'unique:users,email,' . $userId;
+        } else {
+            $emailRules[] = 'unique:users,email';
+        }
+
         return [
             'first_name'  => ['required', 'string', 'max:100'],
             'middle_name' => ['nullable', 'string', 'max:100'],
             'last_name'   => ['required', 'string', 'max:100'],
-            'email'       => ['required', 'email', 'max:255', 'unique:users,email,' . $userId],
+            'email'       => $emailRules,
             'role'        => ['required', 'in:admin,registrar,cashier,student'],
         ];
     }

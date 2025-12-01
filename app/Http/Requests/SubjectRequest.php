@@ -22,13 +22,20 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         $subjectId = $this->route('subject') ? $this->route('subject')->id : null;
+
+        $uniqueRule = 'unique:subjects,subject_name';
+        if ($subjectId) {
+            $uniqueRule .= ',' . $subjectId . ',id,grade_level_id,' . $this->grade_level_id;
+        } elseif ($this->grade_level_id) {
+            $uniqueRule .= ',NULL,id,grade_level_id,' . $this->grade_level_id;
+        }
+
         return [
             'subject_name' => [
                 'required',
                 'string',
                 'max:255',
-                // Unique combination of subject_name AND grade_level_id
-                'unique:subjects,subject_name,' . $subjectId . ',id,grade_level_id,' . $this->grade_level_id
+                $uniqueRule
             ],
             'description' => 'nullable|string|max:500',
             'grade_level_id' => 'required|exists:grade_levels,id',

@@ -24,7 +24,12 @@ class SectionRequest extends FormRequest
         $sectionId = $this->route('section') ? $this->route('section')->id : null;
 
         return [
-            'section_name' => 'required|string|max:255|unique:sections,section_name,' . $sectionId,
+            'section_name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:sections,section_name' . ($sectionId ? ',' . $sectionId : ''),
+            ],
             'grade_level_id' => 'required|exists:grade_levels,id',
             'academic_year_id' => 'required|exists:academic_years,id',
             'teacher_id' => 'required|exists:teachers,id',
