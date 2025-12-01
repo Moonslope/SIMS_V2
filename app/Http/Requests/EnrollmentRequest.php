@@ -15,6 +15,19 @@ class EnrollmentRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        // Normalize enrollment_status to lowercase for PostgreSQL enum
+        if ($this->has('enrollment_status')) {
+            $this->merge([
+                'enrollment_status' => strtolower($this->enrollment_status),
+            ]);
+        }
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>

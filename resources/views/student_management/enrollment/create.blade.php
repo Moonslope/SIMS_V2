@@ -56,7 +56,7 @@
             <!-- Hidden Fields -->
             <input type="hidden" name="student_id" value="{{ $student->id }}">
             <input type="hidden" name="academic_year_id" id="academic_year_id" value="{{ $currentAcademicYear->id }}">
-            <input type="hidden" name="enrollment_status" value="Enrolled">
+            <input type="hidden" name="enrollment_status" value="enrolled">
             <input type="hidden" name="createdBy" value="{{Auth()->user()->id}}">
             <input type="hidden" name="source" value="{{ $source }}">
             <input type="hidden" name="date_enrolled" value="{{ now()->toDateString() }}">
