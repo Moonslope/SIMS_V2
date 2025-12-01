@@ -27,7 +27,8 @@ class UpdateUserRequest extends FormRequest
             'middle_name' => ['nullable', 'string', 'max:100'],
             'last_name'   => ['required', 'string', 'max:100'],
             'email'       => $emailRules,
-            'role'        => ['required', 'in:admin,registrar,cashier,student'],
+            'role'        => ['required', 'in:admin,registrar,cashier,teacher,student'],
+            'password'    => ['nullable', 'min:8', 'confirmed'],
         ];
     }
 

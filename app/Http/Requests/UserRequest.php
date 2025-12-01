@@ -16,7 +16,7 @@ class UserRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
+        $rules = [
             'first_name'  => ['required', 'string', 'max:100'],
             'middle_name' => ['nullable', 'string', 'max:100'],
             'last_name'   => ['required', 'string', 'max:100'],
@@ -24,6 +24,15 @@ class UserRequest extends FormRequest
             'current_password' => ['nullable', 'required_with:new_password'],
             'new_password' => ['nullable', 'min:8', 'confirmed'],
         ];
+
+        // Add role and password validation for admin creating users
+        if ($this->isMethod('post')) {
+            $rules['role'] = ['required', 'in:admin,registrar,cashier,teacher,student'];
+            $rules['password'] = ['required', 'min:8', 'confirmed'];
+            $rules['email'] = ['required', 'email', 'max:255', 'unique:users,email'];
+        }
+
+        return $rules;
     }
 
     public function messages(): array

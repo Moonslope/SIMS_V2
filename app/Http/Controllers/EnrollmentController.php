@@ -258,27 +258,27 @@ class EnrollmentController extends Controller
             // Log user account creation
             ActivityLogService::created($user, "Created student account for: {$student->first_name} {$student->last_name} (LRN: {$student->learner_reference_number})");
 
-            // Send email to parent/guardian (synchronous for now until queue is verified)
+            // Queue email to parent/guardian
             try {
                 $guardian = $student->guardians()->first();
 
-                Log::info('Attempting to send email', [
+                Log::info('Queueing email', [
                     'student_id' => $student->id,
                     'guardian_exists' => $guardian ? 'yes' : 'no',
                     'guardian_email' => $guardian?->email ?? 'none'
                 ]);
 
                 if ($guardian && $guardian->email) {
-                    Mail::to($guardian->email)->send(
+                    Mail::to($guardian->email)->queue(
                         new StudentAccountCreated($student, $user, $temporaryPassword)
                     );
-                    Log::info('Email sent successfully to: ' . $guardian->email);
+                    Log::info('Email queued successfully for: ' . $guardian->email);
                 } else {
                     Log::warning('No guardian email found for student: ' . $student->id);
                 }
             } catch (\Exception $e) {
                 // Log the full error for debugging
-                Log::error('Failed to send student account email: ' . $e->getMessage(), [
+                Log::error('Failed to queue student account email: ' . $e->getMessage(), [
                     'exception' => get_class($e),
                     'trace' => $e->getTraceAsString()
                 ]);
