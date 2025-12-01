@@ -50,6 +50,9 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN npm ci --include=dev
 RUN NODE_ENV=production npm run build
 
+# Verify build output
+RUN ls -la /var/www/public/build || echo "Build directory not found"
+
 # Copy nginx configuration
 COPY docker/nginx.conf /etc/nginx/sites-available/default
 
