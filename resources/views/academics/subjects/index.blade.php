@@ -17,7 +17,8 @@
    <div class="card bg-base-100 shadow-md">
       <div class="card-body p-4">
          <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
-            <form action="{{ route('subjects.index') }}" method="GET" class="flex flex-col sm:flex-row gap-2 items-center w-full sm:w-auto" id="searchForm">
+            <form action="{{ route('subjects.index') }}" method="GET"
+               class="flex flex-col sm:flex-row gap-2 items-center w-full sm:w-auto" id="searchForm">
                <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80">
                   <svg class="h-4 w-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                      <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
@@ -29,7 +30,8 @@
                   <input type="search" name="search" id="searchInput" value="{{ request('search') }}"
                      placeholder="Search subjects..." class="grow focus:outline-none" />
                   @if(request('search'))
-                  <a href="{{ route('subjects.index', ['grade_level' => request('grade_level')]) }}" class="btn btn-xs btn-circle btn-ghost" title="Clear search">
+                  <a href="{{ route('subjects.index', ['grade_level' => request('grade_level')]) }}"
+                     class="btn btn-xs btn-circle btn-ghost" title="Clear search">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,7 +41,8 @@
                   @endif
                </label>
 
-               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-48" onchange="this.form.submit()">
+               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-48"
+                  onchange="this.form.submit()">
                   <option value="all">All Grade Levels</option>
                   @foreach($gradeLevels as $gradeLevel)
                   <option value="{{ $gradeLevel->id }}" {{ request('grade_level')==$gradeLevel->id ? 'selected' : '' }}>
@@ -168,4 +171,5 @@
       @endif
    </div>
 </div>
+<x-success-alert />
 @endsection

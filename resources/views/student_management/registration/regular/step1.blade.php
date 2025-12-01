@@ -173,7 +173,7 @@
 
             <div class="form-control w-full">
                <label class="label mb-2">
-                  <span class="label-text font-medium text-base">Birthplace</span>
+                  <span class="label-text font-medium text-base">Birthplace <span class="text-error">*</span></span>
                </label>
                <input name="birthplace" type="text"
                   class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('birthplace') input-error @enderror"
@@ -256,7 +256,7 @@
          <!-- Address -->
          <div class="form-control w-full">
             <label class="label mb-2">
-               <span class="label-text font-medium text-base">Permanent Address</span>
+               <span class="label-text font-medium text-base">Permanent Address <span class="text-error">*</span></span>
             </label>
             <input name="address" type="text"
                class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('address') input-error @enderror"

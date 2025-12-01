@@ -149,4 +149,5 @@
    </div>
 </div>
 
+<x-success-alert />
 @endsection

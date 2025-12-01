@@ -157,4 +157,5 @@
       @endif
    </div>
 </div>
+<x-success-alert />
 @endsection

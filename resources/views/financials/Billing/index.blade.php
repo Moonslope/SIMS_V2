@@ -39,12 +39,6 @@
                   @endif
                </label>
             </form>
-
-            <a href="{{route('billings.create')}}"
-               class="btn bg-[#271AD2] text-base-300 btn-sm rounded-lg hover:bg-primary w-full sm:w-auto gap-2">
-               <i class="fi fi-sr-plus-small text-lg pt-1"></i>
-               <span>Create New</span>
-            </a>
          </div>
       </div>
    </div>
@@ -136,4 +130,5 @@
       @endif
    </div>
 </div>
+<x-success-alert />
 @endsection
