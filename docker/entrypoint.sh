@@ -3,8 +3,9 @@
 # Run migrations
 php artisan migrate --force
 
-# Clear stuck queue jobs (from previous deployments with different mailables)
-php artisan tinker --execute="try { DB::table('jobs')->truncate(); DB::table('failed_jobs')->truncate(); echo 'Queue cleared'; } catch (Exception \$e) { echo 'Queue clear failed: ' . \$e->getMessage(); }" || true
+# Clear queue tables using direct SQL commands
+php artisan db:wipe --drop-types --force --quiet || true
+php artisan migrate --force
 
 # Cache configuration
 php artisan config:cache
