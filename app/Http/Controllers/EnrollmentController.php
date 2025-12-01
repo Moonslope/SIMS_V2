@@ -269,10 +269,15 @@ class EnrollmentController extends Controller
                 ]);
 
                 if ($guardian && $guardian->email) {
-                    Mail::to($guardian->email)->send(
-                        new StudentAccountCreated($student, $user, $temporaryPassword)
-                    );
-                    Log::info('Email sent successfully to: ' . $guardian->email);
+                    try {
+                        Mail::to($guardian->email)->send(
+                            new StudentAccountCreated($student, $user, $temporaryPassword)
+                        );
+                        Log::info('Email sent successfully to: ' . $guardian->email);
+                    } catch (\Exception $e) {
+                        // Log but don't fail enrollment if email fails
+                        Log::error('Failed to send email: ' . $e->getMessage());
+                    }
                 } else {
                     Log::warning('No guardian email found for student: ' . $student->id);
                 }
