@@ -258,12 +258,12 @@ class EnrollmentController extends Controller
             // Log user account creation
             ActivityLogService::created($user, "Created student account for: {$student->first_name} {$student->last_name} (LRN: {$student->learner_reference_number})");
 
-            // Send email to parent/guardian
+            // Send email to parent/guardian (queued to prevent timeout)
             try {
                 $guardian = $student->guardians()->first();
 
                 if ($guardian && $guardian->email) {
-                    Mail::to($guardian->email)->send(
+                    Mail::to($guardian->email)->queue(
                         new StudentAccountCreated($student, $user, $temporaryPassword)
                     );
                 }
