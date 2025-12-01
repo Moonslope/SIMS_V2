@@ -64,7 +64,7 @@
                      </a>
                   </li>
                   <li class="text-[16px]">
-                     <a href="{{route('students.announcement')}}" class="py-2.5">
+                     <a href="{{route('students.announcements')}}" class="py-2.5">
                         <i class="fi fi-sr-bullhorn text-[#0F00CD] me-2"></i>
                         <span>Announcement</span>
                      </a>
@@ -98,7 +98,7 @@
          <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
          <ul class="menu bg-base-200 min-h-full w-60 p-4">
             <li><a href="{{route('students.dashboard')}}">Dashboard</a></li>
-            <li><a href="{{route('students.announcement')}}">Announcement</a></li>
+            <li><a href="{{route('students.announcements')}}">Announcement</a></li>
             <li><a href="{{route('students.classSchedule')}}">Class Schedules</a></li>
             <li><a href="{{route('students.paymentHistory')}}">Payment History</a></li>
          </ul>
