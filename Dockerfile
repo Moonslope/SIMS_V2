@@ -28,8 +28,18 @@ WORKDIR /var/www
 # Copy existing application directory
 COPY . /var/www
 
+# Create required directories and set permissions
+RUN mkdir -p /var/www/storage/framework/cache \
+   /var/www/storage/framework/sessions \
+   /var/www/storage/framework/views \
+   /var/www/storage/logs \
+   /var/www/bootstrap/cache
+
 # Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www
+
+# Set permissions before composer install
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
@@ -43,10 +53,6 @@ COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Copy entrypoint script
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Set permissions
-RUN chgrp -R www-data storage bootstrap/cache
-RUN chmod -R ug+rwx storage bootstrap/cache
 
 EXPOSE 8080
 
