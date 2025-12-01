@@ -100,9 +100,9 @@ class PaymentController extends Controller
         // Update billing status
         $newTotalPaid = $billing->payments()->sum('amount_paid');
         if ($newTotalPaid >= $billing->total_amount) {
-            $billing->update(['status' => 'Paid']);
+            $billing->update(['status' => 'paid']);
         } else {
-            $billing->update(['status' => 'Partial']);
+            $billing->update(['status' => 'partial']);
         }
 
         // Log activity
@@ -139,9 +139,9 @@ class PaymentController extends Controller
         // Update billing status 
         $totalPaid = $billing->payments()->sum('amount_paid');
         if ($totalPaid >= $billing->total_amount) {
-            $billing->update(['status' => 'Paid']);
+            $billing->update(['status' => 'paid']);
         } else {
-            $billing->update(['status' => 'Partial']);
+            $billing->update(['status' => 'partial']);
         }
 
         // Log activity

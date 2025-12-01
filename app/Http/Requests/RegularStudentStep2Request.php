@@ -33,6 +33,19 @@ class RegularStudentStep2Request extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        // Capitalize relation
+        if ($this->relation) {
+            $this->merge([
+                'relation' => ucfirst(strtolower($this->relation))
+            ]);
+        }
+    }
+
+    /**
      * Get custom validation messages.
      */
     public function messages(): array
