@@ -67,12 +67,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
 
     // Enrollment Management
-    Route::resource('enrollments', EnrollmentController::class);
+    // Custom routes must come BEFORE resource route to avoid being caught by {enrollment} parameter
     Route::get('/enrollments/sections-by-grade', [EnrollmentController::class, 'getSectionsByGradeLevel'])->name('enrollments.sections-by-grade');
-    Route::get('/enrollments/{enrollment}/billing', [EnrollmentController::class, 'showBilling'])->name('enrollments.billing');
     Route::get('/enrollments/re-enrollment/form', [EnrollmentController::class, 'reEnrollmentForm'])->name('enrollments.re-enrollment');
     Route::post('/enrollments/search', [EnrollmentController::class, 'searchStudents'])->name('enrollments.search-students');
     Route::post('/enrollments/re-enrollment/create', [EnrollmentController::class, 'createReEnrollment'])->name('enrollments.create-re-enrollment');
+
+    Route::resource('enrollments', EnrollmentController::class);
+    Route::get('/enrollments/{enrollment}/billing', [EnrollmentController::class, 'showBilling'])->name('enrollments.billing');
 
     // Schedule & Fees
     Route::resource('schedules', ScheduleController::class);
