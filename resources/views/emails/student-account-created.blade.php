@@ -124,7 +124,7 @@
       </div>
 
       <div style="text-align: center;">
-         <a href="{{ route('login') }}" class="button">Login to Student Portal</a>
+         <a href="https://euro-asia-emils-student-portal.onrender.com" class="button">Login to Student Portal</a>
       </div>
 
       <p>If you have any questions or need assistance, please contact the school administration.</p>
