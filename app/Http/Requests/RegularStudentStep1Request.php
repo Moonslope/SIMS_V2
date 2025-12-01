@@ -21,7 +21,7 @@ class RegularStudentStep1Request extends FormRequest
             'last_name' => 'required|string|max:255',
             'extension_name' => 'nullable|string|max:50',
             'nickname' => 'nullable|string|max:100',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required|in:Male,Female',
             'birthdate' => 'required|date|before_or_equal:' . Carbon::now()->subYears(4)->format('Y-m-d'),
             'birthplace' => 'required|string|max:255',
             'nationality' => 'required|string|max:100',
@@ -30,6 +30,19 @@ class RegularStudentStep1Request extends FormRequest
             'religion' => 'required|string|max:100',
             'address' => 'required|string|max:500',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        // Capitalize gender
+        if ($this->gender) {
+            $this->merge([
+                'gender' => ucfirst(strtolower($this->gender))
+            ]);
+        }
     }
 
     public function messages()
