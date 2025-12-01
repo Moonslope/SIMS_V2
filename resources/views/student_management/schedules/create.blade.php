@@ -1,0 +1,167 @@
+@extends('layout.layout')
+@section('title', 'Create Schedule')
+@section('content')
+<div class="px-5 py-3 flex flex-col gap-4">
+   <div class="breadcrumbs text-xs">
+      <ul>
+         <li><a>Academics</a></li>
+         <li><a href="{{route('schedules.index')}}">Schedules</a></li>
+         <li><a>Create New Schedule</a></li>
+      </ul>
+   </div>
+
+   <div class="rounded-lg bg-[#0F00CD] shadow-lg">
+      <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Create New Schedule</h1>
+   </div>
+
+   <div class="bg-base-100 h-auto rounded-lg p-6 shadow">
+      <form action="{{route('schedules.store')}}" method="POST" id="scheduleForm">
+         @csrf
+
+         <div class="flex flex-col gap-10">
+            <div class="flex flex-col gap-8">
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-2">
+                     <label for="subject_id" class="text-sm font-medium">Subject <span
+                           class="text-error">*</span></label>
+                     <select name="subject_id"
+                        class="select w-full select-bordered rounded-lg @error('subject_id') select-error @enderror">
+                        <option disabled selected>Select Subject</option>
+                        @forelse($subjects as $subject)
+                        <option value="{{ $subject->id }}" {{ old('subject_id')==$subject->id ? 'selected' : '' }}>
+                           {{ $subject->subject_name }}
+                        </option>
+                        @empty
+                        <option disabled>No subjects available</option>
+                        @endforelse
+                     </select>
+                     @error('subject_id')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+
+                  <div class="flex flex-col gap-2">
+                     <label for="academic_year_id" class="text-sm font-medium">Academic Year <span
+                           class="text-error">*</span></label>
+                     <input type="text" class="input w-full input-bordered rounded-lg bg-base-200 cursor-not-allowed"
+                        value="{{ $currentAcademicYear->year_name }}" readonly />
+                     <input type="hidden" name="academic_year_id" value="{{ $currentAcademicYear->id }}" />
+                     @error('academic_year_id')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+               </div>
+
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-2">
+                     <label for="program_type_id" class="text-sm font-medium">Program <span
+                           class="text-error">*</span></label>
+                     <select name="program_type_id"
+                        class="select w-full select-bordered rounded-lg @error('program_type_id') select-error @enderror">
+                        <option disabled selected>Select Program Type</option>
+                        @forelse($programTypes as $programType)
+                        <option value="{{ $programType->id }}" {{ old('program_type_id')==$programType->id ? 'selected'
+                           : '' }}>
+                           {{ $programType->program_name }}
+                        </option>
+                        @empty
+                        <option disabled>No program types available</option>
+                        @endforelse
+                     </select>
+                     @error('program_type_id')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+
+                  <div class="flex flex-col gap-2">
+                     <label for="grade_level_id" class="text-sm font-medium">Grade Level <span
+                           class="text-error">*</span></label>
+                     <select name="grade_level_id"
+                        class="select w-full select-bordered rounded-lg @error('grade_level_id') select-error @enderror">
+                        <option disabled selected>Select Grade Level</option>
+                        @forelse($gradeLevels as $gradeLevel)
+                        <option value="{{ $gradeLevel->id }}" {{ old('grade_level_id')==$gradeLevel->id ? 'selected' :
+                           '' }}>
+                           {{ $gradeLevel->grade_name }}
+                        </option>
+                        @empty
+                        <option disabled>No grade levels available</option>
+                        @endforelse
+                     </select>
+                     @error('grade_level_id')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+               </div>
+
+               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="flex flex-col gap-2">
+                     <label for="day_of_the_week" class="text-sm font-medium">Day of Week <span
+                           class="text-error">*</span></label>
+                     <select name="day_of_the_week" id="day_of_the_week"
+                        class="select w-full select-bordered rounded-lg @error('day_of_the_week') select-error @enderror">
+                        <option disabled selected>Select Day</option>
+                        <option value="monday" {{ old('day_of_the_week')=='monday' ? 'selected' : '' }}>Monday</option>
+                        <option value="tuesday" {{ old('day_of_the_week')=='tuesday' ? 'selected' : '' }}>Tuesday
+                        </option>
+                        <option value="wednesday" {{ old('day_of_the_week')=='wednesday' ? 'selected' : '' }}>Wednesday
+                        </option>
+                        <option value="thursday" {{ old('day_of_the_week')=='thursday' ? 'selected' : '' }}>Thursday
+                        </option>
+                        <option value="friday" {{ old('day_of_the_week')=='friday' ? 'selected' : '' }}>Friday</option>
+                        <option value="monday_to_friday" {{ old('day_of_the_week')=='monday_to_friday' ? 'selected' : ''
+                           }}>Monday to Friday</option>
+                     </select>
+                     @error('day_of_the_week')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+
+                  <div class="flex flex-col gap-2">
+                     <label for="start_time" class="text-sm font-medium">Start Time <span
+                           class="text-error">*</span></label>
+                     <input type="time" name="start_time" id="start_time"
+                        class="input input-bordered rounded-lg @error('start_time') input-error @enderror"
+                        value="{{ old('start_time', '08:00') }}" min="06:00" max="20:00" required />
+                     @error('start_time')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+
+                  <div class="flex flex-col gap-2">
+                     <label for="end_time" class="text-sm font-medium">End Time <span
+                           class="text-error">*</span></label>
+                     <input type="time" name="end_time" id="end_time"
+                        class="input input-bordered rounded-lg @error('end_time') input-error @enderror"
+                        value="{{ old('end_time', '09:00') }}" min="06:00" max="20:00" required />
+                     @error('end_time')
+                     <div class="text-error text-sm mt-1">{{ $message }}</div>
+                     @enderror
+                  </div>
+               </div>
+
+               <div class="flex items-center gap-2">
+                  <input type="hidden" name="is_active" value="0" />
+                  <input type="checkbox" name="is_active" value="1"
+                     class="checkbox checkbox-sm @error('is_active') checkbox-error @enderror" {{ old('is_active',
+                     isset($schedule) ? $schedule->is_active : false) ? 'checked' : '' }}
+                  />
+                  <label class="text-sm font-medium">Set as Active Schedule</label>
+                  @error('is_active')
+                  <div class="text-error text-sm mt-1">{{ $message }}</div>
+                  @enderror
+               </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end gap-3">
+               <a href="{{route('schedules.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
+               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">
+                  Create Schedule
+               </button>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+@endsection

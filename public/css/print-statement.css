@@ -1,0 +1,179 @@
+/* ============================================
+   Statement of Account Print Styles
+   ============================================ */
+
+/* Screen Styles - Improve table readability */
+.table th {
+   font-weight: 600;
+}
+
+.table td,
+.table th {
+   padding: 0.75rem;
+}
+
+/* ============================================
+   Print-Specific Styles
+   ============================================ */
+@media print {
+   
+   /* Page Setup */
+   @page {
+      margin: 1cm;
+      size: A4;
+   }
+
+   /* Hide entire body content first */
+   body * {
+      visibility: hidden;
+   }
+
+   /* Show only the print container and its children */
+   .px-5,
+   .px-5 * {
+      visibility: visible;
+   }
+
+   /* Position print container at top */
+   .px-5 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+   }
+
+   /* ============================================
+      Show/Hide Elements
+      ============================================ */
+   
+   /* Hide specific elements */
+   .no-print {
+      display: none !important;
+   }
+
+   /* Show print-only elements */
+   .print-only {
+      display: block ! important;
+   }
+
+   /* Hide progress bars */
+   progress {
+      display: none !important;
+   }
+
+   /* ============================================
+      Logo & Images
+      ============================================ */
+   
+   .print-logo {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+
+   /* ============================================
+      Card Styling
+      ============================================ */
+   
+   /* Remove card shadows and add simple borders */
+   .card {
+      box-shadow: none !important;
+      border: 1px solid #ddd !important;
+      page-break-inside: avoid;
+      margin-bottom: 1rem;
+   }
+
+   /* Optimize card body spacing */
+   .card-body {
+      padding: 1rem ! important;
+   }
+
+   /* ============================================
+      Table Styling
+      ============================================ */
+   
+   .print-table {
+      border-collapse: collapse;
+      width: 100%;
+   }
+
+   .print-table th,
+   .print-table td {
+      border: 1px solid #ddd ! important;
+      padding: 8px !important;
+   }
+
+   .print-table thead {
+      background-color: #f3f4f6 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+
+   /* Ensure zebra stripes print */
+   .table-zebra tbody tr:nth-child(even) {
+      background-color: #f9fafb !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+
+   /* Prevent page breaks inside important elements */
+   table,
+   tr,
+   .card {
+      page-break-inside: avoid;
+   }
+
+   /* ============================================
+      Badge & Status Elements
+      ============================================ */
+   
+   /* Keep status badges visible with colors */
+   .badge {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      border: 1px solid currentColor;
+   }
+
+   /* ============================================
+      Payment Summary Boxes
+      ============================================ */
+   
+   .rounded-lg.border {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+
+   /* Ensure background colors print */
+   .bg-base-200,
+   .bg-success\/10,
+   .bg-error\/10 {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+   }
+
+   /* ============================================
+      Text Colors
+      ============================================ */
+   
+   .text-error {
+      color: #dc2626 !important;
+   }
+
+   .text-success {
+      color: #16a34a !important;
+   }
+
+   /* ============================================
+      Spacing & Layout
+      ============================================ */
+   
+   /* Better spacing between sections */
+   .gap-4 > * {
+      margin-bottom: 0.75rem !important;
+   }
+}
+
+/* ============================================
+   End of Print Styles
+   ============================================ */
