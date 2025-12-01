@@ -269,10 +269,10 @@ class EnrollmentController extends Controller
                 ]);
 
                 if ($guardian && $guardian->email) {
-                    Mail::to($guardian->email)->queue(
+                    Mail::to($guardian->email)->send(
                         new StudentAccountCreated($student, $user, $temporaryPassword)
                     );
-                    Log::info('Email queued successfully for: ' . $guardian->email);
+                    Log::info('Email sent successfully to: ' . $guardian->email);
                 } else {
                     Log::warning('No guardian email found for student: ' . $student->id);
                 }
