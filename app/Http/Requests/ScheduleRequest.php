@@ -26,11 +26,24 @@ class ScheduleRequest extends FormRequest
             'program_type_id' => 'required|exists:program_types,id',
             'subject_id' => 'required|exists:subjects,id',
             'academic_year_id' => 'required|exists:academic_years,id',
-            'day_of_the_week' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday,monday_to_friday',
+            'day_of_the_week' => 'required|in:Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,monday_to_friday',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'is_active'   => 'required|boolean',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        // Capitalize day of the week if it's not the special 'monday_to_friday' option
+        if ($this->day_of_the_week && $this->day_of_the_week !== 'monday_to_friday') {
+            $this->merge([
+                'day_of_the_week' => ucfirst(strtolower($this->day_of_the_week))
+            ]);
+        }
     }
 
     /**

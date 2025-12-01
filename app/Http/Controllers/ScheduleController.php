@@ -106,7 +106,7 @@ class ScheduleController extends Controller
 
         // Check if it's mon-fri option
         if ($request->day_of_the_week === 'monday_to_friday') {
-            $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+            $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
             foreach ($days as $day) {
                 $schedule = Schedule::create([
