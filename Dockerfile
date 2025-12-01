@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
    zip \
    unzip \
    nginx \
-   supervisor
+   supervisor \
+   nodejs \
+   npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -43,6 +45,10 @@ RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Install Node dependencies and build Vite assets
+RUN npm install
+RUN npm run build
 
 # Copy nginx configuration
 COPY docker/nginx.conf /etc/nginx/sites-available/default
