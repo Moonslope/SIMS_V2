@@ -1,7 +1,18 @@
 #!/bin/bash
 
-# Disable SSL for database connections (fix permission denied error)
-export DB_SSLMODE=disable
+# Setup PostgreSQL SSL directory for www-data user (queue worker runs as www-data)
+mkdir -p /var/www/.postgresql
+chown -R www-data:www-data /var/www/.postgresql
+chmod 700 /var/www/.postgresql
+
+# Set HOME for www-data so PostgreSQL can find SSL config
+export PGSSLMODE=require
+export HOME=/var/www
+
+# Fix log file permissions
+mkdir -p /var/www/storage/logs
+chown -R www-data:www-data /var/www/storage
+chmod -R 775 /var/www/storage
 
 # Run migrations
 php artisan migrate --force
@@ -10,6 +21,7 @@ php artisan migrate --force
 php artisan queue:clear-tables || echo "Queue clear failed, continuing anyway"
 
 # Cache configuration
+php artisan config:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
