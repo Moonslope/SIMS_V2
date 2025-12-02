@@ -23,11 +23,15 @@ chmod -R 775 /var/www/storage
 # Run migrations
 php artisan migrate --force
 
+# Check if cache table exists, if not run migrations again
+php artisan migrate --force
+
 # Clear stuck queue jobs using custom artisan command
 php artisan queue:clear-tables || echo "Queue clear failed, continuing anyway"
 
-# Cache configuration
+# Clear and cache configuration
 php artisan config:clear
+php artisan cache:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
