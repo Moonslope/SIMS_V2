@@ -229,17 +229,21 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request, EnrollmentRequest $enrollmentRequest)
     {
+        error_log("=== ENROLLMENT STORE METHOD CALLED ===");
         $validated = $enrollmentRequest->validated();
         $source = $request->source;
 
         // First, get the student data to create user account
         $student = Student::with('guardians')->find($validated['student_id']);
+        
+        error_log("=== Student ID: " . $student->id . ", Has user_id: " . ($student->user_id ? 'YES' : 'NO') . " ===");
 
         $accountCreated = false;
         $temporaryPassword = '12345678';
 
         // Check if user already exists for this student
         if (! $student->user_id) {
+            error_log("=== CREATING NEW USER ACCOUNT ===");
             // Create user account for the student only if they don't have one
             $user = User::create([
                 'first_name' => $student->first_name,
@@ -260,23 +264,31 @@ class EnrollmentController extends Controller
 
             // Queue email to parent/guardian
             try {
+                error_log("=== EMAIL SECTION REACHED ===");
                 $guardian = $student->guardians()->first();
+                error_log("Guardian found: " . ($guardian ? $guardian->email : 'none'));
 
                 Log::info('Queueing email', [
                     'student_id' => $student->id,
                     'guardian_exists' => $guardian ? 'yes' : 'no',
                     'guardian_email' => $guardian?->email ?? 'none',
                     'mail_mailer' => config('mail.default'),
-                    'resend_key_set' => !empty(config('services.resend.key'))
+                    'mail_from' => config('mail.from.address'),
+                    'resend_key_set' => !empty(config('services.resend.key')),
+                    'env_mail_mailer' => env('MAIL_MAILER'),
+                    'env_resend_key' => substr(env('RESEND_KEY'), 0, 10) . '...'
                 ]);
 
                 if ($guardian && $guardian->email) {
                     try {
+                        error_log("=== ATTEMPTING TO SEND EMAIL ===");
                         Mail::to($guardian->email)->send(
                             new StudentAccountCreated($student, $user, $temporaryPassword)
                         );
+                        error_log("=== EMAIL SENT SUCCESSFULLY ===");
                         Log::info('Email sent successfully to: ' . $guardian->email);
                     } catch (\Exception $e) {
+                        error_log("=== EMAIL FAILED: " . $e->getMessage() . " ===");
                         Log::error('Email failed: ' . $e->getMessage(), [
                             'exception' => get_class($e),
                             'file' => $e->getFile(),
@@ -285,6 +297,7 @@ class EnrollmentController extends Controller
                         ]);
                     }
                 } else {
+                    error_log("=== NO GUARDIAN EMAIL ===");
                     Log::warning('No guardian email found for student: ' . $student->id);
                 }
             } catch (\Exception $e) {
