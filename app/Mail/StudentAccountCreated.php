@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class StudentAccountCreated extends Mailable
 {
@@ -26,6 +27,18 @@ class StudentAccountCreated extends Mailable
         $this->student = $student;
         $this->user = $user;
         $this->temporaryPassword = $temporaryPassword;
+    }
+    
+    /**
+     * Handle a job failure.
+     */
+    public function failed(\Throwable $exception): void
+    {
+        Log::error('Email sending failed: ' . $exception->getMessage(), [
+            'student_id' => $this->student->id,
+            'exception' => get_class($exception),
+            'trace' => $exception->getTraceAsString()
+        ]);
     }
 
     /**

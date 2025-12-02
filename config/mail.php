@@ -21,8 +21,8 @@ return [
         'smtp' => [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.gmail.com'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'port' => env('MAIL_PORT', 465),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
             'username' => env('MAIL_USERNAME', 'labisnar21@gmail.com'),
             'password' => env('MAIL_PASSWORD', 'fiwntdkpqmprjlmp'),
             'timeout' => env('MAIL_TIMEOUT', 30),
