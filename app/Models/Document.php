@@ -11,6 +11,7 @@ class Document extends Model
         'document_name',
         'document_type',
         'file_path',
+        'cloudinary_public_id',
     ];
 
     public function student()

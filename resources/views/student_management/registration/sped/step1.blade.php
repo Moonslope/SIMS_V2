@@ -242,7 +242,7 @@
 
                <div class="form-control w-full">
                   <label class="label mb-2">
-                     <span class="label-text font-medium text-base">Religion</span>
+                     <span class="label-text font-medium text-base">Religion <span class="text-error">*</span></span>
                   </label>
                   <input name="religion" type="text"
                      class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('religion') input-error @enderror"

@@ -27,7 +27,7 @@ class SpedStudentStep1Request extends FormRequest
             'nationality' => 'required|string|max:100',
             'spoken_dialect' => 'required|string|max:100',
             'other_spoken_dialect' => 'nullable|string|max:100',
-            'religion' => 'nullable|string|max:100',
+            'religion' => 'required|string|max:100',
             'address' => 'required|string|max:500',
             'type_of_disability' => 'required|string|max:255',
             'date_of_diagnosis' => 'required|date',

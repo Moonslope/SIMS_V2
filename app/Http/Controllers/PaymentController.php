@@ -66,6 +66,7 @@ class PaymentController extends Controller
 
         return view('financials.payment.index', compact('payments', 'academicYears'));
     }
+
     public function store(PaymentRequest $request)
     {
         $validated = $request->validated();

@@ -52,7 +52,6 @@
 
          <form action="{{ route('enrollments.store') }}" method="POST" class="space-y-6">
             @csrf
-
             <!-- Hidden Fields -->
             <input type="hidden" name="student_id" value="{{ $student->id }}">
             <input type="hidden" name="academic_year_id" id="academic_year_id" value="{{ $currentAcademicYear->id }}">
