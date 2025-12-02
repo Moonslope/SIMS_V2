@@ -28,7 +28,7 @@ class StudentAccountCreated extends Mailable
         $this->user = $user;
         $this->temporaryPassword = $temporaryPassword;
     }
-    
+
     /**
      * Handle a job failure.
      */
