@@ -158,7 +158,18 @@ class DocumentController extends Controller
             "Downloaded document: '{$document->document_name}' (Type: {$document->document_type}) - Student ID: {$student->id}"
         );
 
-        // Redirect to Cloudinary URL for download
-        return redirect($document->file_path);
+        // If file_path is a Cloudinary URL, redirect to it
+        if (str_starts_with($document->file_path, 'https://res.cloudinary.com') || str_starts_with($document->file_path, 'http://res.cloudinary.com')) {
+            return redirect($document->file_path);
+        }
+
+        // Handle local storage files
+        $filePath = storage_path('app/public/' . $document->file_path);
+
+        if (!file_exists($filePath)) {
+            return back()->with('error', 'Document file not found on server.');
+        }
+
+        return response()->download($filePath, $document->document_name);
     }
 }

@@ -16,7 +16,7 @@
       .input-group:focus-within label {
          color: #0F00CD;
       }
-
+      
       .input-group input:focus {
          border-color: #0F00CD;
          box-shadow: 0 0 0 3px rgba(15, 0, 205, 0.1);
