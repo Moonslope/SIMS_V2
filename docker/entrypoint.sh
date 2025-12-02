@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# Set Resend for email (SMTP blocked on Render)
-export RESEND_KEY="re_UgKkFb8E_8ndXuxktA8scDFSAc9SSGJtg"
-export MAIL_MAILER="resend"
-export MAIL_FROM_ADDRESS="onboarding@resend.dev"
-export MAIL_FROM_NAME="SIMS"
+# Brevo SMTP configuration is set in Render environment variables
 
 # Setup PostgreSQL SSL directory for www-data user (queue worker runs as www-data)
 mkdir -p /var/www/.postgresql
