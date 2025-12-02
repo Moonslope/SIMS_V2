@@ -235,7 +235,7 @@ class EnrollmentController extends Controller
 
         // First, get the student data to create user account
         $student = Student::with('guardians')->find($validated['student_id']);
-        
+
         error_log("=== Student ID: " . $student->id . ", Has user_id: " . ($student->user_id ? 'YES' : 'NO') . " ===");
 
         $accountCreated = false;
