@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\SpedStudent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\RegularStudentStep1Request;
 use App\Http\Requests\RegularStudentStep2Request;
 use App\Http\Requests\RegularStudentStep3Request;
@@ -90,7 +91,13 @@ class StudentController extends Controller
         $filePath = storage_path('app/public/' . $document->file_path);
 
         if (!file_exists($filePath)) {
-            return back()->with('error', 'Document file not found on server.');
+            Log::error('Document file not found for viewing', [
+                'document_id' => $document->id,
+                'student_id' => $student->id,
+                'file_path' => $document->file_path,
+                'full_path' => $filePath
+            ]);
+            return back()->with('error', 'Document file not found on server. Please contact support.');
         }
 
         return response()->file($filePath);

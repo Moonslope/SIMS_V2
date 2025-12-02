@@ -47,25 +47,17 @@ class DocumentController extends Controller
             return back()->with('error', 'Student record not found.');
         }
 
-        // Upload file to Cloudinary
+        // Upload file to local storage
         $file = $request->file('document_file');
-        $uploadedFile = Cloudinary::upload($file->getRealPath(), [
-            'folder' => 'student-documents/' . $student->id,
-            'resource_type' => 'auto',
-            'public_id' => time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
-        ]);
-
-        // Get the secure URL from Cloudinary
-        $cloudinaryUrl = $uploadedFile->getSecurePath();
-        $cloudinaryPublicId = $uploadedFile->getPublicId();
+        $path = $file->store('student-documents', 'public');
 
         // Create document record
         $document = Document::create([
             'student_id' => $student->id,
             'document_name' => $file->getClientOriginalName(),
             'document_type' => $request->document_type,
-            'file_path' => $cloudinaryUrl,
-            'cloudinary_public_id' => $cloudinaryPublicId,
+            'file_path' => $path,
+            'cloudinary_public_id' => null,
         ]);
 
         // Log activity
@@ -125,6 +117,12 @@ class DocumentController extends Controller
             } catch (\Exception $e) {
                 Log::error('Cloudinary deletion failed: ' . $e->getMessage());
             }
+        } else {
+            // Delete local storage file
+            $filePath = 'public/' . $document->file_path;
+            if (Storage::exists($filePath)) {
+                Storage::delete($filePath);
+            }
         }
 
         // Log activity before deletion
@@ -158,16 +156,23 @@ class DocumentController extends Controller
             "Downloaded document: '{$document->document_name}' (Type: {$document->document_type}) - Student ID: {$student->id}"
         );
 
-        // If file_path is a Cloudinary URL, redirect to it
+        // If file_path is a Cloudinary URL, redirect to it with download parameter
         if (str_starts_with($document->file_path, 'https://res.cloudinary.com') || str_starts_with($document->file_path, 'http://res.cloudinary.com')) {
-            return redirect($document->file_path);
+            // Add fl_attachment flag to force download from Cloudinary
+            $downloadUrl = str_replace('/upload/', '/upload/fl_attachment/', $document->file_path);
+            return redirect($downloadUrl);
         }
 
         // Handle local storage files
         $filePath = storage_path('app/public/' . $document->file_path);
 
         if (!file_exists($filePath)) {
-            return back()->with('error', 'Document file not found on server.');
+            Log::error('Document file not found', [
+                'document_id' => $document->id,
+                'file_path' => $document->file_path,
+                'full_path' => $filePath
+            ]);
+            return back()->with('error', 'Document file not found on server. Please contact support.');
         }
 
         return response()->download($filePath, $document->document_name);
