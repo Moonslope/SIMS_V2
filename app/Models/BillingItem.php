@@ -12,8 +12,7 @@ class BillingItem extends Model
         'amount',
         'amount_paid',
         'status',
-        'payment_date',
-        'remarks'
+        'payment_date'
     ];
 
     protected $casts = [

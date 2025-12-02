@@ -179,8 +179,7 @@ class PaymentController extends Controller
             $billingItem->update([
                 'amount_paid' => $newAmountPaid,
                 'status' => $newStatus,
-                'payment_date' => now(),
-                'remarks' => $newStatus === 'paid' ? 'Paid' : 'Unpaid'
+                'payment_date' => now()
             ]);
 
             $createdPayments[] = $payment;
