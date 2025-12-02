@@ -24,6 +24,7 @@ class PaymentController extends Controller
         $payments = Payment::with([
             'billing.enrollment.student',
             'billing.enrollment.gradeLevel',
+            'billingItem.feeStructure',
             'academicYear',
             'processedByUser'
         ])
@@ -120,25 +121,73 @@ class PaymentController extends Controller
     public function processBillingPayment(BillingPaymentRequest $request, Billing $billing)
     {
         $validated = $request->validated();
+        $billingItems = $validated['billing_items'];
+        $paymentDetails = [];
+        $totalAmount = 0;
 
-        // Generate unique reference number
-        do {
-            $referenceNumber = 'PAY-' . date('Ymd') . '-' . strtoupper(Str::random(6));
-        } while (Payment::where('reference_number', $referenceNumber)->exists());
+        // Validate each selected billing item
+        foreach ($billingItems as $itemId => $itemData) {
+            if (isset($itemData['selected'])) {
+                $billingItem = \App\Models\BillingItem::findOrFail($itemId);
+                $amount = floatval($itemData['amount']);
+                $remainingBalance = $billingItem->amount - $billingItem->amount_paid;
 
-        // Create payment 
-        $payment = Payment::create([
-            'billing_id' => $billing->id,
-            'academic_year_id' => $billing->enrollment->academic_year_id,
-            'amount_paid' => $validated['amount_paid'],
-            'payment_date' => now(),
-            'reference_number' => $referenceNumber,
-            'description' => $validated['description'] ?? null,
-            'processedBy' => Auth::id()
-        ]);
+                if ($amount > $remainingBalance) {
+                    return back()->withErrors([
+                        'billing_items' => "Payment amount for {$billingItem->feeStructure->fee_name} cannot exceed remaining balance of ₱" . number_format($remainingBalance, 2)
+                    ])->withInput();
+                }
+
+                $paymentDetails[] = [
+                    'item' => $billingItem,
+                    'amount' => $amount
+                ];
+                $totalAmount += $amount;
+            }
+        }
+
+        if (empty($paymentDetails)) {
+            return back()->withErrors([
+                'billing_items' => 'Please select at least one fee to pay.'
+            ])->withInput();
+        }
+
+        // Create payments for each billing item
+        $referenceNumber = $validated['reference_number'];
+        $createdPayments = [];
+
+        foreach ($paymentDetails as $detail) {
+            $billingItem = $detail['item'];
+            $amount = $detail['amount'];
+
+            // Create payment
+            $payment = Payment::create([
+                'billing_id' => $billing->id,
+                'billing_item_id' => $billingItem->id,
+                'academic_year_id' => $billing->enrollment->academic_year_id,
+                'amount_paid' => $amount,
+                'payment_date' => now(),
+                'reference_number' => $referenceNumber,
+                'purpose' => $billingItem->feeStructure->fee_name,
+                'description' => $validated['description'] ?? null,
+                'processedBy' => Auth::id()
+            ]);
+
+            // Update billing item
+            $newAmountPaid = $billingItem->amount_paid + $amount;
+            $newStatus = $newAmountPaid >= $billingItem->amount ? 'paid' : ($newAmountPaid > 0 ? 'partial' : 'unpaid');
+            $billingItem->update([
+                'amount_paid' => $newAmountPaid,
+                'status' => $newStatus,
+                'payment_date' => now(),
+                'remarks' => $newStatus === 'paid' ? 'Paid' : 'Unpaid'
+            ]);
+
+            $createdPayments[] = $payment;
+        }
 
         // Update billing status 
-        $totalPaid = $billing->payments()->sum('amount_paid');
+        $totalPaid = $billing->billingItems->sum('amount_paid');
         if ($totalPaid >= $billing->total_amount) {
             $billing->update(['status' => 'paid']);
         } else {
@@ -147,10 +196,11 @@ class PaymentController extends Controller
 
         // Log activity
         $studentName = $billing->enrollment->student->first_name . ' ' . $billing->enrollment->student->last_name;
-        ActivityLogService::created($payment, "Processed billing payment of ₱{$validated['amount_paid']} for student: '{$studentName}' (Ref: {$referenceNumber})");
+        $feeNames = collect($paymentDetails)->pluck('item.feeStructure.fee_name')->join(', ');
+        ActivityLogService::created($createdPayments[0], "Processed payment of ₱{$totalAmount} for {$studentName} - Fees: {$feeNames} (OR: {$referenceNumber})");
 
-        return redirect()->route('billings.edit', $billing->id)
-            ->with('success', 'Payment processed successfully! Reference: ' . $referenceNumber);
+        return redirect()->route('enrollments.show', $billing->enrollment_id)
+            ->with('success', 'Payment processed successfully! ' . count($paymentDetails) . ' fee(s) paid. OR Number: ' . $referenceNumber);
     }
 
     public function generateReport(Request $request)

@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#0F00CD] shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Payments</h1>
    </div>
 
@@ -54,7 +54,7 @@
             </form>
 
             <button onclick="payment_report_modal.showModal()"
-               class="btn bg-[#0F00CD] text-base-300 btn-sm w-full sm:w-auto gap-2 rounded-lg hover:bg-[#0D00B0]">
+               class="btn bg-primary text-base-300 btn-sm w-full sm:w-auto gap-2 rounded-lg hover:bg-primary-focus">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -156,6 +156,7 @@
                <th>Reference Number</th>
                <th>LRN</th>
                <th>Name</th>
+               <th>Purpose</th>
                <th>Amount Paid</th>
                <th>Payment Date</th>
                <th>Academic Year</th>
@@ -175,6 +176,10 @@
                   $payment->billing->enrollment->Student->middle_name . ' ' .
                   $payment->billing->enrollment->Student->last_name}}
                </td>
+               <td>
+                  <span class="text-sm">{{ $payment->billingItem ? $payment->billingItem->feeStructure->fee_name :
+                     ($payment->purpose ?? 'N/A') }}</span>
+               </td>
                <td>₱{{ number_format($payment->amount_paid, 2) }}</td>
                <td>
                   <div class="flex flex-col">
@@ -188,7 +193,7 @@
             </tr>
             @empty
             <tr>
-               <td colspan="7" class="text-center">
+               <td colspan="8" class="text-center">
                   <div class="flex flex-col items-center gap-2 py-8">
                      <i class="fi fi-sr-credit-card text-4xl text-gray-400"></i>
                      <div class="text-gray-500">

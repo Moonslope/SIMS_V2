@@ -11,6 +11,7 @@
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link rel='stylesheet'
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+   <link rel="icon" type="image/png" href="{{ asset('images/logo-f.png') }}">
    @vite('resources/css/app.css')
    <title>@yield('title')</title>
 </head>
@@ -33,7 +34,7 @@
 
             <div class="mx-2 flex-1 px-2 flex items-center gap-3">
                <img src="{{ asset('images/logo-f.png') }}" alt="Profile" height="50" width="50">
-               <h1 class="text-lg font-bold text-[#0F00CD]">Student Portal</h1>
+               <h1 class="text-lg font-bold text-primary">Student Portal</h1>
             </div>
 
             <div class="dropdown dropdown-end me-3">
@@ -59,27 +60,27 @@
                <ul class="menu">
                   <li class="text-[16px]">
                      <a href="{{route('students.dashboard')}}" class="py-2.5">
-                        <i class="fi fi-ss-house-chimney text-[#0F00CD] me-2"></i>
+                        <i class="fi fi-ss-house-chimney text-primary me-2"></i>
                         <span>Dashboard</span>
                      </a>
                   </li>
                   <li class="text-[16px]">
                      <a href="{{route('students.announcements')}}" class="py-2.5">
-                        <i class="fi fi-sr-bullhorn text-[#0F00CD] me-2"></i>
+                        <i class="fi fi-sr-bullhorn text-primary me-2"></i>
                         <span>Announcement</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
                      <a href="{{route('students.classSchedule')}}" class="py-2.5">
-                        <i class="fi fi-ss-calendar text-[#0F00CD] me-2"></i>
+                        <i class="fi fi-ss-calendar text-primary me-2"></i>
                         <span>Class Schedule</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
                      <a href="{{route('students.paymentHistory')}}" class="py-2.5">
-                        <i class="fi fi-sr-receipt text-[#0F00CD] me-2"></i>
+                        <i class="fi fi-sr-receipt text-primary me-2"></i>
                         <span>Payment History</span>
                      </a>
                   </li>
@@ -99,25 +100,25 @@
          <ul class="menu bg-base-200 min-h-full w-60 p-4">
             <li class="text-[16px]">
                <a href="{{route('students.dashboard')}}" class="py-2.5">
-                  <i class="fi fi-ss-house-chimney text-[#0F00CD] me-2"></i>
+                  <i class="fi fi-ss-house-chimney text-primary me-2"></i>
                   <span>Dashboard</span>
                </a>
             </li>
             <li class="text-[16px]">
                <a href="{{route('students.announcements')}}" class="py-2.5">
-                  <i class="fi fi-sr-bullhorn text-[#0F00CD] me-2"></i>
+                  <i class="fi fi-sr-bullhorn text-primary me-2"></i>
                   <span>Announcement</span>
                </a>
             </li>
             <li class="text-[16px]">
                <a href="{{route('students.classSchedule')}}" class="py-2.5">
-                  <i class="fi fi-ss-calendar text-[#0F00CD] me-2"></i>
+                  <i class="fi fi-ss-calendar text-primary me-2"></i>
                   <span>Class Schedule</span>
                </a>
             </li>
             <li class="text-[16px]">
                <a href="{{route('students.paymentHistory')}}" class="py-2.5">
-                  <i class="fi fi-sr-receipt text-[#0F00CD] me-2"></i>
+                  <i class="fi fi-sr-receipt text-primary me-2"></i>
                   <span>Payment History</span>
                </a>
             </li>

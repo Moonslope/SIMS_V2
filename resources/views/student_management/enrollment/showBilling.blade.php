@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#271AD2] shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Billing</h1>
    </div>
 
@@ -20,16 +20,24 @@
          <div class="flex items-center gap-3 mb-4">
             <div class="avatar placeholder">
                <div class="bg-primary flex justify-center items-center text-primary-content rounded-full w-12">
+                  @if($enrollment->student)
                   <span class="text-xl">{{ substr($enrollment->student->first_name, 0, 1) }}{{
                      substr($enrollment->student->last_name, 0, 1) }}</span>
+                  @else
+                  <span class="text-xl">?</span>
+                  @endif
                </div>
             </div>
             <div>
                <h3 class="font-semibold text-lg">
+                  @if($enrollment->student)
                   {{ $enrollment->student->last_name }}, {{ $enrollment->student->first_name }} {{
                   $enrollment->student->middle_name }}
+                  @else
+                  <span class="text-error">Student Deleted</span>
+                  @endif
                </h3>
-               <p class="text-sm text-gray-500">LRN: {{ $enrollment->student->learner_reference_number }}</p>
+               <p class="text-sm text-gray-500">LRN: {{ $enrollment->student->learner_reference_number ?? 'N/A' }}</p>
             </div>
          </div>
 
@@ -68,7 +76,7 @@
             <div class="card-body p-6">
                <div class="flex items-center justify-between mb-4">
                   <div class="flex items-center gap-3">
-                     <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+                     <div class="w-1 h-8 bg-primary rounded"></div>
                      <h2 class="text-xl font-semibold">Billing Statement</h2>
                   </div>
                   <button class="btn btn-sm btn-outline btn-primary rounded-lg" onclick="window.print()">
@@ -87,6 +95,10 @@
                         <tr>
                            <th class="text-left">Fee Description</th>
                            <th class="text-right">Amount</th>
+                           <th class="text-right">Paid</th>
+                           <th class="text-right">Balance</th>
+                           <th class="text-center">Status</th>
+                           <th class="text-center">Payment Date</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -94,11 +106,30 @@
                         <tr>
                            <td class="font-medium">{{ $item->feeStructure->fee_name }}</td>
                            <td class="text-right">₱{{ number_format($item->amount, 2) }}</td>
+                           <td class="text-right">₱{{ number_format($item->amount_paid, 2) }}</td>
+                           <td class="text-right">₱{{ number_format($item->amount - $item->amount_paid, 2) }}</td>
+                           <td class="text-center">
+                              @if($item->status === 'paid')
+                              <span class="badge badge-success badge-soft badge-sm">Paid</span>
+                              @elseif($item->status === 'partial')
+                              <span class="badge badge-warning badge-soft badge-sm">Partial</span>
+                              @else
+                              <span class="badge badge-error badge-soft badge-sm">Unpaid</span>
+                              @endif
+                           </td>
+                           <td class="text-center text-sm">
+                              {{ $item->payment_date ? $item->payment_date->format('M d, Y') : '-' }}
+                           </td>
                         </tr>
                         @endforeach
                         <tr class="font-bold bg-base-200">
                            <td>Total Amount Due</td>
                            <td class="text-right text-lg">₱{{ number_format($billing->total_amount, 2) }}</td>
+                           <td class="text-right">₱{{ number_format($billing->billingItems->sum('amount_paid'), 2) }}
+                           </td>
+                           <td class="text-right">₱{{ number_format($billing->total_amount -
+                              $billing->billingItems->sum('amount_paid'), 2) }}</td>
+                           <td colspan="2"></td>
                         </tr>
                      </tbody>
                   </table>
@@ -111,7 +142,7 @@
          <div class="card bg-base-100 shadow-md rounded-lg">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+                  <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Record Payment</h2>
                </div>
 
@@ -197,7 +228,7 @@
          <div class="card bg-base-100 shadow-md rounded-lg sticky top-4">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+                  <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Payment Summary</h2>
                </div>
 

@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#0F00CD] shadow-lg mb-5 flex justify-between items-center">
+   <div class="rounded-lg bg-primary shadow-lg mb-5 flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">List of Enrolled Students</h1>
       <h1 class="text-[20px] font-semibold text-base-300 me-3 p-2">SY {{ $currentAcademicYear->year_name ?? 'N/A' }}
       </h1>
@@ -76,21 +76,32 @@
                </select>
             </form>
 
-            <!-- Reports Dropdown -->
-            <div class="dropdown dropdown-end ">
-               <label tabindex="0" class="btn bg-[#0F00CD] text-base-300 btn-sm gap-2 rounded-lg hover:bg-[#0D00B0]">
+            <!-- Actions Dropdown -->
+            <div class="dropdown dropdown-end">
+               <label tabindex="0" class="btn bg-primary text-base-300 btn-sm gap-2 rounded-lg hover:bg-primary-focus">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                   </svg>
-                  <span>Reports</span>
+                  <span>Actions</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                </label>
-               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-52 mt-2">
+               <ul tabindex="0" class="dropdown-content z-1 menu p-2 shadow-lg bg-base-100 rounded-box w-56 mt-2">
+                  <li>
+                     <a href="{{ route('enrollments.archived') }}" class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                        </svg>
+                        View Archived
+                     </a>
+                  </li>
+                  <li class="menu-title"><span>Reports</span></li>
                   <li>
                      <a onclick="report_modal.showModal()" class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -108,7 +119,7 @@
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
-                        Class List
+                        Class List Report
                      </a>
                   </li>
                </ul>
@@ -257,13 +268,18 @@
             @forelse ($enrollments as $enrollment)
             <tr class="hover:bg-base-300">
                <th>{{ ($enrollments->currentPage() - 1) * $enrollments->perPage() + $loop->iteration }}</th>
-               <td>{{ $enrollment->student->first_name . ' ' . $enrollment->student->middle_name .
-                  ' ' .
-                  $enrollment->student->last_name }}</td>
+               <td>
+                  @if($enrollment->student)
+                  {{ $enrollment->student->first_name . ' ' . $enrollment->student->middle_name . ' ' .
+                  $enrollment->student->last_name }}
+                  @else
+                  <span class="text-error">Student Deleted</span>
+                  @endif
+               </td>
                <td>{{ $enrollment->gradeLevel->grade_name ?? 'N/A' }}</td>
-               <td>{{ $enrollment->programType->program_name }}</td>
+               <td>{{ $enrollment->programType->program_name ?? 'N/A' }}</td>
                <td>{{ $enrollment->section->section_name ?? 'N/A' }}</td>
-               <td>{{ $enrollment->academicYear->year_name }}</td>
+               <td>{{ $enrollment->academicYear->year_name ?? 'N/A' }}</td>
                <td>
                   <span
                      class="{{ $enrollment->enrollment_status ? 'badge badge-soft badge-success badge-sm' : 'badge badge-soft badge-neutral badge-sm' }}">
@@ -273,10 +289,25 @@
                <td>
                   <div class="flex gap-2">
                      <a href="{{ route('enrollments.show', $enrollment->id) }}"
-                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300 rounded-lg"
+                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
                         data-tip="View Details">
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>
+
+                     <form action="{{ route('enrollments.archive', $enrollment->id) }}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to archive this enrollment?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                           class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                           data-tip="Archive">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                           </svg>
+                        </button>
+                     </form>
                   </div>
                </td>
             </tr>

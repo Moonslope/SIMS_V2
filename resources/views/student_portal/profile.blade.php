@@ -5,7 +5,7 @@
 <div class="p-5">
    <!-- Page Header -->
    <div class="my-8">
-      <h1 class="text-4xl font-bold text-[#0F00CD] mb-2 text-center">My Profile</h1>
+      <h1 class="text-4xl font-bold text-primary mb-2 text-center">My Profile</h1>
    </div>
 
    <!-- Profile Header Card -->
@@ -14,7 +14,7 @@
          <div class="flex flex-col sm:flex-row items-center sm:justify-between gap-4">
             <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                <div class="avatar placeholder">
-                  <div class="bg-[#0F00CD] text-white flex justify-center items-center rounded-full w-20 h-20">
+                  <div class="bg-primary text-white flex justify-center items-center rounded-full w-20 h-20">
                      <span class="text-3xl font-bold">
                         {{ strtoupper(substr(Auth::user()->first_name, 0, 1)) }}{{
                         strtoupper(substr(Auth::user()->last_name, 0, 1)) }}
@@ -22,7 +22,7 @@
                   </div>
                </div>
                <div class="text-center sm:text-left">
-                  <h2 class="text-2xl font-bold text-[#0F00CD]">
+                  <h2 class="text-2xl font-bold text-primary">
                      {{ Auth::user()->first_name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }}
                   </h2>
                   <p class="text-gray-600">Student</p>
@@ -31,7 +31,7 @@
             </div>
             <div class="w-full sm:w-auto">
                <a href="{{ route('students.change-password') }}"
-                  class="btn bg-[#0F00CD] text-white btn-sm sm:btn-sm w-full sm:w-auto rounded-lg">
+                  class="btn bg-primary text-white btn-sm sm:btn-sm w-full sm:w-auto rounded-lg">
                   <i class="fi fi-sr-key"></i>
                   Change Password
                </a>
@@ -45,7 +45,7 @@
    <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <div class="w-1 h-8 bg-primary rounded"></div>
             <h2 class="text-xl font-semibold">Student Information</h2>
          </div>
 
@@ -84,13 +84,13 @@
    <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <div class="w-1 h-8 bg-primary rounded"></div>
             <h2 class="text-xl font-semibold">Guardian Information</h2>
          </div>
 
          @foreach($guardians as $guardian)
          <div class="mb-6 last:mb-0">
-            <h3 class="text-lg font-semibold text-[#0F00CD] mb-3">
+            <h3 class="text-lg font-semibold text-primary mb-3">
                {{ ucfirst($guardian->relationship) }}
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -138,7 +138,7 @@
    <div class="card bg-base-100 shadow-md mb-6">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <div class="w-1 h-8 bg-primary rounded"></div>
             <h2 class="text-xl font-semibold">Upload Documents</h2>
          </div>
 
@@ -201,7 +201,7 @@
             </div>
 
             <div class="flex justify-end">
-               <button type="submit" class="btn btn-sm bg-[#0F00CD] text-white rounded-lg">
+               <button type="submit" class="btn btn-sm bg-primary text-white rounded-lg">
                   <i class="fi fi-sr-upload"></i>
                   Upload Document
                </button>
@@ -215,7 +215,7 @@
    <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <div class="w-1 h-8 bg-primary rounded"></div>
             <h2 class="text-xl font-semibold">My Documents</h2>
          </div>
 
@@ -235,7 +235,7 @@
                   <tr>
                      <td>
                         <div class="flex items-center gap-2">
-                           <i class="fi fi-sr-document text-[#0F00CD]"></i>
+                           <i class="fi fi-sr-document text-primary"></i>
                            <span class="font-medium text-sm">{{ $document->document_type }}</span>
                         </div>
                      </td>
@@ -248,7 +248,7 @@
                      <td>
                         <div class="flex gap-2">
                            <a href="{{ route('student.documents.download', $document->id) }}"
-                              class="btn btn-sm btn-ghost text-[#0F00CD] rounded-lg" title="Download">
+                              class="btn btn-sm btn-ghost text-primary rounded-lg" title="Download">
                               <i class="fi fi-sr-download"></i>
                            </a>
                            <form action="{{ route('student.documents.delete', $document->id) }}" method="POST"

@@ -5,7 +5,7 @@
 <div class="p-5">
    <!-- Page Header -->
    <div class="my-8">
-      <h1 class="text-4xl font-bold text-[#0F00CD] mb-2 text-center">Class Schedule</h1>
+      <h1 class="text-4xl font-bold text-primary mb-2 text-center">Class Schedule</h1>
       <p class="text-gray-600 text-center">Your official schedule for the current school year</p>
    </div>
 
@@ -21,13 +21,13 @@
    <!-- Student Information Card -->
    <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
-         <h3 class="card-title text-[#0F00CD] mb-4">
+         <h3 class="card-title text-primary mb-4">
 
             Student Information
          </h3>
          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="flex items-start gap-2">
-               <i class="fi fi-sr-user text-[#0F00CD] mt-1"></i>
+               <i class="fi fi-sr-user text-primary mt-1"></i>
                <div>
                   <p class="text-sm text-gray-600">Name</p>
                   <p class="font-semibold">{{ $student->last_name }}, {{ $student->first_name }} {{
@@ -35,28 +35,28 @@
                </div>
             </div>
             <div class="flex items-start gap-2">
-               <i class="fi fi-sr-calendar text-[#0F00CD] mt-1"></i>
+               <i class="fi fi-sr-calendar text-primary mt-1"></i>
                <div>
                   <p class="text-sm text-gray-600">School Year</p>
                   <p class="font-semibold">{{ $currentAcademicYear->year_name ?? 'N/A' }}</p>
                </div>
             </div>
             <div class="flex items-start gap-2">
-               <i class="fi fi-sr-book text-[#0F00CD] mt-1"></i>
+               <i class="fi fi-sr-book text-primary mt-1"></i>
                <div>
                   <p class="text-sm text-gray-600">Program</p>
                   <p class="font-semibold">{{ $currentEnrollment->programType->program_name ?? 'N/A' }}</p>
                </div>
             </div>
             <div class="flex items-start gap-2">
-               <i class="fi fi-sr-diploma text-[#0F00CD] mt-1"></i>
+               <i class="fi fi-sr-diploma text-primary mt-1"></i>
                <div>
                   <p class="text-sm text-gray-600">Grade Level</p>
                   <p class="font-semibold">{{ $currentEnrollment->gradeLevel->grade_name ?? 'N/A' }}</p>
                </div>
             </div>
             <div class="flex items-start gap-2">
-               <i class="fi fi-sr-users text-[#0F00CD] mt-1"></i>
+               <i class="fi fi-sr-users text-primary mt-1"></i>
                <div>
                   <p class="text-sm text-gray-600">Section</p>
                   <p class="font-semibold">{{ $currentEnrollment->section->section_name ?? 'N/A' }}</p>
@@ -69,7 +69,7 @@
    <!-- Schedule Table Card -->
    <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
-         <h3 class="card-title text-[#0F00CD] mb-4">
+         <h3 class="card-title text-primary mb-4">
             Weekly Schedule
          </h3>
 
@@ -113,7 +113,7 @@
                   <tr class="hover">
                      <td class="font-semibold whitespace-nowrap">
                         <div class="flex items-center gap-2">
-                           <i class="fi fi-sr-clock text-[#0F00CD]"></i>
+                           <i class="fi fi-sr-clock text-primary"></i>
                            {{ $data['time_slot'] }}
                         </div>
                      </td>
@@ -178,7 +178,7 @@
             <h3 class="text-lg font-semibold text-gray-600 mb-2">No Schedule Available</h3>
             <p class="text-gray-500">No schedule found for your current enrollment.</p>
             <div class="mt-4">
-               <a href="{{ route('students.dashboard') }}" class="btn btn-sm bg-[#0F00CD] text-white rounded-lg">
+               <a href="{{ route('students.dashboard') }}" class="btn btn-sm bg-primary text-white rounded-lg">
                   <i class="fi fi-sr-home"></i>
                   Back to Dashboard
                </a>
@@ -192,14 +192,14 @@
    @if(isset($subjects) && $subjects->count() > 0)
    <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body">
-         <h3 class="card-title text-[#0F00CD] mb-4">
+         <h3 class="card-title text-primary mb-4">
 
             Enrolled Subjects
          </h3>
          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @foreach($subjects as $subject)
             <div class="flex items-center gap-2 p-3 bg-base-200 rounded-lg">
-               <i class="fi fi-sr-book text-[#0F00CD]"></i>
+               <i class="fi fi-sr-book text-primary"></i>
                <span class="font-medium">{{ $subject->subject_name ?? $subject->name }}</span>
             </div>
             @endforeach
@@ -210,7 +210,7 @@
 
    <!-- Back Button -->
    <div class="text-center mt-6">
-      <a href="{{ route('students.dashboard') }}" class="btn btn-ghost btn-sm text-[#0F00CD] rounded-lg">
+      <a href="{{ route('students.dashboard') }}" class="btn btn-ghost btn-sm text-primary rounded-lg">
          <i class="fi fi-sr-arrow-left"></i>
          Back to Dashboard
       </a>

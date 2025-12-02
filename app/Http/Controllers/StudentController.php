@@ -818,6 +818,7 @@ class StudentController extends Controller
     {
         $search = $request->input('search');
 
+
         $students = Student::query()
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -834,5 +835,75 @@ class StudentController extends Controller
         $reportDate = now()->format('F d, Y');
 
         return view('reports.students-report', compact('students', 'reportTitle', 'reportDate'));
+    }
+
+    /**
+     * Archive a student (soft delete)
+     */
+    public function archive($id)
+    {
+        $student = Student::findOrFail($id);
+        $studentName = $student->first_name . ' ' . $student->last_name;
+
+        $student->delete();
+
+        ActivityLogService::deleted('Student', "Archived student: {$studentName}");
+
+        return redirect()->route('students.index')->with('success', 'Student archived successfully!');
+    }
+
+    /**
+     * Show archived students
+     */
+    public function archived(Request $request)
+    {
+        $search = $request->input('search');
+
+        $students = Student::onlyTrashed()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('first_name', 'LIKE', "%{$search}%")
+                        ->orWhere('middle_name', 'LIKE', "%{$search}%")
+                        ->orWhere('last_name', 'LIKE', "%{$search}%")
+                        ->orWhere('learner_reference_number', 'LIKE', "%{$search}%")
+                        ->orWhere('nickname', 'LIKE', "%{$search}%")
+                        ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ? ", ["%{$search}%"])
+                        ->orWhereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ["%{$search}%"]);
+                });
+            })
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(10);
+
+        return view('student_management.students.archived', compact('students'));
+    }
+
+    /**
+     * Restore an archived student
+     */
+    public function restore($id)
+    {
+        $student = Student::onlyTrashed()->findOrFail($id);
+        $studentName = $student->first_name . ' ' . $student->last_name;
+
+        $student->restore();
+
+        ActivityLogService::custom("Restored archived student: {$studentName}");
+
+        return redirect()->route('students.archived')->with('success', 'Student restored successfully!');
+    }
+
+    /**
+     * Permanently delete a student
+     */
+    public function forceDelete($id)
+    {
+        $student = Student::onlyTrashed()->findOrFail($id);
+        $studentName = $student->first_name . ' ' . $student->last_name;
+
+        $student->forceDelete();
+
+        ActivityLogService::deleted('Student', "Permanently deleted student: {$studentName}");
+
+        return redirect()->route('students.archived')->with('success', 'Student permanently deleted!');
     }
 }

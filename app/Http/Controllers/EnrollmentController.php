@@ -439,7 +439,7 @@ class EnrollmentController extends Controller
             }
         }
 
-        return redirect()->route('enrollments.show', ['enrollment' => $enrollment->id])
+        return redirect()->route('billings.edit', ['billing' => $billing->id])
             ->with('success', $message);
     }
 
@@ -462,7 +462,8 @@ class EnrollmentController extends Controller
 
         if ($billing) {
             $payments = Payment::where('billing_id', $billing->id)->get();
-            $totalPaid = $payments->sum('amount_paid');
+            // Calculate total paid from billing items instead of payments table
+            $totalPaid = $billing->billingItems->sum('amount_paid');
             $paymentAmount = $totalPaid;
         }
 
@@ -550,7 +551,8 @@ class EnrollmentController extends Controller
 
         if ($billing) {
             $payments = Payment::where('billing_id', $billing->id)->get();
-            $totalPaid = $payments->sum('amount_paid');
+            // Calculate total paid from billing items instead of payments table
+            $totalPaid = $billing->billingItems->sum('amount_paid');
 
             $latestPayment = $payments->last();
             $paymentAmount = $latestPayment ? $latestPayment->amount_paid : 0;
@@ -869,5 +871,89 @@ class EnrollmentController extends Controller
         $reportDate = now()->format('F d, Y');
 
         return view('reports.enrollments-report', compact('enrollments', 'reportTitle', 'reportDate', 'currentAcademicYear'));
+    }
+
+    /**
+     * Archive an enrollment (soft delete)
+     */
+    public function archive($id)
+    {
+        $enrollment = Enrollment::findOrFail($id);
+        $studentName = $enrollment->student->first_name . ' ' . $enrollment->student->last_name;
+
+        $enrollment->delete();
+
+        ActivityLogService::deleted('Enrollment', "Archived enrollment for: {$studentName}");
+
+        return redirect()->route('enrollments.index')->with('success', 'Enrollment archived successfully!');
+    }
+
+    /**
+     * Show archived enrollments
+     */
+    public function archived(Request $request)
+    {
+        $search = $request->input('search');
+        $academicYearFilter = $request->input('academic_year');
+
+        $enrollments = Enrollment::onlyTrashed()
+            ->with(['student', 'academicYear', 'programType', 'gradeLevel', 'section'])
+            ->when($search, function ($query, $search) {
+                $query->whereHas('student', function ($q) use ($search) {
+                    $q->where('first_name', 'LIKE', "%{$search}%")
+                        ->orWhere('middle_name', 'LIKE', "%{$search}%")
+                        ->orWhere('last_name', 'LIKE', "%{$search}%")
+                        ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ? ", ["%{$search}%"])
+                        ->orWhereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ["%{$search}%"]);
+                });
+            })
+            ->when($academicYearFilter && $academicYearFilter !== 'all', function ($query) use ($academicYearFilter) {
+                $query->where('academic_year_id', $academicYearFilter);
+            })
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(10);
+
+        $currentAcademicYear = AcademicYear::where('is_active', true)->first();
+        $academicYears = AcademicYear::orderBy('year_name', 'desc')->get();
+        $gradeLevels = GradeLevel::all();
+        $programTypes = ProgramType::all();
+
+        return view('student_management.enrollment.archived', compact(
+            'enrollments',
+            'currentAcademicYear',
+            'academicYears',
+            'gradeLevels',
+            'programTypes'
+        ));
+    }
+
+    /**
+     * Restore an archived enrollment
+     */
+    public function restore($id)
+    {
+        $enrollment = Enrollment::onlyTrashed()->findOrFail($id);
+        $studentName = $enrollment->student->first_name . ' ' . $enrollment->student->last_name;
+
+        $enrollment->restore();
+
+        ActivityLogService::custom("Restored archived enrollment for: {$studentName}");
+
+        return redirect()->route('enrollments.archived')->with('success', 'Enrollment restored successfully!');
+    }
+
+    /**
+     * Permanently delete an enrollment
+     */
+    public function forceDelete($id)
+    {
+        $enrollment = Enrollment::onlyTrashed()->findOrFail($id);
+        $studentName = $enrollment->student->first_name . ' ' . $enrollment->student->last_name;
+
+        $enrollment->forceDelete();
+
+        ActivityLogService::deleted('Enrollment', "Permanently deleted enrollment for: {$studentName}");
+
+        return redirect()->route('enrollments.archived')->with('success', 'Enrollment permanently deleted!');
     }
 }

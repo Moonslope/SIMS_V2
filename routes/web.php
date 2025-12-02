@@ -88,6 +88,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/students/{student}/student-profile', [StudentController::class, 'studentProfile'])->name('students.student-profile');
     Route::get('/students/{student}/documents/{document}', [StudentController::class, 'viewDocument'])->name('students.view-document');
 
+    // Student Archive Routes
+    Route::delete('/students/{id}/archive', [StudentController::class, 'archive'])->name('students.archive');
+    Route::get('/students/archived/list', [StudentController::class, 'archived'])->name('students.archived');
+    Route::post('/students/{id}/restore', [StudentController::class, 'restore'])->name('students.restore');
+    Route::delete('/students/{id}/force-delete', [StudentController::class, 'forceDelete'])->name('students.force-delete');
+
+    // Enrollment Archive Routes
+    Route::delete('/enrollments/{id}/archive', [EnrollmentController::class, 'archive'])->name('enrollments.archive');
+    Route::get('/enrollments/archived/list', [EnrollmentController::class, 'archived'])->name('enrollments.archived');
+    Route::post('/enrollments/{id}/restore', [EnrollmentController::class, 'restore'])->name('enrollments.restore');
+    Route::delete('/enrollments/{id}/force-delete', [EnrollmentController::class, 'forceDelete'])->name('enrollments.force-delete');
+
     // Reports
     Route::get('/reports/enrollments', [EnrollmentController::class, 'generateReport'])->name('reports.enrollments');
     Route::get('/reports/students', [StudentController::class, 'generateReport'])->name('reports.students');

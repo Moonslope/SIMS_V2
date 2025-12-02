@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#271AD2] shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Profile</h1>
       <a href="{{ route('students.index') }}" class="btn btn-sm btn-ghost text-base-300 me-3 rounded-lg">
          <svg xmlns="http://www.w3. org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,7 +64,7 @@
       <div class="card bg-base-100 shadow-md col-span-2 rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Personal Information</h2>
             </div>
 
@@ -135,7 +135,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Current Enrollment</h2>
             </div>
 
@@ -183,7 +183,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Guardian Information</h2>
             </div>
 
@@ -232,7 +232,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+                  <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Documents</h2>
                </div>
                @if($documents->count() > 0)

@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#0F00CD] shadow-lg">
+   <div class="rounded-lg bg-primary shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - SPED</h1>
    </div>
 
@@ -43,7 +43,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-[#0F00CD] rounded"></div>
+                  <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Student Information</h2>
                </div>
                <a href="{{ route('students.sped-registration.step1') }}" class="btn btn-xs btn-ghost rounded-lg">
@@ -173,7 +173,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-[#0F00CD] rounded"></div>
+                  <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Guardian Information</h2>
                </div>
                <a href="{{ route('students.sped-registration.step2') }}" class="btn btn-xs btn-ghost rounded-lg">
@@ -240,7 +240,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-[#0F00CD] rounded"></div>
+                  <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Uploaded Documents</h2>
                </div>
                <a href="{{ route('students.sped-registration.step3') }}" class="btn btn-xs btn-ghost rounded-lg">
@@ -306,7 +306,7 @@
       </a>
       <form action="{{ route('students.sped-registration.store-final') }}" method="POST">
          @csrf
-         <button type="submit" class="btn btn-sm bg-[#0F00CD] text-base-300 hover:bg-[#0D00B0] rounded-lg px-6">
+         <button type="submit" class="btn btn-sm bg-primary text-base-300 hover:bg-primary-focus rounded-lg px-6">
             Proceed to Enrollment
          </button>
       </form>

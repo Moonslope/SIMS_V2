@@ -8,17 +8,24 @@ class Payment extends Model
 {
     protected $fillable = [
         'billing_id',
+        'billing_item_id',
         'academic_year_id',
         'amount_paid',
         'payment_date',
         'reference_number',
         'processedBy',
-        'description'
+        'description',
+        'purpose'
     ];
 
     public function billing()
     {
         return $this->belongsTo(Billing::class);
+    }
+
+    public function billingItem()
+    {
+        return $this->belongsTo(BillingItem::class);
     }
 
     public function academicYear()

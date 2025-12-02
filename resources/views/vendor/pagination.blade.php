@@ -29,9 +29,9 @@
       @if (is_array($element))
       @foreach ($element as $page => $url)
       @if ($page == $paginator->currentPage())
-      <button class="join-item btn btn-sm bg-[#271AD2] text-white hover:bg-[#1d1399]">{{ $page }}</button>
+      <button class="join-item btn btn-sm bg-primary text-white hover:bg-primary-focus">{{ $page }}</button>
       @else
-      <a href="{{ $url }}" class="join-item btn btn-sm hover:bg-[#271AD2] hover:text-white">{{ $page }}</a>
+      <a href="{{ $url }}" class="join-item btn btn-sm hover:bg-primary hover:text-white">{{ $page }}</a>
       @endif
       @endforeach
       @endif

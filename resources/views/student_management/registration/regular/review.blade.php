@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#0F00CD] shadow-lg">
+   <div class="rounded-lg bg-primary shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - Regular</h1>
    </div>
 
@@ -25,7 +25,7 @@
 
    <div class="rounded-lg bg-base-100 shadow-md p-8">
       <div class="flex items-center gap-3 mb-6">
-         <div class="w-1 h-8 bg-[#0F00CD] rounded"></div>
+         <div class="w-1 h-8 bg-primary rounded"></div>
          <h2 class="text-2xl font-semibold">Review & Confirm Registration</h2>
       </div>
 
@@ -203,7 +203,7 @@
             <a href="{{ route('students.registration.step3') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                Previous
             </a>
-            <button type="submit" class="btn btn-sm bg-[#0F00CD] text-base-300 hover:bg-[#0D00B0] w-48 rounded-lg px-6">
+            <button type="submit" class="btn btn-sm bg-primary text-base-300 hover:bg-primary-focus w-48 rounded-lg px-6">
                Proceed to Enrollment
             </button>
          </div>

@@ -10,7 +10,7 @@
    <link rel='stylesheet'
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-
+   <link rel="icon" type="image/png" href="{{ asset('images/logo-f.png') }}">
    <title>Student Portal - Login</title>
    <style>
       .input-group:focus-within label {

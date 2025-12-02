@@ -39,19 +39,58 @@ class BillingPaymentRequest extends FormRequest
 
     public function rules(): array
     {
-        $billing = $this->route('billing');
-        $totalPaid = $billing ? $billing->payments()->sum('amount_paid') : 0;
-        $remainingBalance = $billing ? $billing->total_amount - $totalPaid : PHP_INT_MAX;  // Allow any amount if no billing context
-
         return [
-            'amount_paid' => [
-                'required',
-                'numeric',
-                'min:0.01',
-                $billing ? 'max:' . $remainingBalance : '',  // Only apply max if billing exists
-            ],
+            'reference_number' => 'required|string|max:100|unique:payments,reference_number',
+            'billing_items' => 'required|array|min:1',
+            'total_amount' => 'required|numeric|min:0.01',
             'description' => 'nullable|string|max:500',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation()
+    {
+        // Ensure billing_items is at least an empty array
+        if (!$this->has('billing_items')) {
+            $this->merge([
+                'billing_items' => []
+            ]);
+        }
+    }
+
+    /**
+     * Configure the validator instance.
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $billingItems = $this->input('billing_items', []);
+
+            // Check if at least one item is selected
+            $hasSelected = false;
+            foreach ($billingItems as $itemId => $itemData) {
+                if (isset($itemData['selected'])) {
+                    $hasSelected = true;
+
+                    // Validate amount for selected item
+                    if (!isset($itemData['amount']) || empty($itemData['amount'])) {
+                        $validator->errors()->add('billing_items', 'Amount is required for all selected fees.');
+                        break;
+                    }
+
+                    if (!is_numeric($itemData['amount']) || $itemData['amount'] <= 0) {
+                        $validator->errors()->add('billing_items', 'Amount must be a valid positive number.');
+                        break;
+                    }
+                }
+            }
+
+            if (!$hasSelected) {
+                $validator->errors()->add('billing_items', 'Please select at least one fee to pay.');
+            }
+        });
     }
 
     /**
@@ -60,10 +99,16 @@ class BillingPaymentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'amount_paid.required' => 'Payment amount is required.',
-            'amount_paid.numeric' => 'Payment amount must be a number.',
-            'amount_paid.min' => 'Payment amount must be at least :min.',
-            'amount_paid.max' => 'Payment amount cannot exceed the remaining balance.',
+            'reference_number.required' => 'Official Receipt (OR) number is required.',
+            'reference_number.unique' => 'This OR number has already been used.',
+            'reference_number.max' => 'OR number may not be greater than 100 characters.',
+            'billing_items.required' => 'Please select at least one fee to pay.',
+            'billing_items.min' => 'Please select at least one fee to pay.',
+            'billing_items.*.amount.required' => 'Amount is required for selected fee.',
+            'billing_items.*.amount.numeric' => 'Amount must be a number.',
+            'billing_items.*.amount.min' => 'Amount must be at least 0.01.',
+            'total_amount.required' => 'Total amount is required.',
+            'total_amount.min' => 'Total amount must be at least 0.01.',
             'description.max' => 'Description may not be greater than 500 characters.',
         ];
     }
@@ -74,7 +119,9 @@ class BillingPaymentRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'amount_paid' => 'payment amount',
+            'reference_number' => 'OR number',
+            'billing_items' => 'fee items',
+            'total_amount' => 'total amount',
             'description' => 'description',
         ];
     }

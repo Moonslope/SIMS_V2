@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#271AD2] shadow-lg">
+   <div class="rounded-lg bg-primary shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - Regular</h1>
    </div>
 
@@ -25,7 +25,7 @@
 
    <div class="rounded-lg bg-base-100 shadow-md p-8">
       <div class="flex items-center gap-3 mb-6">
-         <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+         <div class="w-1 h-8 bg-primary rounded"></div>
          <h2 class="text-2xl font-semibold">Required Documents</h2>
       </div>
 

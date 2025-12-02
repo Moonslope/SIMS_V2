@@ -2,7 +2,7 @@
 @section('title', 'Billing Details')
 @section('content')
 @php
-$totalPaid = $billing->payments->sum('amount_paid');
+$totalPaid = $billing->billingItems->sum('amount_paid');
 $remainingBalance = $billing->total_amount - $totalPaid;
 @endphp
 
@@ -15,7 +15,7 @@ $remainingBalance = $billing->total_amount - $totalPaid;
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#271AD2] shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Bill Details</h1>
    </div>
 
@@ -70,7 +70,7 @@ $remainingBalance = $billing->total_amount - $totalPaid;
    <div class="card bg-base-100 shadow-md">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <div class="w-1 h-8 bg-primary rounded"></div>
             <h2 class="text-xl font-semibold">Billing Items</h2>
          </div>
 
@@ -81,6 +81,10 @@ $remainingBalance = $billing->total_amount - $totalPaid;
                   <tr>
                      <th class="text-left">Fee Description</th>
                      <th class="text-right">Amount</th>
+                     <th class="text-right">Paid</th>
+                     <th class="text-right">Balance</th>
+                     <th class="text-center">Status</th>
+                     <th class="text-center">Payment Date</th>
                   </tr>
                </thead>
                <tbody>
@@ -88,6 +92,20 @@ $remainingBalance = $billing->total_amount - $totalPaid;
                   <tr>
                      <td class="font-medium">{{ $item->feeStructure->fee_name }}</td>
                      <td class="text-right">₱{{ number_format($item->amount, 2) }}</td>
+                     <td class="text-right">₱{{ number_format($item->amount_paid, 2) }}</td>
+                     <td class="text-right">₱{{ number_format($item->amount - $item->amount_paid, 2) }}</td>
+                     <td class="text-center">
+                        @if($item->status === 'paid')
+                        <span class="badge badge-success badge-soft badge-sm">Paid</span>
+                        @elseif($item->status === 'partial')
+                        <span class="badge badge-warning badge-soft badge-sm">Partial</span>
+                        @else
+                        <span class="badge badge-error badge-soft badge-sm">Unpaid</span>
+                        @endif
+                     </td>
+                     <td class="text-center text-sm">
+                        {{ $item->payment_date ? $item->payment_date->format('M d, Y') : '-' }}
+                     </td>
                   </tr>
                   @endforeach
                </tbody>
@@ -95,6 +113,10 @@ $remainingBalance = $billing->total_amount - $totalPaid;
                   <tr class="font-bold">
                      <td>Total Amount Due</td>
                      <td class="text-right text-lg">₱{{ number_format($billing->total_amount, 2) }}</td>
+                     <td class="text-right">₱{{ number_format($billing->billingItems->sum('amount_paid'), 2) }}</td>
+                     <td class="text-right">₱{{ number_format($billing->total_amount -
+                        $billing->billingItems->sum('amount_paid'), 2) }}</td>
+                     <td colspan="2"></td>
                   </tr>
                </tfoot>
             </table>
@@ -118,7 +140,7 @@ $remainingBalance = $billing->total_amount - $totalPaid;
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Payment Summary</h2>
             </div>
 
@@ -168,7 +190,7 @@ $remainingBalance = $billing->total_amount - $totalPaid;
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Make Payment</h2>
             </div>
 
@@ -176,24 +198,95 @@ $remainingBalance = $billing->total_amount - $totalPaid;
             <form action="{{ route('billings.process-payment', $billing) }}" method="POST" class="space-y-6">
                @csrf
 
-               <!-- Amount to Pay -->
+               <!-- Official Receipt (OR) Number -->
                <div class="form-control w-full">
                   <label class="label mb-2">
                      <span class="label-text font-medium text-base">
-                        Amount <span class="text-error">*</span>
+                        Official Receipt (OR) Number <span class="text-error">*</span>
                      </span>
-                     {{-- <span class="label-text-alt text-gray-500">Max: ₱{{ number_format($remainingBalance, 2)
-                        }}</span> --}}
                   </label>
-                  <input type="number" name="amount_paid"
-                     class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('amount_paid') input-error @enderror"
-                     placeholder="Enter amount" step="0.01" min="0.01" max="{{ $remainingBalance }}"
-                     value="{{ old('amount_paid') }}" required>
-                  @error('amount_paid')
+                  <input type="text" name="reference_number"
+                     class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('reference_number') input-error @enderror"
+                     placeholder="Enter OR number" value="{{ old('reference_number') }}" required>
+                  @error('reference_number')
                   <label class="label">
                      <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                   </label>
                   @enderror
+               </div>
+
+               <!-- Fee to Pay (Multiple Selection) -->
+               <div class="form-control w-full">
+                  <label class="label mb-2">
+                     <span class="label-text font-medium text-base">
+                        Select Fees to Pay <span class="text-error">*</span>
+                     </span>
+                  </label>
+                  <div class="space-y-2 rounded-lg p-4 max-h-80 overflow-y-auto">
+                     @foreach($billing->billingItems as $item)
+                     @php
+                     $itemRemaining = $item->amount - $item->amount_paid;
+                     @endphp
+                     @if($itemRemaining > 0)
+                     <div class="flex items-start gap-3 p-3 hover:bg-base-200 rounded-lg">
+                        <input type="checkbox" name="billing_items[{{ $item->id }}][selected]" id="item_{{ $item->id }}"
+                           class="checkbox checkbox-primary mt-1 billing-item-checkbox" data-item-id="{{ $item->id }}"
+                           data-remaining="{{ $itemRemaining }}" data-amount="{{ $item->amount }}"
+                           data-paid="{{ $item->amount_paid }}"
+                           onchange="toggleAmountInput({{ $item->id }}); calculateTotal()">
+                        <div class="flex-1">
+                           <label for="item_{{ $item->id }}" class="cursor-pointer">
+                              <div class="font-semibold">{{ $item->feeStructure->fee_name }}</div>
+                              <div class="text-sm text-gray-500">
+                                 Amount: ₱{{ number_format($item->amount, 2) }}
+                                 @if($item->status === 'partial')
+                                 | Paid: ₱{{ number_format($item->amount_paid, 2) }}
+                                 @endif
+                                 | Remaining: ₱{{ number_format($itemRemaining, 2) }}
+                              </div>
+                           </label>
+                           <div class="mt-2" id="amount_input_{{ $item->id }}" style="display: none;">
+                              <label class="label py-1">
+                                 <span class="label-text text-sm">Amount to pay:</span>
+                              </label>
+                              <input type="number" name="billing_items[{{ $item->id }}][amount]"
+                                 id="amount_field_{{ $item->id }}"
+                                 class="input input-sm input-bordered rounded-lg w-full amount-input" step="0.01"
+                                 min="0.01" max="{{ $itemRemaining }}" value="{{ $itemRemaining }}"
+                                 data-item-id="{{ $item->id }}" onchange="calculateTotal()" placeholder="Enter amount"
+                                 disabled>
+                           </div>
+                        </div>
+                     </div>
+                     @endif
+                     @endforeach
+                  </div>
+                  @error('billing_items')
+                  <label class="label">
+                     <span class="label-text-alt text-error text-sm">{{ $message }}</span>
+                  </label>
+                  @enderror
+                  @error('billing_item_id')
+                  <label class="label">
+                     <span class="label-text-alt text-error text-sm">{{ $message }}</span>
+                  </label>
+                  @enderror
+               </div>
+
+               <!-- Total Amount to Pay -->
+               <div class="form-control w-full">
+                  <div class="alert alert-info">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="stroke-current shrink-0 w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                     </svg>
+                     <div>
+                        <div class="font-bold">Total Amount to Pay</div>
+                        <div class="text-lg font-bold" id="total_amount_display">₱0.00</div>
+                     </div>
+                  </div>
+                  <input type="hidden" name="total_amount" id="total_amount_hidden" value="0">
                </div>
 
                <!-- Quick Amount Buttons -->
@@ -249,4 +342,6 @@ $remainingBalance = $billing->total_amount - $totalPaid;
       </div>
    </div>
 </div>
+
+<script src="{{ asset('js/billing-payment.js') }}"></script>
 @endsection

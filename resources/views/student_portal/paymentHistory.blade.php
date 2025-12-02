@@ -4,7 +4,7 @@
 
 <div class="px-5 min-h-full">
    <div class="my-12">
-      <h1 class="text-4xl font-bold text-[#0F00CD] mb-2 text-center">Payment History</h1>
+      <h1 class="text-4xl font-bold text-primary mb-2 text-center">Payment History</h1>
    </div>
 
    <div class="card bg-base-100 shadow-lg rounded-lg">

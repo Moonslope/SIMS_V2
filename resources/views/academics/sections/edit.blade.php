@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#0F00CD] shadow-lg">
+   <div class="rounded-lg bg-primary shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Edit Section Details</h1>
    </div>
 

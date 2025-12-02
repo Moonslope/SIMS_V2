@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-[#271AD2] shadow-lg">
+   <div class="rounded-lg bg-primary shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - SPED</h1>
    </div>
 
@@ -31,7 +31,7 @@
       <div class="card bg-base-100 shadow-md rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Student Information</h2>
             </div>
 
@@ -279,7 +279,7 @@
       <div class="card bg-base-100 shadow-md rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+               <div class="w-1 h-8 bg-primary rounded"></div>
                <h2 class="text-xl font-semibold">Special Education (SPED) Details</h2>
             </div>
 

@@ -76,6 +76,7 @@ class BillingController extends Controller
      */
     public function edit(Billing $billing)
     {
+        $billing->load(['billingItems.feeStructure', 'enrollment.student', 'enrollment.academicYear', 'enrollment.gradeLevel', 'enrollment.programType']);
         return view('financials.Billing.edit', compact('billing'));
     }
 
