@@ -4,7 +4,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Enrollment Report</title>
+   <title>Class List Report</title>
    @vite(['resources/css/app.css', 'resources/js/app.js'])
    <style>
       @media print {
@@ -73,30 +73,34 @@
          color: black !important;
       }
 
-      .summary-boxes {
-         display: grid;
-         grid-template-columns: repeat(3, 1fr);
-         gap: 15px;
-         margin: 20px 0;
+      .print-student-info {
+         margin: 15px 0;
       }
 
-      .summary-box {
-         border: 2px solid #000;
-         padding: 15px;
-         text-align: center;
+      .print-student-info table {
+         width: 100%;
+         border-collapse: collapse;
       }
 
-      .summary-box .number {
-         font-size: 32px;
-         font-weight: bold;
+      .print-student-info td {
+         padding: 5px 10px;
+         font-size: 11pt;
          color: black !important;
       }
 
-      .summary-box .label {
-         font-size: 11px;
+      .print-student-info td.label {
          font-weight: 600;
+         width: 20%;
+         color: black !important;
+      }
+
+      .section-header {
+         font-size: 14px;
+         font-weight: bold;
+         margin: 20px 0 10px 0;
+         padding-bottom: 5px;
+         border-bottom: 2px solid #000;
          text-transform: uppercase;
-         margin-top: 5px;
          color: black !important;
       }
 
@@ -112,9 +116,9 @@
       }
 
       .report-table th {
-         padding: 10px;
+         padding: 8px;
          text-align: left;
-         font-size: 11px;
+         font-size: 10px;
          font-weight: 600;
          text-transform: uppercase;
          color: white !important;
@@ -123,9 +127,9 @@
       }
 
       .report-table td {
-         padding: 8px 10px;
+         padding: 6px 8px;
          border: 1px solid #000;
-         font-size: 11pt;
+         font-size: 10pt;
          color: black !important;
       }
 
@@ -164,15 +168,6 @@
          font-size: 10px;
          color: black !important;
       }
-
-      .filter-info {
-         margin: 15px 0;
-         padding: 10px;
-         background-color: #f5f5f5;
-         border: 1px solid #000;
-         font-size: 11px;
-         color: black !important;
-      }
    </style>
 </head>
 
@@ -182,7 +177,7 @@
       <button onclick="window.close()" class="btn btn-sm btn-ghost">Close</button>
    </div>
 
-   <div class="max-w-[8in] mx-auto bg-white p-8">
+   <div class="max-w-3xl mx-auto bg-white p-8">
       <!-- Header -->
       <div class="report-header">
          <img src="{{ asset('images/logo-f.png') }}" alt="School Logo">
@@ -192,79 +187,84 @@
          <p>SCHOOL LRN: 466151</p>
       </div>
 
-      <div class="report-title">ENROLLMENT REPORT</div>
+      <div class="report-title">CLASS LIST REPORT</div>
 
-      <!-- Filters -->
-      @if($academicYear || $gradeLevel || $programType)
-      <div class="filter-info">
-         <strong>REPORT FILTERS:</strong>
-         @if($academicYear) <span>School Year: {{ $academicYear->year_name }}</span> @endif
-         @if($gradeLevel) | <span>Grade Level: {{ $gradeLevel->grade_name }}</span> @endif
-         @if($programType) | <span>Program: {{ $programType->program_name }}</span> @endif
-      </div>
-      @endif
-
-      <!-- Summary -->
-      <div class="summary-boxes">
-         <div class="summary-box">
-            <div class="number">{{ $totalEnrollments }}</div>
-            <div class="label">Total Enrollments</div>
-         </div>
-         <div class="summary-box">
-            <div class="number">{{ $maleCount }}</div>
-            <div class="label">Male</div>
-         </div>
-         <div class="summary-box">
-            <div class="number">{{ $femaleCount }}</div>
-            <div class="label">Female</div>
-         </div>
+      <!-- Class Information -->
+      <div class="print-student-info">
+         <table>
+            <tr>
+               <td class="label">Academic Year:</td>
+               <td>{{ $academicYear->year_name }}</td>
+               <td class="label">Grade Level:</td>
+               <td>{{ $gradeLevel->grade_name }}</td>
+            </tr>
+            <tr>
+               <td class="label">Section:</td>
+               <td>{{ $section->section_name ?? 'All Sections' }}</td>
+               <td class="label">Total Students:</td>
+               <td>{{ $totalStudents }}</td>
+            </tr>
+         </table>
       </div>
 
-      <!-- Table -->
-      @if($byGradeLevel->isNotEmpty())
+      <!-- Student List -->
+      <div class="section-header">Student List</div>
+      @if($students->isNotEmpty())
       <table class="report-table">
          <thead>
             <tr>
-               <th style="text-align: left;">Grade Level</th>
-               <th style="text-align: center;">Students</th>
-               <th style="text-align: center;">Percentage</th>
+               <th style="text-align: center; width: 8%;">#</th>
+               <th style="text-align: left; width: 15%;">LRN</th>
+               <th style="text-align: left; width: 30%;">Student Name</th>
+               <th style="text-align: center; width: 12%;">Gender</th>
+               <th style="text-align: left; width: 20%;">Guardian Name</th>
+               <th style="text-align: left; width: 15%;">Contact</th>
             </tr>
          </thead>
          <tbody>
-            @foreach($byGradeLevel as $data)
+            @foreach($students as $index => $enrollment)
+            @php
+            $student = $enrollment->student;
+            $guardian = $student->guardians->first();
+            @endphp
             <tr>
-               <td style="font-weight: 500;">{{ $data['name'] }}</td>
-               <td style="text-align: center; font-weight: bold;">{{ $data['count'] }}</td>
-               <td style="text-align: center;">{{ $totalEnrollments > 0 ? number_format(($data['count'] /
-                  $totalEnrollments) * 100, 1) : 0 }}%</td>
+               <td style="text-align: center;">{{ $index + 1 }}</td>
+               <td>{{ $student->learner_reference_number }}</td>
+               <td style="font-weight: 500;">{{ $student->last_name }}, {{ $student->first_name }} {{
+                  $student->middle_name }}</td>
+               <td style="text-align: center;">{{ ucfirst($student->gender) }}</td>
+               <td>{{ $guardian ? $guardian->last_name . ', ' . $guardian->first_name : 'N/A' }}</td>
+               <td>{{ $guardian ? $guardian->contact_number : 'N/A' }}</td>
             </tr>
             @endforeach
             <tr class="total-row">
-               <td>TOTAL</td>
-               <td style="text-align: center;">{{ $totalEnrollments }}</td>
-               <td style="text-align: center;">100%</td>
+               <td colspan="6" style="text-align: center;">TOTAL STUDENTS: {{ $totalStudents }}</td>
             </tr>
          </tbody>
       </table>
+      @else
+      <div style="text-align: center; padding: 40px; border: 2px solid #000;">
+         <p style="font-size: 14px; font-weight: 600;">No students found for this class.</p>
+      </div>
       @endif
 
       <!-- Signatures -->
       <div class="signatures">
          <div>
             <div class="signature-line">
-               <p>Prepared By</p>
+               <p>Class Adviser</p>
             </div>
          </div>
          <div>
             <div class="signature-line">
-               <p>Reviewed By</p>
+               <p>Principal</p>
             </div>
          </div>
       </div>
 
       <!-- Footer -->
       <div class="report-footer">
-         <p><strong>NOTE:</strong> This is a computer-generated enrollment report.</p>
+         <p><strong>NOTE:</strong> This is a computer-generated class list report.</p>
          <p>Printed on: {{ now()->format('F d, Y h:i A') }}</p>
       </div>
    </div>

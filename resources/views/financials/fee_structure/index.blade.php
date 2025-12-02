@@ -14,12 +14,12 @@
    </div>
 
    <!-- Search Section -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-4">
          <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <form action="{{ route('fee-structures.index') }}" method="GET"
                class="flex flex-col sm:flex-row gap-2 items-center w-full sm:w-auto" id="searchForm">
-               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80">
+               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80 rounded-lg">
                   <svg class="h-4 w-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                      <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
                         stroke="currentColor">
@@ -31,7 +31,7 @@
                      placeholder="Search fee structures..." class="grow focus:outline-none" />
                   @if(request('search'))
                   <a href="{{ route('fee-structures.index', ['grade_level' => request('grade_level'), 'program_type' => request('program_type')]) }}"
-                     class="btn btn-xs btn-circle btn-ghost" title="Clear search">
+                     class="btn btn-xs btn-circle btn-ghost rounded-lg" title="Clear search">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -41,7 +41,7 @@
                   @endif
                </label>
 
-               <select name="program_type" class="select select-sm select-bordered w-full sm:w-48"
+               <select name="program_type" class="select select-sm select-bordered w-full sm:w-48 rounded-lg"
                   onchange="this.form.submit()">
                   <option value="all">All Program Types</option>
                   @foreach($programTypes as $programType)
@@ -52,7 +52,7 @@
                   @endforeach
                </select>
 
-               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-48"
+               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-48 rounded-lg"
                   onchange="this.form.submit()">
                   <option value="all">All Grade Levels</option>
                   @foreach($gradeLevels as $gradeLevel)
@@ -91,8 +91,8 @@
                <th>
                   {{ ($feeStructures->currentPage() - 1) * $feeStructures->perPage() + $loop->iteration }}
                </th>
-               <td class="font-semibold">{{$feeStructure->fee_name}}</td>
-               <td class="font-semibold">₱{{ number_format($feeStructure->amount, 2) }}</td>
+               <td>{{$feeStructure->fee_name}}</td>
+               <td>₱{{ number_format($feeStructure->amount, 2) }}</td>
                <td>{{$feeStructure->programType->program_name}}</td>
                <td>{{ $feeStructure->gradeLevel->grade_name ?? 'N/A' }}</td>
                <td>
@@ -105,7 +105,7 @@
                <td>
                   <div class="flex gap-2">
                      <a href="{{ route('fee-structures.edit', $feeStructure->id) }}"
-                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300"
+                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300 rounded-lg"
                         data-tip="Edit Details">
                         <i class="fi fi-sr-pen-square text-[18px] pt-1"></i>
                      </a>

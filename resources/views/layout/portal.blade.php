@@ -22,7 +22,7 @@
          <!-- Navbar -->
          <div class="navbar bg-base-100 w-full shadow sticky top-0 z-50">
             <div class="flex-none lg:hidden">
-               <label for="my-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+               <label for="my-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                      class="inline-block h-6 w-6 stroke-current">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
@@ -37,7 +37,7 @@
             </div>
 
             <div class="dropdown dropdown-end me-3">
-               <div tabindex="0" role="button" class="btn border-0 bg-base-100 shadow-none m-1 ">
+               <div tabindex="0" role="button" class="btn border-0 bg-base-100 shadow-none m-1 rounded-lg">
                   <div class="flex items-center gap-2 ">
                      <i class="fi fi-sr-user text-sm"></i>
                      <p class="pb-[3px] hidden sm:block">{{Auth::user()->student->first_name}}</p>

@@ -152,4 +152,48 @@ class PaymentController extends Controller
         return redirect()->route('billings.edit', $billing->id)
             ->with('success', 'Payment processed successfully! Reference: ' . $referenceNumber);
     }
+
+    public function generateReport(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $academicYearId = $request->input('academic_year');
+
+        $academicYear = null;
+        if ($academicYearId && $academicYearId !== 'all') {
+            $academicYear = \App\Models\AcademicYear::find($academicYearId);
+        }
+
+        $query = Payment::with([
+            'billing.enrollment.student',
+            'billing.enrollment.academicYear',
+            'academicYear'
+        ])->orderBy('payment_date', 'desc');
+
+        // Filter by date range
+        if ($startDate && $endDate) {
+            $query->whereBetween('payment_date', [$startDate, $endDate]);
+        } elseif ($academicYear) {
+            // Filter by academic year if no date range provided
+            $query->whereHas('billing.enrollment', function ($q) use ($academicYear) {
+                $q->where('academic_year_id', $academicYear->id);
+            });
+        }
+
+        $payments = $query->get();
+
+        $totalPayments = $payments->count();
+        $totalCollected = $payments->sum('amount_paid');
+        $averagePayment = $totalPayments > 0 ? $totalCollected / $totalPayments : 0;
+
+        return view('reports.payment-collection-report', compact(
+            'payments',
+            'totalPayments',
+            'totalCollected',
+            'averagePayment',
+            'startDate',
+            'endDate',
+            'academicYear'
+        ));
+    }
 }

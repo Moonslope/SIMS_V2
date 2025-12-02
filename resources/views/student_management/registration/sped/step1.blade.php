@@ -28,7 +28,7 @@
       @csrf
 
       <!-- Basic Information Card -->
-      <div class="card bg-base-100 shadow-md">
+      <div class="card bg-base-100 shadow-md rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
                <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
@@ -276,11 +276,11 @@
       </div>
 
       <!-- SPED Specific Information Card -->
-      <div class="card bg-base-100 shadow-md">
+      <div class="card bg-base-100 shadow-md rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
                <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
-               <h2 class="text-xl font-semibold">Special Education Information</h2>
+               <h2 class="text-xl font-semibold">Special Education (SPED) Details</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

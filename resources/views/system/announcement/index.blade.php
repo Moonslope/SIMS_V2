@@ -14,11 +14,11 @@
    </div>
 
    <!-- Search Section -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-4">
          <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <form action="{{ route('announcements.index') }}" method="GET" id="searchForm" class="w-full sm:w-auto">
-               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80">
+               <label class="input input-sm input-bordered rounded-lg flex items-center gap-2 w-full sm:w-80">
                   <svg class="h-4 w-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                      <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2. 5" fill="none"
                         stroke="currentColor">
@@ -29,7 +29,7 @@
                   <input type="search" name="search" id="searchInput" value="{{ request('search') }}"
                      placeholder="Search announcements..." class="grow focus:outline-none" />
                   @if(request('search'))
-                  <a href="{{ route('announcements.index') }}" class="btn btn-xs btn-circle btn-ghost"
+                  <a href="{{ route('announcements.index') }}" class="btn btn-xs btn-circle btn-ghost rounded-lg"
                      title="Clear search">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -120,13 +120,13 @@
                   <div class="modal-action flex justify-center">
                      <div class="flex gap-2">
                         <form method="dialog">
-                           <button class="btn btn-soft bg-base-300 w-50 btn-sm">Cancel</button>
+                           <button class="btn btn-soft bg-base-300 w-50 btn-sm rounded-lg">Cancel</button>
                         </form>
 
                         <form action="{{ route('announcements.destroy', $announcement->id) }}" method="POST">
                            @csrf
                            @method('DELETE')
-                           <button type="submit" class="w-50 btn btn-error btn-sm">
+                           <button type="submit" class="w-50 btn btn-error btn-sm rounded-lg">
                               Yes, Delete
                            </button>
                         </form>

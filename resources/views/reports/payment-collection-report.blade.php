@@ -4,7 +4,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Enrollment Report</title>
+   <title>Payment Collection Report</title>
    @vite(['resources/css/app.css', 'resources/js/app.js'])
    <style>
       @media print {
@@ -73,30 +73,34 @@
          color: black !important;
       }
 
-      .summary-boxes {
-         display: grid;
-         grid-template-columns: repeat(3, 1fr);
-         gap: 15px;
-         margin: 20px 0;
+      .print-student-info {
+         margin: 15px 0;
       }
 
-      .summary-box {
-         border: 2px solid #000;
-         padding: 15px;
-         text-align: center;
+      .print-student-info table {
+         width: 100%;
+         border-collapse: collapse;
       }
 
-      .summary-box .number {
-         font-size: 32px;
-         font-weight: bold;
+      .print-student-info td {
+         padding: 5px 10px;
+         font-size: 11pt;
          color: black !important;
       }
 
-      .summary-box .label {
-         font-size: 11px;
+      .print-student-info td.label {
          font-weight: 600;
+         width: 20%;
+         color: black !important;
+      }
+
+      .section-header {
+         font-size: 14px;
+         font-weight: bold;
+         margin: 20px 0 10px 0;
+         padding-bottom: 5px;
+         border-bottom: 2px solid #000;
          text-transform: uppercase;
-         margin-top: 5px;
          color: black !important;
       }
 
@@ -112,9 +116,9 @@
       }
 
       .report-table th {
-         padding: 10px;
+         padding: 8px;
          text-align: left;
-         font-size: 11px;
+         font-size: 10px;
          font-weight: 600;
          text-transform: uppercase;
          color: white !important;
@@ -123,9 +127,9 @@
       }
 
       .report-table td {
-         padding: 8px 10px;
+         padding: 6px 8px;
          border: 1px solid #000;
-         font-size: 11pt;
+         font-size: 10pt;
          color: black !important;
       }
 
@@ -182,7 +186,7 @@
       <button onclick="window.close()" class="btn btn-sm btn-ghost">Close</button>
    </div>
 
-   <div class="max-w-[8in] mx-auto bg-white p-8">
+   <div class="max-w-3xl mx-auto bg-white p-8">
       <!-- Header -->
       <div class="report-header">
          <img src="{{ asset('images/logo-f.png') }}" alt="School Logo">
@@ -192,60 +196,71 @@
          <p>SCHOOL LRN: 466151</p>
       </div>
 
-      <div class="report-title">ENROLLMENT REPORT</div>
+      <div class="report-title">PAYMENT COLLECTION REPORT</div>
 
-      <!-- Filters -->
-      @if($academicYear || $gradeLevel || $programType)
-      <div class="filter-info">
-         <strong>REPORT FILTERS:</strong>
-         @if($academicYear) <span>School Year: {{ $academicYear->year_name }}</span> @endif
-         @if($gradeLevel) | <span>Grade Level: {{ $gradeLevel->grade_name }}</span> @endif
-         @if($programType) | <span>Program: {{ $programType->program_name }}</span> @endif
+      <!-- Report Info Table -->
+      <div class="print-student-info" style="margin-bottom: 20px;">
+         <table>
+            <tr>
+               <td class="label">Report Period:</td>
+               <td>
+                  @if($startDate && $endDate)
+                  {{ \Carbon\Carbon::parse($startDate)->format('F d, Y') }} to {{
+                  \Carbon\Carbon::parse($endDate)->format('F d, Y') }}
+                  @elseif($academicYear)
+                  School Year: {{ $academicYear->year_name }}
+                  @else
+                  All Time
+                  @endif
+               </td>
+               <td class="label">Total Payments:</td>
+               <td>{{ $totalPayments }}</td>
+            </tr>
+            <tr>
+               <td class="label">Total Collected:</td>
+               <td>₱{{ number_format($totalCollected, 2) }}</td>
+               <td class="label">Average Payment:</td>
+               <td>₱{{ number_format($averagePayment, 2) }}</td>
+            </tr>
+         </table>
       </div>
-      @endif
 
-      <!-- Summary -->
-      <div class="summary-boxes">
-         <div class="summary-box">
-            <div class="number">{{ $totalEnrollments }}</div>
-            <div class="label">Total Enrollments</div>
-         </div>
-         <div class="summary-box">
-            <div class="number">{{ $maleCount }}</div>
-            <div class="label">Male</div>
-         </div>
-         <div class="summary-box">
-            <div class="number">{{ $femaleCount }}</div>
-            <div class="label">Female</div>
-         </div>
-      </div>
-
-      <!-- Table -->
-      @if($byGradeLevel->isNotEmpty())
+      <!-- Payment Details -->
+      <div class="section-header">Payment Details</div>
+      @if($payments->isNotEmpty())
       <table class="report-table">
          <thead>
             <tr>
-               <th style="text-align: left;">Grade Level</th>
-               <th style="text-align: center;">Students</th>
-               <th style="text-align: center;">Percentage</th>
+               <th style="text-align: center; width: 8%;">#</th>
+               <th style="text-align: left; width: 15%;">Date</th>
+               <th style="text-align: left; width: 15%;">Reference No.</th>
+               <th style="text-align: left; width: 30%;">Student Name</th>
+               <th style="text-align: left; width: 12%;">LRN</th>
+               <th style="text-align: right; width: 20%;">Amount</th>
             </tr>
          </thead>
          <tbody>
-            @foreach($byGradeLevel as $data)
+            @foreach($payments as $index => $payment)
             <tr>
-               <td style="font-weight: 500;">{{ $data['name'] }}</td>
-               <td style="text-align: center; font-weight: bold;">{{ $data['count'] }}</td>
-               <td style="text-align: center;">{{ $totalEnrollments > 0 ? number_format(($data['count'] /
-                  $totalEnrollments) * 100, 1) : 0 }}%</td>
+               <td style="text-align: center;">{{ $index + 1 }}</td>
+               <td>{{ \Carbon\Carbon::parse($payment->payment_date)->format('M d, Y') }}</td>
+               <td style="font-size: 9pt;">{{ $payment->reference_number }}</td>
+               <td style="font-weight: 500;">{{ $payment->billing->enrollment->student->last_name }}, {{
+                  $payment->billing->enrollment->student->first_name }}</td>
+               <td>{{ $payment->billing->enrollment->student->learner_reference_number }}</td>
+               <td style="text-align: right; font-weight: bold;">₱{{ number_format($payment->amount_paid, 2) }}</td>
             </tr>
             @endforeach
             <tr class="total-row">
-               <td>TOTAL</td>
-               <td style="text-align: center;">{{ $totalEnrollments }}</td>
-               <td style="text-align: center;">100%</td>
+               <td colspan="5" style="text-align: right;">TOTAL COLLECTED</td>
+               <td style="text-align: right;">₱{{ number_format($totalCollected, 2) }}</td>
             </tr>
          </tbody>
       </table>
+      @else
+      <div style="text-align: center; padding: 40px; border: 2px solid #000;">
+         <p style="font-size: 14px; font-weight: 600;">No payments found for the selected period.</p>
+      </div>
       @endif
 
       <!-- Signatures -->
@@ -257,14 +272,14 @@
          </div>
          <div>
             <div class="signature-line">
-               <p>Reviewed By</p>
+               <p>Verified By</p>
             </div>
          </div>
       </div>
 
       <!-- Footer -->
       <div class="report-footer">
-         <p><strong>NOTE:</strong> This is a computer-generated enrollment report.</p>
+         <p><strong>NOTE:</strong> This is a computer-generated payment collection report.</p>
          <p>Printed on: {{ now()->format('F d, Y h:i A') }}</p>
       </div>
    </div>

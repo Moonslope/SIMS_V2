@@ -22,13 +22,15 @@ class RegularStudentStep2Request extends FormRequest
     public function rules(): array
     {
         return [
-            'guardian_first_name' => 'required|string|max:255',
-            'guardian_middle_name' => 'nullable|string|max:255',
-            'guardian_last_name' => 'required|string|max:255',
-            'relation' => 'required|in:Father,Mother,Guardian',
-            'contact_number' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
-            'guardian_address' => 'required|string|max:500',
+            'guardians' => 'required|array|min:1',
+            'guardians.*.first_name' => 'required|string|max:255',
+            'guardians.*.middle_name' => 'nullable|string|max:255',
+            'guardians.*.last_name' => 'required|string|max:255',
+            'guardians.*.relation' => 'required|in:Father,Mother,Guardian',
+            'guardians.*.contact_number' => 'required|string|max:20',
+            'guardians.*.email' => 'nullable|email|max:255',
+            'guardians.0.email' => 'required|email|max:255', // First guardian email is required
+            'guardians.*.address' => 'required|string|max:500',
         ];
     }
 
@@ -37,11 +39,15 @@ class RegularStudentStep2Request extends FormRequest
      */
     protected function prepareForValidation()
     {
-        // Capitalize relation
-        if ($this->relation) {
-            $this->merge([
-                'relation' => ucfirst(strtolower($this->relation))
-            ]);
+        // Capitalize relation for each guardian
+        if ($this->has('guardians')) {
+            $guardians = $this->guardians;
+            foreach ($guardians as $index => $guardian) {
+                if (isset($guardian['relation'])) {
+                    $guardians[$index]['relation'] = ucfirst(strtolower($guardian['relation']));
+                }
+            }
+            $this->merge(['guardians' => $guardians]);
         }
     }
 
@@ -51,31 +57,22 @@ class RegularStudentStep2Request extends FormRequest
     public function messages(): array
     {
         return [
-            'guardian_first_name.required' => 'The guardian first name is required.',
-            'guardian_first_name.string' => 'The guardian first name must be text.',
-            'guardian_first_name.max' => 'The guardian first name must not exceed 255 characters.',
-
-            'guardian_middle_name.string' => 'The guardian middle name must be text.',
-            'guardian_middle_name.max' => 'The guardian middle name must not exceed 255 characters.',
-
-            'guardian_last_name.required' => 'The guardian last name is required.',
-            'guardian_last_name.string' => 'The guardian last name must be text.',
-            'guardian_last_name.max' => 'The guardian last name must not exceed 255 characters.',
-
-            'relation.required' => 'Please select the relationship to the student.',
-            'relation.in' => 'The selected relationship is invalid.',
-
-            'contact_number.required' => 'The contact number is required.',
-            'contact_number.string' => 'The contact number must be text.',
-            'contact_number.max' => 'The contact number must not exceed 20 characters.',
-
-            'email.required' => 'The email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.max' => 'The email address must not exceed 255 characters.',
-
-            'guardian_address.required' => 'The guardian address is required.',
-            'guardian_address.string' => 'The guardian address must be text.',
-            'guardian_address.max' => 'The guardian address must not exceed 500 characters.',
+            'guardians.required' => 'At least one guardian is required.',
+            'guardians.min' => 'At least one guardian is required.',
+            'guardians.*.first_name.required' => 'The guardian first name is required.',
+            'guardians.*.first_name.max' => 'The guardian first name must not exceed 255 characters.',
+            'guardians.*.middle_name.max' => 'The guardian middle name must not exceed 255 characters.',
+            'guardians.*.last_name.required' => 'The guardian last name is required.',
+            'guardians.*.last_name.max' => 'The guardian last name must not exceed 255 characters.',
+            'guardians.*.relation.required' => 'Please select the relationship to the student.',
+            'guardians.*.relation.in' => 'The selected relationship is invalid.',
+            'guardians.*.contact_number.required' => 'The contact number is required.',
+            'guardians.*.contact_number.max' => 'The contact number must not exceed 20 characters.',
+            'guardians.0.email.required' => 'The first guardian\'s email is required for account creation.',
+            'guardians.*.email.email' => 'Please enter a valid email address.',
+            'guardians.*.email.max' => 'The email address must not exceed 255 characters.',
+            'guardians.*.address.required' => 'The guardian address is required.',
+            'guardians.*.address.max' => 'The guardian address must not exceed 500 characters.',
         ];
     }
 }

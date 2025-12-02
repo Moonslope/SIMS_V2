@@ -54,12 +54,28 @@ class SubjectController extends Controller
     public function store(Request $request, SubjectRequest $subjectRequest)
     {
         $validated = $subjectRequest->validated();
-        $subject = Subject::create($validated);
 
-        // Log activity
-        ActivityLogService::created($subject, "Created subject: '{$subject->subject_name}'");
+        $createdCount = 0;
 
-        return redirect()->route('subjects.index')->with('success', 'New subject has been added successfully.');
+        // Loop through each subject and create it
+        foreach ($validated['subjects'] as $subjectData) {
+            $subject = Subject::create([
+                'grade_level_id' => $validated['grade_level_id'],
+                'subject_name' => $subjectData['subject_name'],
+                'description' => $subjectData['description'] ?? null,
+                'is_active' => $subjectData['is_active'],
+            ]);
+
+            // Log activity
+            ActivityLogService::created($subject, "Created subject: '{$subject->subject_name}'");
+            $createdCount++;
+        }
+
+        $message = $createdCount > 1
+            ? "Successfully created {$createdCount} subjects."
+            : "New subject has been added successfully.";
+
+        return redirect()->route('subjects.index')->with('success', $message);
     }
 
     /**

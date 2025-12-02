@@ -118,6 +118,47 @@ class EnrollmentController extends Controller
         ));
     }
 
+    public function generateClassList(Request $request)
+    {
+        $academicYearId = $request->input('academic_year');
+        $gradeLevelId = $request->input('grade_level');
+        $sectionId = $request->input('section');
+
+        // Validate required fields
+        if (!$academicYearId || !$gradeLevelId) {
+            return redirect()->back()->with('error', 'Please select Academic Year and Grade Level');
+        }
+
+        $academicYear = AcademicYear::findOrFail($academicYearId);
+        $gradeLevel = GradeLevel::findOrFail($gradeLevelId);
+        $section = $sectionId && $sectionId !== 'all' ? Section::find($sectionId) : null;
+
+        // Build query
+        $query = Enrollment::with(['student.guardians', 'section'])
+            ->where('academic_year_id', $academicYearId)
+            ->where('grade_level_id', $gradeLevelId)
+            ->where('enrollment_status', 'enrolled');
+
+        if ($section) {
+            $query->where('section_id', $section->id);
+        }
+
+        $students = $query->orderBy('created_at', 'asc')->get();
+        $totalStudents = $students->count();
+
+        // Log report generation
+        $sectionName = $section ? $section->section_name : 'All Sections';
+        ActivityLogService::custom("Generated Class List Report - {$academicYear->year_name} - {$gradeLevel->grade_name} - {$sectionName}");
+
+        return view('reports.class-list-report', compact(
+            'academicYear',
+            'gradeLevel',
+            'section',
+            'students',
+            'totalStudents'
+        ));
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -398,7 +439,7 @@ class EnrollmentController extends Controller
             }
         }
 
-        return redirect()->route('enrollments.billing', ['enrollment' => $enrollment->id])
+        return redirect()->route('enrollments.show', ['enrollment' => $enrollment->id])
             ->with('success', $message);
     }
 
@@ -407,6 +448,9 @@ class EnrollmentController extends Controller
      */
     public function show(Enrollment $enrollment)
     {
+        // Eager load relationships
+        $enrollment->load(['student', 'academicYear', 'programType', 'gradeLevel', 'section']);
+
         $schedules = EnrollmentSchedule::where('enrollment_id', $enrollment->id)->with('schedule.subject')->get();
         $subjects = EnrollmentSubject::where('enrollment_id', $enrollment->id)->get();
         $billing = Billing::where('enrollment_id', $enrollment->id)->with(['billingItems.feeStructure'])->first();
@@ -460,7 +504,18 @@ class EnrollmentController extends Controller
                     $schedule->schedule->end_time == $endTime
                 ) {
                     $day = $schedule->schedule->day_of_the_week;
-                    $subjectsByDay[$day] = $schedule->schedule->subject->subject_name;
+
+                    // Handle "Monday to Friday" by populating all weekdays
+                    if ($day === 'Monday to Friday') {
+                        $subjectName = $schedule->schedule->subject->subject_name;
+                        $subjectsByDay['Monday'] = $subjectName;
+                        $subjectsByDay['Tuesday'] = $subjectName;
+                        $subjectsByDay['Wednesday'] = $subjectName;
+                        $subjectsByDay['Thursday'] = $subjectName;
+                        $subjectsByDay['Friday'] = $subjectName;
+                    } else {
+                        $subjectsByDay[$day] = $schedule->schedule->subject->subject_name;
+                    }
                 }
             }
 
@@ -751,7 +806,7 @@ class EnrollmentController extends Controller
             ]);
         }
 
-        return redirect()->route('enrollments.billing', ['enrollment' => $enrollment->id])
+        return redirect()->route('enrollments.show', ['enrollment' => $enrollment->id])
             ->with('success', "Student re-enrolled successfully in {$academicYear->year_name}!");
     }
 

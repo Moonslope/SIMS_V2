@@ -19,7 +19,7 @@
    @endif
 
    <!-- Student Information Card -->
-   <div class="card bg-base-100 shadow-md mb-6">
+   <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <h3 class="card-title text-[#0F00CD] mb-4">
 
@@ -67,7 +67,7 @@
    </div>
 
    <!-- Schedule Table Card -->
-   <div class="card bg-base-100 shadow-md mb-6">
+   <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <h3 class="card-title text-[#0F00CD] mb-4">
             Weekly Schedule
@@ -178,7 +178,7 @@
             <h3 class="text-lg font-semibold text-gray-600 mb-2">No Schedule Available</h3>
             <p class="text-gray-500">No schedule found for your current enrollment.</p>
             <div class="mt-4">
-               <a href="{{ route('students.dashboard') }}" class="btn btn-sm bg-[#0F00CD] text-white">
+               <a href="{{ route('students.dashboard') }}" class="btn btn-sm bg-[#0F00CD] text-white rounded-lg">
                   <i class="fi fi-sr-home"></i>
                   Back to Dashboard
                </a>
@@ -190,7 +190,7 @@
 
    <!-- Subjects List Card (if available) -->
    @if(isset($subjects) && $subjects->count() > 0)
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body">
          <h3 class="card-title text-[#0F00CD] mb-4">
 
@@ -210,7 +210,7 @@
 
    <!-- Back Button -->
    <div class="text-center mt-6">
-      <a href="{{ route('students.dashboard') }}" class="btn btn-ghost btn-sm text-[#0F00CD]">
+      <a href="{{ route('students.dashboard') }}" class="btn btn-ghost btn-sm text-[#0F00CD] rounded-lg">
          <i class="fi fi-sr-arrow-left"></i>
          Back to Dashboard
       </a>

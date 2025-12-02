@@ -68,7 +68,7 @@
                <th>
                   {{ ($programTypes->currentPage() - 1) * $programTypes->perPage() + $loop->iteration }}
                </th>
-               <td class="font-semibold">{{$programType->program_name}}</td>
+               <td>{{$programType->program_name}}</td>
                <td>
                   <div class="max-w-md">
                      {{$programType->description}}

@@ -91,6 +91,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Reports
     Route::get('/reports/enrollments', [EnrollmentController::class, 'generateReport'])->name('reports.enrollments');
     Route::get('/reports/students', [StudentController::class, 'generateReport'])->name('reports.students');
+    Route::get('/reports/payments', [PaymentController::class, 'generateReport'])->name('reports.payments');
+    Route::get('/reports/class-list', [EnrollmentController::class, 'generateClassList'])->name('reports.classlist');
 
     // Regular Registration (Multi-step)
     Route::get('/registration/step1', [StudentController::class, 'createStep1'])->name('students.registration.step1');

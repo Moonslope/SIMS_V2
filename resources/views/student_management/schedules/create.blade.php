@@ -18,45 +18,15 @@
       <form action="{{route('schedules.store')}}" method="POST" id="scheduleForm">
          @csrf
 
-         <div class="flex flex-col gap-10">
-            <div class="flex flex-col gap-8">
-               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="flex flex-col gap-2">
-                     <label for="subject_id" class="text-sm font-medium">Subject <span
-                           class="text-error">*</span></label>
-                     <select name="subject_id"
-                        class="select w-full select-bordered rounded-lg @error('subject_id') select-error @enderror">
-                        <option disabled selected>Select Subject</option>
-                        @forelse($subjects as $subject)
-                        <option value="{{ $subject->id }}" {{ old('subject_id')==$subject->id ? 'selected' : '' }}>
-                           {{ $subject->subject_name }}
-                        </option>
-                        @empty
-                        <option disabled>No subjects available</option>
-                        @endforelse
-                     </select>
-                     @error('subject_id')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
-
-                  <div class="flex flex-col gap-2">
-                     <label for="academic_year_id" class="text-sm font-medium">Academic Year <span
-                           class="text-error">*</span></label>
-                     <input type="text" class="input w-full input-bordered rounded-lg bg-base-200 cursor-not-allowed"
-                        value="{{ $currentAcademicYear->year_name }}" readonly />
-                     <input type="hidden" name="academic_year_id" value="{{ $currentAcademicYear->id }}" />
-                     @error('academic_year_id')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
-               </div>
-
-               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+         <div class="flex flex-col gap-8">
+            <!-- Program Type and Grade Level Selection -->
+            <div class="flex flex-col gap-4 pb-4">
+               <h2 class="text-lg font-semibold">Select Program Type and Grade Level</h2>
+               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div class="flex flex-col gap-2">
                      <label for="program_type_id" class="text-sm font-medium">Program <span
                            class="text-error">*</span></label>
-                     <select name="program_type_id"
+                     <select name="program_type_id" id="program_type_id"
                         class="select w-full select-bordered rounded-lg @error('program_type_id') select-error @enderror">
                         <option disabled selected>Select Program Type</option>
                         @forelse($programTypes as $programType)
@@ -76,7 +46,7 @@
                   <div class="flex flex-col gap-2">
                      <label for="grade_level_id" class="text-sm font-medium">Grade Level <span
                            class="text-error">*</span></label>
-                     <select name="grade_level_id"
+                     <select name="grade_level_id" id="grade_level_id"
                         class="select w-full select-bordered rounded-lg @error('grade_level_id') select-error @enderror">
                         <option disabled selected>Select Grade Level</option>
                         @forelse($gradeLevels as $gradeLevel)
@@ -92,64 +62,47 @@
                      <div class="text-error text-sm mt-1">{{ $message }}</div>
                      @enderror
                   </div>
-               </div>
-
-               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div class="flex flex-col gap-2">
-                     <label for="day_of_the_week" class="text-sm font-medium">Day of Week <span
-                           class="text-error">*</span></label>
-                     <select name="day_of_the_week" id="day_of_the_week"
-                        class="select w-full select-bordered rounded-lg @error('day_of_the_week') select-error @enderror">
-                        <option disabled selected>Select Day</option>
-                        <option value="monday" {{ old('day_of_the_week')=='monday' ? 'selected' : '' }}>Monday</option>
-                        <option value="tuesday" {{ old('day_of_the_week')=='tuesday' ? 'selected' : '' }}>Tuesday
-                        </option>
-                        <option value="wednesday" {{ old('day_of_the_week')=='wednesday' ? 'selected' : '' }}>Wednesday
-                        </option>
-                        <option value="thursday" {{ old('day_of_the_week')=='thursday' ? 'selected' : '' }}>Thursday
-                        </option>
-                        <option value="friday" {{ old('day_of_the_week')=='friday' ? 'selected' : '' }}>Friday</option>
-                        <option value="monday_to_friday" {{ old('day_of_the_week')=='monday_to_friday' ? 'selected' : ''
-                           }}>Monday to Friday</option>
-                     </select>
-                     @error('day_of_the_week')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
 
                   <div class="flex flex-col gap-2">
-                     <label for="start_time" class="text-sm font-medium">Start Time <span
+                     <label for="academic_year_id" class="text-sm font-medium">Academic Year <span
                            class="text-error">*</span></label>
-                     <input type="time" name="start_time" id="start_time"
-                        class="input input-bordered rounded-lg @error('start_time') input-error @enderror"
-                        value="{{ old('start_time', '08:00') }}" min="06:00" max="20:00" required />
-                     @error('start_time')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
-
-                  <div class="flex flex-col gap-2">
-                     <label for="end_time" class="text-sm font-medium">End Time <span
-                           class="text-error">*</span></label>
-                     <input type="time" name="end_time" id="end_time"
-                        class="input input-bordered rounded-lg @error('end_time') input-error @enderror"
-                        value="{{ old('end_time', '09:00') }}" min="06:00" max="20:00" required />
-                     @error('end_time')
+                     <input type="text" class="input w-full input-bordered rounded-lg bg-base-200 cursor-not-allowed"
+                        value="{{ $currentAcademicYear->year_name }}" readonly />
+                     <input type="hidden" name="academic_year_id" value="{{ $currentAcademicYear->id }}" />
+                     @error('academic_year_id')
                      <div class="text-error text-sm mt-1">{{ $message }}</div>
                      @enderror
                   </div>
                </div>
+            </div>
 
-               <div class="flex items-center gap-2">
-                  <input type="hidden" name="is_active" value="0" />
-                  <input type="checkbox" name="is_active" value="1"
-                     class="checkbox checkbox-sm @error('is_active') checkbox-error @enderror" {{ old('is_active',
-                     isset($schedule) ? $schedule->is_active : false) ? 'checked' : '' }}
-                  />
-                  <label class="text-sm font-medium">Set as Active Schedule</label>
-                  @error('is_active')
-                  <div class="text-error text-sm mt-1">{{ $message }}</div>
-                  @enderror
+            <div class="divider p-0 m-0"></div>
+
+            <!-- Schedules Section -->
+            <div class="flex flex-col gap-4">
+               <div class="flex justify-between items-center">
+                  <h2 class="text-lg font-semibold">Schedule Details</h2>
+                  <div class="flex gap-2">
+                     <button type="button" id="clearAllBtn" class="btn btn-sm btn-ghost text-error rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Clear All
+                     </button>
+                     <button type="button" id="addScheduleBtn" class="btn btn-sm btn-primary rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Schedule
+                     </button>
+                  </div>
+               </div>
+
+               <div id="schedulesContainer" class="flex flex-col gap-4">
+                  <!-- Schedule items will be added here dynamically -->
                </div>
             </div>
 
@@ -157,11 +110,17 @@
             <div class="flex justify-end gap-3">
                <a href="{{route('schedules.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
                <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">
-                  Create Schedule
+                  Save All Schedules
                </button>
             </div>
          </div>
       </form>
    </div>
 </div>
+
+<script>
+   window.subjectsData = @json($subjects);
+</script>
+<script src="{{ asset('js/schedules-create.js') }}"></script>
+
 @endsection

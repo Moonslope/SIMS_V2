@@ -21,7 +21,7 @@
    </div>
 
    <!-- Student Header Card -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-4">
             <div class="avatar placeholder">
@@ -61,7 +61,7 @@
 
    <div class="grid grid-cols-3 gap-5">
       <!-- Personal Information -->
-      <div class="card bg-base-100 shadow-md col-span-2 ">
+      <div class="card bg-base-100 shadow-md col-span-2 rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
                <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
@@ -228,7 +228,7 @@
       @endif
 
       <!-- Documents Section -->
-      <div class="card bg-base-100 shadow-md">
+      <div class="card bg-base-100 shadow-md rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
@@ -244,7 +244,7 @@
             @if($documents->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                @foreach($documents as $document)
-               <div class="card bg-base-200 shadow-sm">
+               <div class="card bg-base-200 shadow-sm rounded-lg">
                   <div class="card-body p-4">
                      <div class="flex items-start gap-3">
                         @php

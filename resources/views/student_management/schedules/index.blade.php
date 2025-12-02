@@ -104,7 +104,7 @@
                <th>
                   {{ ($schedules->currentPage() - 1) * $schedules->perPage() + $loop->iteration }}
                </th>
-               <td class="font-semibold">{{$schedule->subject->subject_name}}</td>
+               <td>{{$schedule->subject->subject_name}}</td>
                <td>{{$schedule->programType->program_name}}</td>
                <td>{{$schedule->gradeLevel->grade_name}}</td>
                <td>

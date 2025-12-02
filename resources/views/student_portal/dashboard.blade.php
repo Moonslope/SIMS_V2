@@ -39,21 +39,21 @@
 
    <!-- Stats Cards -->
    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
             <p class="text-2xl sm:text-3xl font-bold text-[#0F00CD]">₱{{ number_format($totalAssessment, 2) }}</p>
             <p class="text-sm sm:text-base">Total Assessment</p>
          </div>
       </div>
 
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
             <p class="text-2xl sm:text-3xl font-bold text-[#0F00CD]">₱{{ number_format($totalPaid, 2) }}</p>
             <p class="text-sm sm:text-base">Total Payment</p>
          </div>
       </div>
 
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
             <p class="text-2xl sm:text-3xl font-bold text-[#0F00CD]">₱{{ number_format($currentBalance, 2) }}</p>
             <p class="text-sm sm:text-base">Current Balance</p>
@@ -63,12 +63,14 @@
 
    <!-- Additional Content for Mobile -->
    <div class="lg:hidden mt-6">
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body">
             <h3 class="card-title">Quick Actions</h3>
             <div class="flex flex-col gap-2">
-               <a href="{{ route('students.paymentHistory') }}" class="btn btn-primary btn-sm">View Payment History</a>
-               <a href="{{ route('students.schoolYears') }}" class="btn btn-outline btn-sm">Switch School Year</a>
+               <a href="{{ route('students.paymentHistory') }}" class="btn btn-primary btn-sm rounded-lg">View Payment
+                  History</a>
+               <a href="{{ route('students.schoolYears') }}" class="btn btn-outline btn-sm rounded-lg">Switch School
+                  Year</a>
             </div>
          </div>
       </div>

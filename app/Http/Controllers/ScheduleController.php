@@ -104,38 +104,31 @@ class ScheduleController extends Controller
     {
         $validated = $scheduleRequest->validated();
 
-        // Check if it's mon-fri option
-        if ($request->day_of_the_week === 'monday_to_friday') {
-            $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        $createdCount = 0;
 
-            foreach ($days as $day) {
-                $schedule = Schedule::create([
-                    'grade_level_id' => $validated['grade_level_id'],
-                    'subject_id' => $validated['subject_id'],
-                    'academic_year_id' => $validated['academic_year_id'],
-                    'program_type_id' => $validated['program_type_id'],
-                    'day_of_the_week' => $day,
-                    'start_time' => $validated['start_time'],
-                    'end_time' => $validated['end_time'],
-                    'is_active' => $validated['is_active'],
-                ]);
-            }
+        // Loop through each schedule and create it
+        foreach ($validated['schedules'] as $scheduleData) {
+            $schedule = Schedule::create([
+                'grade_level_id' => $validated['grade_level_id'],
+                'program_type_id' => $validated['program_type_id'],
+                'academic_year_id' => $validated['academic_year_id'],
+                'subject_id' => $scheduleData['subject_id'],
+                'day_of_the_week' => $scheduleData['day_of_the_week'],
+                'start_time' => $scheduleData['start_time'],
+                'end_time' => $scheduleData['end_time'],
+                'is_active' => $scheduleData['is_active'],
+            ]);
+            $createdCount++;
 
             // Log activity
-            ActivityLogService::custom("Created schedules for Monday to Friday: {$schedule->subject->subject_name}");
-
-            return redirect()->route('schedules.index')
-                ->with('success', 'Schedules created successfully for Monday to Friday');
+            ActivityLogService::created($schedule, "Created schedule: {$schedule->subject->subject_name} on {$schedule->day_of_the_week}");
         }
 
-        // Single day schedule
-        $schedule = Schedule::create($validated);
+        $message = $createdCount > 1
+            ? "Successfully created {$createdCount} schedules."
+            : "Schedule created successfully.";
 
-        // Log activity
-        ActivityLogService::created($schedule, "Created schedule: {$schedule->subject->subject_name} on {$schedule->day_of_the_week}");
-
-        return redirect()->route('schedules.index')
-            ->with('success', 'Schedule created successfully');
+        return redirect()->route('schedules.index')->with('success', $message);
     }
 
     /**

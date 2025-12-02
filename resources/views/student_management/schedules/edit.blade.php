@@ -99,16 +99,23 @@
                      <select name="day_of_the_week"
                         class="select w-full select-bordered rounded-lg @error('day_of_the_week') select-error @enderror">
                         <option disabled>Select Day</option>
-                        <option value="monday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='monday' ?
+                        <option value="Monday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Monday' ?
                            'selected' : '' }}>Monday</option>
-                        <option value="tuesday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='tuesday' ?
+                        <option value="Tuesday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Tuesday' ?
                            'selected' : '' }}>Tuesday</option>
-                        <option value="wednesday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='wednesday' ?
+                        <option value="Wednesday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Wednesday' ?
                            'selected' : '' }}>Wednesday</option>
-                        <option value="thursday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='thursday' ?
+                        <option value="Thursday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Thursday' ?
                            'selected' : '' }}>Thursday</option>
-                        <option value="friday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='friday' ?
+                        <option value="Friday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Friday' ?
                            'selected' : '' }}>Friday</option>
+                        <option value="Saturday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Saturday' ?
+                           'selected' : '' }}>Saturday</option>
+                        <option value="Sunday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Sunday' ?
+                           'selected' : '' }}>Sunday</option>
+                        <option value="Monday to Friday" {{ old('day_of_the_week', $schedule->day_of_the_week)=='Monday
+                           to Friday' ?
+                           'selected' : '' }}>Monday to Friday</option>
                      </select>
                      @error('day_of_the_week')
                      <div class="text-error text-sm mt-1">{{ $message }}</div>

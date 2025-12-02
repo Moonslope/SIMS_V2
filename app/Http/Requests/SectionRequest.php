@@ -23,18 +23,32 @@ class SectionRequest extends FormRequest
     {
         $sectionId = $this->route('section') ? $this->route('section')->id : null;
 
+        // For edit mode (single section)
+        if ($sectionId) {
+            return [
+                'section_name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    'unique:sections,section_name,' . $sectionId,
+                ],
+                'grade_level_id' => 'required|exists:grade_levels,id',
+                'academic_year_id' => 'required|exists:academic_years,id',
+                'teacher_id' => 'required|exists:teachers,id',
+                'capacity' => 'required|integer|min:1|max:40',
+                'is_active'   => 'required|boolean',
+            ];
+        }
+
+        // For create mode (multiple sections)
         return [
-            'section_name' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:sections,section_name' . ($sectionId ? ',' . $sectionId : ''),
-            ],
             'grade_level_id' => 'required|exists:grade_levels,id',
             'academic_year_id' => 'required|exists:academic_years,id',
-            'teacher_id' => 'required|exists:teachers,id',
-            'capacity' => 'required|integer|min:1|max:40',
-            'is_active'   => 'required|boolean',
+            'sections' => 'required|array|min:1',
+            'sections.*.section_name' => 'required|string|max:255',
+            'sections.*.teacher_id' => 'required|exists:teachers,id',
+            'sections.*.capacity' => 'required|integer|min:1|max:40',
+            'sections.*.is_active' => 'required|boolean',
         ];
     }
 
@@ -62,6 +76,25 @@ class SectionRequest extends FormRequest
             'capacity.integer' => 'The capacity must be a number.',
             'capacity.min' => 'The capacity must be at least 1.',
             'capacity.max' => 'The capacity must not exceed 40.',
+
+            'sections.required' => 'At least one section is required.',
+            'sections.array' => 'Invalid sections format.',
+            'sections.min' => 'At least one section must be added.',
+
+            'sections.*.section_name.required' => 'The section name is required.',
+            'sections.*.section_name.string' => 'The section name must be text.',
+            'sections.*.section_name.max' => 'The section name must not exceed 255 characters.',
+
+            'sections.*.teacher_id.required' => 'Please select a teacher.',
+            'sections.*.teacher_id.exists' => 'The selected teacher does not exist.',
+
+            'sections.*.capacity.required' => 'The section capacity is required.',
+            'sections.*.capacity.integer' => 'The capacity must be a number.',
+            'sections.*.capacity.min' => 'The capacity must be at least 1.',
+            'sections.*.capacity.max' => 'The capacity must not exceed 40.',
+
+            'sections.*.is_active.required' => 'The active status is required.',
+            'sections.*.is_active.boolean' => 'The active status must be true or false.',
 
             'is_active.required' => 'Please select the status for this section.',
             'is_active.boolean' => 'The status must be either active or inactive.',

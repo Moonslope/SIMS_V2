@@ -18,37 +18,17 @@
       <form action="{{route('sections.store')}}" method="POST">
          @csrf
 
-         <div class="flex flex-col gap-10">
-            <div class="flex flex-col gap-8">
-               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="flex flex-col gap-2">
-                     <label for="section_name" class="text-sm font-medium">Section Name <span
-                           class="text-error">*</span></label>
-                     <input name="section_name" type="text" placeholder="e.g., Diamond, Sapphire, Einstein"
-                        class="input w-full input-bordered rounded-lg @error('section_name') input-error @enderror"
-                        value="{{ old('section_name') }}" />
-                     @error('section_name')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
+         <div class="flex flex-col gap-8">
 
-                  <div class="flex flex-col gap-2">
-                     <label for="academic_year_id" class="text-sm font-medium">Academic Year <span
-                           class="text-error">*</span></label>
-                     <input type="text" class="input w-full input-bordered rounded-lg bg-base-200 cursor-not-allowed"
-                        value="{{ $activeAcademicYear->year_name ?? 'No active year' }}" readonly />
-                     <input type="hidden" name="academic_year_id" value="{{ $activeAcademicYear->id ??  '' }}" />
-                     @error('academic_year_id')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
-               </div>
+            <!-- Grade Level Selection -->
+            <div class="flex flex-col gap-4 pb-4">
+               <h2 class="text-lg font-semibold">Select Grade Level</h2>
 
-               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+               <div class="grid grid-cols-2 gap-8">
                   <div class="flex flex-col gap-2">
                      <label for="grade_level_id" class="text-sm font-medium">Grade Level <span
                            class="text-error">*</span></label>
-                     <select name="grade_level_id"
+                     <select name="grade_level_id" id="grade_level_id"
                         class="select w-full select-bordered rounded-lg @error('grade_level_id') select-error @enderror">
                         <option disabled selected>Select Grade Level</option>
                         @forelse($gradeLevels as $gradeLevel)
@@ -66,58 +46,63 @@
                   </div>
 
                   <div class="flex flex-col gap-2">
-                     <label for="teacher_id" class="text-sm font-medium">Teacher <span
+                     <label for="academic_year_id" class="text-sm font-medium">Academic Year <span
                            class="text-error">*</span></label>
-                     <select name="teacher_id"
-                        class="select w-full select-bordered rounded-lg @error('teacher_id') select-error @enderror">
-                        <option disabled selected>Select Teacher</option>
-                        @forelse($teachers as $teacher)
-                        <option value="{{ $teacher->id }}" {{ old('teacher_id')==$teacher->id ? 'selected' : '' }}>
-                           {{ $teacher->first_name . ' ' . $teacher->middle_name . ' ' . $teacher->last_name }}
-                        </option>
-                        @empty
-                        <option disabled>No teachers available</option>
-                        @endforelse
-                     </select>
-                     @error('teacher_id')
-                     <div class="text-error text-sm mt-1">{{ $message }}</div>
-                     @enderror
-                  </div>
-
-                  <div class="flex flex-col gap-2">
-                     <label for="capacity" class="text-sm font-medium">Capacity <span
-                           class="text-error">*</span></label>
-                     <input name="capacity" type="number" placeholder="e.g., 30"
-                        class="input w-full input-bordered rounded-lg @error('capacity') input-error @enderror"
-                        value="{{ old('capacity') }}" min="1" max="100" />
-                     @error('capacity')
+                     <input type="text" class="input w-full input-bordered rounded-lg bg-base-200 cursor-not-allowed"
+                        value="{{ $activeAcademicYear->year_name ?? 'No active year' }}" readonly />
+                     <input type="hidden" name="academic_year_id" value="{{ $activeAcademicYear->id ??  '' }}" />
+                     @error('academic_year_id')
                      <div class="text-error text-sm mt-1">{{ $message }}</div>
                      @enderror
                   </div>
                </div>
 
-               <div class="flex items-center gap-2">
-                  <input type="hidden" name="is_active" value="0" />
-                  <input type="checkbox" name="is_active" value="1"
-                     class="checkbox checkbox-sm @error('is_active') checkbox-error @enderror" {{ old('is_active')
-                     ? 'checked' : '' }} />
-                  <label class="text-sm font-medium">Set as Active Section</label>
-                  @error('is_active')
-                  <div class="text-error text-sm mt-1">{{ $message }}</div>
-                  @enderror
+            </div>
+
+            <div class="divider p-0 m-0"></div>
+
+            <!-- Sections Section -->
+            <div class="flex flex-col gap-4">
+               <div class="flex justify-between items-center">
+                  <h2 class="text-lg font-semibold">Section Details</h2>
+                  <div class="flex gap-2">
+                     <button type="button" id="clearAllBtn" class="btn btn-sm btn-ghost text-error rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Clear All
+                     </button>
+                     <button type="button" id="addSectionBtn" class="btn btn-sm btn-primary rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Section
+                     </button>
+                  </div>
+               </div>
+
+               <div id="sectionsContainer" class="flex flex-col gap-4">
+                  <!-- Section items will be added here dynamically -->
                </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                <a href="{{route('sections.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
-               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">
-                  Save
-               </button>
+               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">Save All Sections</button>
             </div>
          </div>
       </form>
    </div>
 
 </div>
+
+<script>
+   const teachers = @json($teachers);
+</script>
+<script src="{{ asset('js/sections-create.js') }}"></script>
+
 @endsection

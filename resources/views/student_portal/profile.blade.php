@@ -9,7 +9,7 @@
    </div>
 
    <!-- Profile Header Card -->
-   <div class="card bg-base-100 shadow-md mb-6">
+   <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <div class="flex flex-col sm:flex-row items-center sm:justify-between gap-4">
             <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -31,7 +31,7 @@
             </div>
             <div class="w-full sm:w-auto">
                <a href="{{ route('students.change-password') }}"
-                  class="btn bg-[#0F00CD] text-white btn-sm sm:btn-sm w-full sm:w-auto">
+                  class="btn bg-[#0F00CD] text-white btn-sm sm:btn-sm w-full sm:w-auto rounded-lg">
                   <i class="fi fi-sr-key"></i>
                   Change Password
                </a>
@@ -42,7 +42,7 @@
 
    <!-- Student Information Card -->
    @if($student)
-   <div class="card bg-base-100 shadow-md mb-6">
+   <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
             <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
@@ -81,7 +81,7 @@
 
    <!-- Guardian Information Card -->
    @if($guardians && $guardians->count() > 0)
-   <div class="card bg-base-100 shadow-md mb-6">
+   <div class="card bg-base-100 shadow-md mb-6 rounded-lg">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
             <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
@@ -165,7 +165,8 @@
                   <label class="label">
                      <span class="label-text font-semibold">Document Type *</span>
                   </label>
-                  <select name="document_type" id="document_type" required class="select select-bordered w-full">
+                  <select name="document_type" id="document_type" required
+                     class="select select-bordered w-full rounded-lg">
                      <option value="">Select Document Type</option>
                      <option value="Birth Certificate">Birth Certificate</option>
                      <option value="Report Card">Report Card</option>
@@ -186,7 +187,7 @@
                      <span class="label-text font-semibold">Select File *</span>
                   </label>
                   <input type="file" name="document_file" id="document_file" required accept=".pdf,.jpg,.jpeg,. png"
-                     class="file-input file-input-bordered w-full" />
+                     class="file-input file-input-bordered w-full rounded-lg" />
                   <label class="label">
                      <span class="label-text-alt text-xs md:text-sm">Allowed formats: PDF, JPG, PNG (Max: 5MB)</span>
                   </label>
@@ -200,7 +201,7 @@
             </div>
 
             <div class="flex justify-end">
-               <button type="submit" class="btn btn-sm bg-[#0F00CD] text-white">
+               <button type="submit" class="btn btn-sm bg-[#0F00CD] text-white rounded-lg">
                   <i class="fi fi-sr-upload"></i>
                   Upload Document
                </button>
@@ -211,7 +212,7 @@
    </div>
 
    <!-- Uploaded Documents Card -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body">
          <div class="flex items-center gap-3 mb-4">
             <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
@@ -247,7 +248,7 @@
                      <td>
                         <div class="flex gap-2">
                            <a href="{{ route('student.documents.download', $document->id) }}"
-                              class="btn btn-sm btn-ghost text-[#0F00CD]" title="Download">
+                              class="btn btn-sm btn-ghost text-[#0F00CD] rounded-lg" title="Download">
                               <i class="fi fi-sr-download"></i>
                            </a>
                            <form action="{{ route('student.documents.delete', $document->id) }}" method="POST"
@@ -256,7 +257,7 @@
                               @method('DELETE')
                               <button type="submit"
                                  onclick="return confirm('Are you sure you want to delete this document?')"
-                                 class="btn btn-sm btn-ghost text-error" title="Delete">
+                                 class="btn btn-sm btn-ghost text-error rounded-lg" title="Delete">
                                  <i class="fi fi-sr-trash"></i>
                               </button>
                            </form>

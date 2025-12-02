@@ -24,9 +24,10 @@ class FeeStructureRequest extends FormRequest
         return [
             'grade_level_id' => 'nullable|exists:grade_levels,id',
             'program_type_id' => 'required|exists:program_types,id',
-            'fee_name' => 'required|string|max:100',
-            'amount' => 'required|numeric',
-            'is_active'   => 'required|boolean',
+            'fees' => 'required|array|min:1',
+            'fees.*.fee_name' => 'required|string|max:100',
+            'fees.*.amount' => 'required|numeric|min:0',
+            'fees.*.is_active' => 'required|boolean',
         ];
     }
 
@@ -41,15 +42,20 @@ class FeeStructureRequest extends FormRequest
             'program_type_id.required' => 'The program type is required.',
             'program_type_id.exists' => 'The selected program type does not exist.',
 
-            'fee_name.required' => 'The fee name is required.',
-            'fee_name.string' => 'The fee name must be text.',
-            'fee_name.max' => 'The fee name must not exceed 100 characters.',
+            'fees.required' => 'At least one fee is required.',
+            'fees.array' => 'Invalid fees format.',
+            'fees.min' => 'At least one fee must be added.',
 
-            'amount.required' => 'The amount is required.',
-            'amount.numeric' => 'The amount must be a number.',
+            'fees.*.fee_name.required' => 'The fee name is required.',
+            'fees.*.fee_name.string' => 'The fee name must be text.',
+            'fees.*.fee_name.max' => 'The fee name must not exceed 100 characters.',
 
-            'is_active.required' => 'Please select the status for this fee structure.',
-            'is_active.boolean' => 'The status must be either active or inactive.',
+            'fees.*.amount.required' => 'The amount is required.',
+            'fees.*.amount.numeric' => 'The amount must be a number.',
+            'fees.*.amount.min' => 'The amount must be at least 0.',
+
+            'fees.*.is_active.required' => 'The active status is required.',
+            'fees.*.is_active.boolean' => 'The active status must be true or false.',
         ];
     }
 }

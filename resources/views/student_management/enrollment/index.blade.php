@@ -16,12 +16,12 @@
    </div>
 
    <!-- Search Section -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-4">
          <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <form action="{{ route('enrollments.index') }}" method="GET"
                class="flex flex-col sm:flex-row gap-2 items-center w-full sm:w-auto" id="searchForm">
-               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80">
+               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80 rounded-lg">
                   <svg class="h-4 w-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                      <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
                         stroke="currentColor">
@@ -33,7 +33,7 @@
                      placeholder="Search by name..." class="grow focus:outline-none" />
                   @if(request('search'))
                   <a href="{{ route('enrollments.index', ['academic_year' => request('academic_year')]) }}"
-                     class="btn btn-xs btn-circle btn-ghost" title="Clear search">
+                     class="btn btn-xs btn-circle btn-ghost rounded-lg" title="Clear search">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -43,7 +43,7 @@
                   @endif
                </label>
 
-               <select name="academic_year" class="select select-sm select-bordered w-full sm:w-35"
+               <select name="academic_year" class="select select-sm select-bordered w-full sm:w-38 rounded-lg"
                   onchange="this.form.submit()">
                   <option value="all">All Academic Years</option>
                   @foreach($academicYears as $academicYear)
@@ -54,7 +54,7 @@
                   @endforeach
                </select>
 
-               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-25"
+               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-35 rounded-lg"
                   onchange="this.form.submit()">
                   <option value="all">All Grade Levels</option>
                   @foreach($gradeLevels as $gradeLevel)
@@ -64,7 +64,7 @@
                   @endforeach
                </select>
 
-               <select name="program_type" class="select select-sm select-bordered w-full sm:w-25"
+               <select name="program_type" class="select select-sm select-bordered w-full sm:w-38 rounded-lg"
                   onchange="this.form.submit()">
                   <option value="all">All Program Types</option>
                   @foreach($programTypes as $programType)
@@ -76,18 +76,43 @@
                </select>
             </form>
 
-            <!-- Find this button and replace it -->
-            <!-- Replace the Generate Report button with this -->
-            <button onclick="report_modal. showModal()"
-               class="btn bg-[#0F00CD] text-base-300 btn-sm w-full sm:w-auto gap-2 rounded-lg hover:bg-[#0D00B0]">
-               <svg xmlns="http://www.w3. org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-               </svg>
-               <span>Generate Report</span>
-            </button>
-
+            <!-- Reports Dropdown -->
+            <div class="dropdown dropdown-end ">
+               <label tabindex="0" class="btn bg-[#0F00CD] text-base-300 btn-sm gap-2 rounded-lg hover:bg-[#0D00B0]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>Reports</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+               </label>
+               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-52 mt-2">
+                  <li>
+                     <a onclick="report_modal.showModal()" class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Enrollment Report
+                     </a>
+                  </li>
+                  <li>
+                     <a onclick="classlist_modal.showModal()" class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                           stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        Class List
+                     </a>
+                  </li>
+               </ul>
+            </div>
 
             <dialog id="report_modal" class="modal">
                <div class="modal-box">
@@ -97,7 +122,7 @@
                         <label class="label">
                            <span class="label-text font-semibold">Select Academic Year</span>
                         </label>
-                        <select name="academic_year" class="select select-bordered w-full" required>
+                        <select name="academic_year" class="select select-bordered w-full rounded-lg" required>
                            <option value="">Choose Academic Year... </option>
                            <option value="all">All Academic Years</option>
                            @foreach($academicYears as $year)
@@ -130,9 +155,78 @@
 
                      <div class="modal-action">
                         <button type="button" onclick="report_modal.close()"
-                           class="btn btn-sm btn-ghost">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-primary">
+                           class="btn btn-sm btn-ghost rounded-lg">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary rounded-lg">
                            Generate Report
+                        </button>
+                     </div>
+                  </form>
+               </div>
+               <form method="dialog" class="modal-backdrop">
+                  <button>close</button>
+               </form>
+            </dialog>
+
+            <dialog id="classlist_modal" class="modal">
+               <div class="modal-box">
+                  <h3 class="font-bold text-lg mb-4">Generate Class List Report</h3>
+                  <form method="GET" action="{{ route('reports.classlist') }}" target="_blank">
+                     <div class="flex flex-col gap-4">
+                        <div class="form-control w-full">
+                           <label class="label">
+                              <span class="label-text font-semibold">Select Academic Year <span
+                                    class="text-error">*</span></span>
+                           </label>
+                           <select name="academic_year" class="select select-bordered w-full rounded-lg" required>
+                              <option value="">Choose Academic Year...</option>
+                              @foreach($academicYears as $year)
+                              <option value="{{ $year->id }}" {{ request('academic_year')==$year->id ? 'selected' : ''
+                                 }}>
+                                 {{ $year->year_name }}
+                                 @if($year->is_active)
+                                 (Active)
+                                 @endif
+                              </option>
+                              @endforeach
+                           </select>
+                        </div>
+
+                        <div class="form-control w-full">
+                           <label class="label">
+                              <span class="label-text font-semibold">Select Grade Level <span
+                                    class="text-error">*</span></span>
+                           </label>
+                           <select name="grade_level" class="select select-bordered w-full rounded-lg" required>
+                              <option value="">Choose Grade Level...</option>
+                              @foreach($gradeLevels as $level)
+                              <option value="{{ $level->id }}" {{ request('grade_level')==$level->id ? 'selected' : ''
+                                 }}>
+                                 {{ $level->grade_name }}
+                              </option>
+                              @endforeach
+                           </select>
+                        </div>
+
+                        <div class="form-control w-full">
+                           <label class="label">
+                              <span class="label-text font-semibold">Select Section (Optional)</span>
+                           </label>
+                           <select name="section" class="select select-bordered w-full rounded-lg">
+                              <option value="all">All Sections</option>
+                              @foreach($sections as $sec)
+                              <option value="{{ $sec->id }}">
+                                 {{ $sec->section_name }}
+                              </option>
+                              @endforeach
+                           </select>
+                        </div>
+                     </div>
+
+                     <div class="modal-action">
+                        <button type="button" onclick="classlist_modal.close()"
+                           class="btn btn-sm btn-ghost rounded-lg">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary rounded-lg">
+                           Generate Class List
                         </button>
                      </div>
                   </form>
@@ -163,7 +257,7 @@
             @forelse ($enrollments as $enrollment)
             <tr class="hover:bg-base-300">
                <th>{{ ($enrollments->currentPage() - 1) * $enrollments->perPage() + $loop->iteration }}</th>
-               <td class="font-semibold">{{ $enrollment->student->first_name . ' ' . $enrollment->student->middle_name .
+               <td>{{ $enrollment->student->first_name . ' ' . $enrollment->student->middle_name .
                   ' ' .
                   $enrollment->student->last_name }}</td>
                <td>{{ $enrollment->gradeLevel->grade_name ?? 'N/A' }}</td>
@@ -179,7 +273,7 @@
                <td>
                   <div class="flex gap-2">
                      <a href="{{ route('enrollments.show', $enrollment->id) }}"
-                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300"
+                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300 rounded-lg"
                         data-tip="View Details">
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>

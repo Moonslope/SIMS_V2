@@ -14,11 +14,11 @@
    </div>
 
    <!-- Search Section -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-4">
          <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <form action="{{ route('students.index') }}" method="GET" class="w-full sm:w-auto" id="searchForm">
-               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80">
+               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80 rounded-lg">
                   <svg class="h-4 w-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                      <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
                         stroke="currentColor">
@@ -29,7 +29,8 @@
                   <input type="search" name="search" id="searchInput" value="{{ request('search') }}"
                      placeholder="Search by name, LRN..." class="grow focus:outline-none" />
                   @if(request('search'))
-                  <a href="{{ route('students.index') }}" class="btn btn-xs btn-circle btn-ghost" title="Clear search">
+                  <a href="{{ route('students.index') }}" class="btn btn-xs btn-circle btn-ghost rounded-lg"
+                     title="Clear search">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,15 +40,6 @@
                   @endif
                </label>
             </form>
-
-            <button class="btn bg-[#0F00CD] text-base-300 btn-sm w-full sm:w-auto gap-2 rounded-lg hover:bg-[#0D00B0]">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-               </svg>
-               <span>Generate Reports</span>
-            </button>
          </div>
       </div>
    </div>
@@ -71,7 +63,7 @@
                <th>
                   {{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}
                </th>
-               <td class="font-semibold">
+               <td>
                   <span>{{$student->first_name . ' ' . $student->middle_name . ' ' .
                      $student->last_name }}</span>
                </td>
@@ -93,7 +85,7 @@
 
                <td class="text-center">
                   <a href="{{ route('students.student-profile', $student->id) }}"
-                     class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300"
+                     class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300 rounded-lg"
                      data-tip="View Profile">
                      <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                   </a>

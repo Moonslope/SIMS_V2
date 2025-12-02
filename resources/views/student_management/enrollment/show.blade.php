@@ -1,13 +1,13 @@
 @extends('layout.layout')
 @section('title', 'Statement of Account')
 
-{{-- Link to external print stylesheet --}}
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/print-statement.css')}}">
 @endpush
 
 @section('content')
 <div class="px-5 py-3 flex flex-col gap-4">
+   <!-- Breadcrumbs (Screen Only) -->
    <div class="breadcrumbs text-xs no-print">
       <ul>
          <li><a>Student Management</a></li>
@@ -16,37 +16,153 @@
       </ul>
    </div>
 
+   <!-- Page Title (Screen Only) -->
    <div class="rounded-lg bg-[#271AD2] shadow-lg flex justify-between items-center no-print">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Statement of Account</h1>
+      <button onclick="window.print()" class="btn btn-sm btn-primary rounded-lg mr-3">
+         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+               d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+         </svg>
+         Print
+      </button>
    </div>
 
-   <!-- Print Header -->
-   <div class="print-only" style="display: none;">
-      <div class="flex items-start gap-4 mb-4">
-         <div class="flex-shrink-0">
-            <img src="{{ asset('images/logo-f.png') }}" alt="School Logo" class="print-logo"
-               style="width: 100px; height: 100px;">
+   <!-- PRINT LAYOUT (Print Only) -->
+   <div class="print-only">
+      <!-- School Header -->
+      <div class="print-header">
+         <img src="{{ asset('images/logo-f.png') }}" alt="School Logo">
+         <div class="print-header-text">
+            <h1>EURO-ASIA EMIL'S EARLY CHILD DEVELOPMENT</h1>
+            <p>Blk 19 Lot 149 Malubay St., San Antonio Village, Matina, Davao City</p>
+            <p>Contact: (082) 331-3779 | Email: euroaisadevt@gmail.com</p>
+            <p>SCHOOL LRN: 466151</p>
          </div>
+      </div>
 
-         <div class="flex-grow text-center">
-            <h1 class="text-xl font-bold uppercase" style="margin-bottom: 4px;">EURO-ASIA EMIL'S EARLY CHILD DEVELOPMENT
-            </h1>
-            <p class="text-xs" style="margin: 2px 0;">Blk 19 Lot 149 Malubay St., San Antonio Village, Matina, Davao
-               City</p>
-            <p class="text-xs" style="margin: 2px 0;">Contact: (082) 331-3779</p>
-            <p class="text-xs" style="margin: 2px 0;">Email: <span
-                  style="text-decoration: underline;">euroaisadevt@gmail.com</span></p>
-            <p class="text-xs font-semibold" style="margin: 2px 0;">SCHOOL LRN: 466151</p>
-            <h2 class="text-lg font-bold uppercase mt-3" style="text-decoration: underline;">STATEMENT OF ACCOUNT</h2>
-         </div>
+      <div class="print-title">STATEMENT OF ACCOUNT</div>
+
+      <!-- Student Information -->
+      <div class="print-student-info">
+         <table>
+            <tr>
+               <td class="label">Student Name:</td>
+               <td>{{ $enrollment->student->last_name }}, {{ $enrollment->student->first_name }} {{
+                  $enrollment->student->middle_name }}</td>
+               <td class="label">LRN:</td>
+               <td>{{ $enrollment->student->learner_reference_number }}</td>
+            </tr>
+            <tr>
+               <td class="label">School Year:</td>
+               <td>{{ $enrollment->academicYear->year_name }}</td>
+               <td class="label">Program:</td>
+               <td>{{ $enrollment->programType->program_name }}</td>
+            </tr>
+            <tr>
+               <td class="label">Grade Level:</td>
+               <td>{{ $enrollment->gradeLevel->grade_name ?? 'N/A' }}</td>
+               <td class="label">Section:</td>
+               <td>{{ $enrollment->section->section_name ?? 'N/A' }}</td>
+            </tr>
+         </table>
+      </div>
+
+      <!-- Class Schedule -->
+      <div class="section-header">Class Schedule</div>
+      <table class="print-table schedule-table">
+         <thead>
+            <tr>
+               <th>Time</th>
+               <th>Minutes</th>
+               <th>Monday</th>
+               <th>Tuesday</th>
+               <th>Wednesday</th>
+               <th>Thursday</th>
+               <th>Friday</th>
+            </tr>
+         </thead>
+         <tbody>
+            @forelse ($scheduleData as $data)
+            <tr>
+               <td>{{ $data['time_slot'] }}</td>
+               <td>{{ $data['minutes'] }}</td>
+               <td>{{ $data['subjects']['Monday'] ?: '—' }}</td>
+               <td>{{ $data['subjects']['Tuesday'] ?: '—' }}</td>
+               <td>{{ $data['subjects']['Wednesday'] ?: '—' }}</td>
+               <td>{{ $data['subjects']['Thursday'] ?: '—' }}</td>
+               <td>{{ $data['subjects']['Friday'] ?: '—' }}</td>
+            </tr>
+            @empty
+            <tr>
+               <td colspan="7">No schedule available</td>
+            </tr>
+            @endforelse
+         </tbody>
+      </table>
+
+      <!-- Billing Information -->
+      <div class="section-header">Billing Information</div>
+      @if($billing)
+      <table class="print-table">
+         <thead>
+            <tr>
+               <th class="text-left">Fee Description</th>
+               <th class="text-right">Amount</th>
+            </tr>
+         </thead>
+         <tbody>
+            @foreach ($billing->billingItems as $item)
+            <tr>
+               <td class="text-left">{{ $item->feeStructure->fee_name }}</td>
+               <td class="text-right">₱{{ number_format($item->amount, 2) }}</td>
+            </tr>
+            @endforeach
+            <tr class="total-row">
+               <td class="text-left">Total Amount Due</td>
+               <td class="text-right">₱{{ number_format($billing->total_amount, 2) }}</td>
+            </tr>
+         </tbody>
+      </table>
+
+      <!-- Payment Summary -->
+      <div class="billing-summary">
+         <table>
+            <tr class="total-row">
+               <td class="label-col">Total Amount Due</td>
+               <td class="amount-col">₱{{ number_format($billing->total_amount, 2) }}</td>
+            </tr>
+            @if($totalPaid > 0)
+            <tr class="paid-row">
+               <td class="label-col">Total Paid</td>
+               <td class="amount-col">₱{{ number_format($totalPaid, 2) }}</td>
+            </tr>
+            @endif
+            <tr class="balance-row">
+               <td class="label-col">Remaining Balance</td>
+               <td class="amount-col">₱{{ number_format($billing->total_amount - $totalPaid, 2) }}</td>
+            </tr>
+         </table>
+      </div>
+      @else
+      <p style="text-align: center; padding: 20px;">No billing information available.</p>
+      @endif
+
+      <!-- Footer -->
+      <div class="print-footer">
+         <p><strong>NOTE:</strong> This is a computer-generated statement of account for School Year {{
+            $enrollment->academicYear->year_name }}.</p>
+         <p>Please feel free to let us know if there are any queries regarding the records. Kindly disregard this notice
+            if payment has already been made. Thank you.</p>
+         <p style="text-align: center; margin-top: 10px;">Printed on: {{ now()->format('F d, Y h:i A') }}</p>
       </div>
    </div>
 
-   <!-- Student Information Card -->
-   <div class="card bg-base-100 shadow-md">
+   <!-- Student Information Card (Screen Only) -->
+   <div class="card bg-base-100 shadow-md no-print rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
-            <div class="avatar placeholder no-print">
+            <div class="avatar placeholder">
                <div class="bg-primary flex justify-center items-center text-primary-content rounded-full w-12">
                   <span class="text-xl">{{ substr($enrollment->student->first_name, 0, 1) }}{{
                      substr($enrollment->student->last_name, 0, 1) }}</span>
@@ -91,11 +207,11 @@
       </div>
    </div>
 
-   <!-- Class Schedule Card -->
-   <div class="card bg-base-100 shadow-md">
+   <!-- Class Schedule Card (Screen Only) -->
+   <div class="card bg-base-100 shadow-md no-print rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded no-print"></div>
+            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
             <h2 class="text-xl font-semibold">Class Schedule</h2>
          </div>
 
@@ -135,7 +251,7 @@
    </div>
 
    <!-- Print Footer (Only visible when printing) -->
-   <div class="print-only" style="display: none;">
+   <div class="print-only">
       <hr style="border-top: 2px solid #000; margin-top: 16px; margin-bottom: 8px;">
       <div class="text-xs" style="line-height: 1.4;">
          <p style="margin: 4px 0;"><strong>NOTE:</strong> This is a computer-generated statement of account for School
@@ -146,11 +262,11 @@
       </div>
    </div>
 
-   <!-- Billing Information Card -->
-   <div class="card bg-base-100 shadow-md">
+   <!-- Billing Information Card (Screen Only) -->
+   <div class="card bg-base-100 shadow-md no-print rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-[#271AD2] rounded no-print"></div>
+            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
             <h2 class="text-xl font-semibold">Billing Information</h2>
          </div>
 
@@ -178,10 +294,10 @@
             </table>
          </div>
 
-         <div class="divider my-6 no-print"></div>
+         <div class="divider my-6"></div>
 
          <!-- Payment Summary -->
-         <div class="flex justify-start mt-6">
+         <div class="flex justify-end">
             <div class="w-full md:w-1/2 lg:w-1/3">
                <div class="space-y-3">
                   <!-- Total Amount Due -->
@@ -213,7 +329,7 @@
 
                   <!-- Payment Progress -->
                   @if($totalPaid > 0)
-                  <div class="space-y-2 mt-4 no-print">
+                  <div class="space-y-2 mt-4">
                      <div class="flex justify-between text-xs text-gray-500">
                         <span>{{ number_format(($totalPaid / $billing->total_amount) * 100, 1) }}% Paid</span>
                         <span>{{ number_format((($billing->total_amount - $totalPaid) / $billing->total_amount) * 100,
@@ -243,8 +359,8 @@
          </div>
          @endif
 
-         <!-- Action Buttons (Hidden on Print) -->
-         <div class="flex justify-end gap-3 mt-6 no-print">
+         <!-- Action Buttons -->
+         <div class="flex justify-end gap-3 mt-6">
             <a href="{{route('enrollments.index')}}" class="btn btn-sm btn-ghost w-45 rounded-lg">
                Close
             </a>
@@ -261,7 +377,7 @@
    </div>
 
    <!-- Print Footer -->
-   <div class="print-only" style="display: none;">
+   <div class="print-only">
       <hr class="mt-6 mb-4">
       <div class="text-center text-xs text-gray-600">
          <p>This is a computer-generated document. No signature required.</p>

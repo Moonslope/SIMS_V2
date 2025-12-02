@@ -15,7 +15,7 @@
    </div>
 
    <!-- Student Information Card -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
             <div class="avatar placeholder">
@@ -64,14 +64,14 @@
       <!-- Left Column: Billing Statement & Payment Form (2/3 width) -->
       <div class="lg:col-span-2 space-y-6">
          <!-- Billing Statement -->
-         <div class="card bg-base-100 shadow-md">
+         <div class="card bg-base-100 shadow-md rounded-lg">
             <div class="card-body p-6">
                <div class="flex items-center justify-between mb-4">
                   <div class="flex items-center gap-3">
                      <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
                      <h2 class="text-xl font-semibold">Billing Statement</h2>
                   </div>
-                  <button class="btn btn-sm btn-outline btn-primary" onclick="window.print()">
+                  <button class="btn btn-sm btn-outline btn-primary rounded-lg" onclick="window.print()">
                      <svg xmlns="http://www.w3. org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -108,7 +108,7 @@
 
          <!-- Record Payment Form -->
          @if(($billing->total_amount - $totalPaid) > 0)
-         <div class="card bg-base-100 shadow-md">
+         <div class="card bg-base-100 shadow-md rounded-lg">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
                   <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
@@ -194,7 +194,7 @@
 
       <!-- Right Column: Payment Summary (1/3 width) -->
       <div class="lg:col-span-1">
-         <div class="card bg-base-100 shadow-md sticky top-4">
+         <div class="card bg-base-100 shadow-md rounded-lg sticky top-4">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
                   <div class="w-1 h-8 bg-[#271AD2] rounded"></div>

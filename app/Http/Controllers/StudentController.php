@@ -304,7 +304,18 @@ class StudentController extends Controller
                     $schedule->schedule->end_time == $endTime
                 ) {
                     $day = $schedule->schedule->day_of_the_week;
-                    $subjectsByDay[$day] = $schedule->schedule->subject->subject_name ?? $schedule->schedule->subject->name ?? 'N/A';
+
+                    // Handle "Monday to Friday" by populating all weekdays
+                    if ($day === 'Monday to Friday') {
+                        $subjectName = $schedule->schedule->subject->subject_name ?? $schedule->schedule->subject->name ?? 'N/A';
+                        $subjectsByDay['Monday'] = $subjectName;
+                        $subjectsByDay['Tuesday'] = $subjectName;
+                        $subjectsByDay['Wednesday'] = $subjectName;
+                        $subjectsByDay['Thursday'] = $subjectName;
+                        $subjectsByDay['Friday'] = $subjectName;
+                    } else {
+                        $subjectsByDay[$day] = $schedule->schedule->subject->subject_name ?? $schedule->schedule->subject->name ?? 'N/A';
+                    }
                 }
             }
 
@@ -546,20 +557,25 @@ class StudentController extends Controller
             'student_status' => 'active',
         ]);
 
-        $guardian = Guardian::create([
-            'first_name' => $registrationData['guardian_first_name'],
-            'middle_name' => $registrationData['guardian_middle_name'] ?? null,
-            'last_name' => $registrationData['guardian_last_name'],
-            'relation' => $registrationData['relation'],
-            'contact_number' => $registrationData['contact_number'],
-            'email' => $registrationData['email'] ?? null,
-            'address' => $registrationData['guardian_address'] ?? null,
-        ]);
+        // Create guardians (support multiple guardians)
+        if (isset($registrationData['guardians']) && is_array($registrationData['guardians'])) {
+            foreach ($registrationData['guardians'] as $guardianData) {
+                $guardian = Guardian::create([
+                    'first_name' => $guardianData['first_name'],
+                    'middle_name' => $guardianData['middle_name'] ?? null,
+                    'last_name' => $guardianData['last_name'],
+                    'relation' => $guardianData['relation'],
+                    'contact_number' => $guardianData['contact_number'],
+                    'email' => $guardianData['email'] ?? null,
+                    'address' => $guardianData['address'] ?? null,
+                ]);
 
-        StudentGuardian::create([
-            'student_id' => $student->id,
-            'guardian_id' => $guardian->id,
-        ]);
+                StudentGuardian::create([
+                    'student_id' => $student->id,
+                    'guardian_id' => $guardian->id,
+                ]);
+            }
+        }
 
         // Documents saving code... 
         if (isset($registrationData['documents']) && !empty($registrationData['documents'])) {
@@ -726,20 +742,25 @@ class StudentController extends Controller
             'cause_of_disability' => $registrationData['cause_of_disability'] ?? null,
         ]);
 
-        $guardian = Guardian::create([
-            'first_name' => $registrationData['guardian_first_name'],
-            'middle_name' => $registrationData['guardian_middle_name'] ?? null,
-            'last_name' => $registrationData['guardian_last_name'],
-            'relation' => $registrationData['relation'],
-            'contact_number' => $registrationData['contact_number'],
-            'email' => $registrationData['email'] ?? null,
-            'address' => $registrationData['guardian_address'] ?? null,
-        ]);
+        // Create guardians (support multiple guardians)
+        if (isset($registrationData['guardians']) && is_array($registrationData['guardians'])) {
+            foreach ($registrationData['guardians'] as $guardianData) {
+                $guardian = Guardian::create([
+                    'first_name' => $guardianData['first_name'],
+                    'middle_name' => $guardianData['middle_name'] ?? null,
+                    'last_name' => $guardianData['last_name'],
+                    'relation' => $guardianData['relation'],
+                    'contact_number' => $guardianData['contact_number'],
+                    'email' => $guardianData['email'] ?? null,
+                    'address' => $guardianData['address'] ?? null,
+                ]);
 
-        StudentGuardian::create([
-            'student_id' => $student->id,
-            'guardian_id' => $guardian->id,
-        ]);
+                StudentGuardian::create([
+                    'student_id' => $student->id,
+                    'guardian_id' => $guardian->id,
+                ]);
+            }
+        }
 
         // FIX: The documents are stored directly in $registrationData['documents']
         if (isset($registrationData['documents']) && !empty($registrationData['documents'])) {

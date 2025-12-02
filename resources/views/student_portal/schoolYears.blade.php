@@ -20,7 +20,7 @@
    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
       @forelse ($academicYears as $year)
       <a href="{{ route('students.switchSchoolYear', $year->id) }}"
-         class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-200 cursor-pointer hover:scale-105 group border-2 border-transparent hover:border-[#0F00CD]">
+         class="card bg-base-100 shadow-md rounded-lg hover:shadow-xl transition-all duration-200 cursor-pointer hover:scale-105 group border-2 border-transparent hover:border-[#0F00CD]">
          <div class="card-body text-center">
 
             <!-- Year Name -->
@@ -40,7 +40,7 @@
 
             <!-- View Button -->
             <div class="card-actions justify-center">
-               <button class="btn btn-sm bg-[#0F00CD] text-white border-none group-hover:bg-opacity-90">
+               <button class="btn btn-sm bg-[#0F00CD] text-white border-none group-hover:bg-opacity-90 rounded-lg">
                   View Details
                </button>
             </div>
@@ -48,13 +48,13 @@
       </a>
       @empty
       <!-- Empty State -->
-      <div class="col-span-full card bg-base-100 shadow">
+      <div class="col-span-full card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center py-12">
             <i class="fi fi-sr-calendar-exclamation text-[80px] text-gray-300 mb-4"></i>
             <h3 class="text-lg font-semibold text-gray-600 mb-2">No Enrollments Found</h3>
             <p class="text-gray-500">You don't have any enrollment records yet.</p>
             <div class="card-actions justify-center mt-4">
-               <a href="{{ route('students.dashboard') }}" class="btn btn-sm bg-[#0F00CD] text-white">
+               <a href="{{ route('students.dashboard') }}" class="btn btn-sm bg-[#0F00CD] text-white rounded-lg">
                   <i class="fi fi-sr-home pt-1"></i>
                   Go to Dashboard
                </a>
@@ -66,7 +66,7 @@
 
    <!-- Back to Dashboard -->
    <div class="text-center">
-      <a href="{{ route('students.dashboard') }}" class="btn btn-ghost btn-sm text-[#0F00CD]">
+      <a href="{{ route('students.dashboard') }}" class="btn btn-ghost btn-sm text-[#0F00CD] rounded-lg">
          <i class="fi fi-sr-arrow-left pt-1"></i>
          Back to Dashboard
       </a>

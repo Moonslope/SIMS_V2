@@ -186,46 +186,52 @@
                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-               <div class="form-control">
-                  <label class="label">
-                     <span class="label-text font-semibold">Full Name</span>
-                  </label>
-                  <p class="pl-2">{{ $registrationData['guardian_first_name'] }} {{
-                     $registrationData['guardian_middle_name'] ?? '' }} {{ $registrationData['guardian_last_name'] }}
-                  </p>
-               </div>
+            @if(isset($registrationData['guardians']) && is_array($registrationData['guardians']))
+            @foreach($registrationData['guardians'] as $index => $guardian)
+            <div class="{{ $index > 0 ? 'border-t pt-4 mt-4' : '' }}">
+               <h4 class="font-semibold text-sm mb-3 text-primary">Guardian #{{ $index + 1 }}</h4>
+               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div class="form-control">
+                     <label class="label">
+                        <span class="label-text font-semibold">Full Name</span>
+                     </label>
+                     <p class="pl-2">{{ $guardian['first_name'] }} {{ $guardian['middle_name'] ?? '' }} {{
+                        $guardian['last_name'] }}</p>
+                  </div>
 
-               <div class="form-control">
-                  <label class="label">
-                     <span class="label-text font-semibold">Relationship</span>
-                  </label>
-                  <p class="pl-2">
-                     <span class="badge badge-primary badge-sm">{{ $registrationData['relation'] }}</span>
-                  </p>
-               </div>
+                  <div class="form-control">
+                     <label class="label">
+                        <span class="label-text font-semibold">Relationship</span>
+                     </label>
+                     <p class="pl-2">
+                        <span class="badge badge-primary badge-sm">{{ $guardian['relation'] }}</span>
+                     </p>
+                  </div>
 
-               <div class="form-control">
-                  <label class="label">
-                     <span class="label-text font-semibold">Contact Number</span>
-                  </label>
-                  <p class="pl-2">{{ $registrationData['contact_number'] }}</p>
-               </div>
+                  <div class="form-control">
+                     <label class="label">
+                        <span class="label-text font-semibold">Contact Number</span>
+                     </label>
+                     <p class="pl-2">{{ $guardian['contact_number'] }}</p>
+                  </div>
 
-               <div class="form-control">
-                  <label class="label">
-                     <span class="label-text font-semibold">Email</span>
-                  </label>
-                  <p class="pl-2">{{ $registrationData['email'] ?? 'N/A' }}</p>
-               </div>
+                  <div class="form-control">
+                     <label class="label">
+                        <span class="label-text font-semibold">Email</span>
+                     </label>
+                     <p class="pl-2">{{ $guardian['email'] ?? 'N/A' }}</p>
+                  </div>
 
-               <div class="form-control md:col-span-2">
-                  <label class="label">
-                     <span class="label-text font-semibold">Address</span>
-                  </label>
-                  <p class="pl-2">{{ $registrationData['guardian_address'] ?? 'N/A' }}</p>
+                  <div class="form-control md:col-span-2">
+                     <label class="label">
+                        <span class="label-text font-semibold">Address</span>
+                     </label>
+                     <p class="pl-2">{{ $guardian['address'] ?? 'N/A' }}</p>
+                  </div>
                </div>
             </div>
+            @endforeach
+            @endif
          </div>
       </div>
 

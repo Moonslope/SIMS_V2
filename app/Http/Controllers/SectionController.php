@@ -80,12 +80,30 @@ class SectionController extends Controller
     public function store(Request $request, SectionRequest $sectionRequest)
     {
         $validated = $sectionRequest->validated();
-        $section = Section::create($validated);
 
-        // Log activity
-        ActivityLogService::created($section, "Created section: '{$section->section_name}'");
+        $createdCount = 0;
 
-        return redirect()->route('sections.index')->with('success', 'New Section has been added successfully.');
+        // Loop through each section and create it
+        foreach ($validated['sections'] as $sectionData) {
+            $section = Section::create([
+                'grade_level_id' => $validated['grade_level_id'],
+                'academic_year_id' => $validated['academic_year_id'],
+                'section_name' => $sectionData['section_name'],
+                'teacher_id' => $sectionData['teacher_id'],
+                'capacity' => $sectionData['capacity'],
+                'is_active' => $sectionData['is_active'],
+            ]);
+
+            // Log activity
+            ActivityLogService::created($section, "Created section: '{$section->section_name}'");
+            $createdCount++;
+        }
+
+        $message = $createdCount > 1
+            ? "Successfully created {$createdCount} sections."
+            : "New Section has been added successfully.";
+
+        return redirect()->route('sections.index')->with('success', $message);
     }
 
     /**

@@ -23,23 +23,30 @@ class SubjectRequest extends FormRequest
     {
         $subjectId = $this->route('subject') ? $this->route('subject')->id : null;
 
-        $uniqueRule = 'unique:subjects,subject_name';
+        // For edit mode (single subject)
         if ($subjectId) {
-            $uniqueRule .= ',' . $subjectId . ',id,grade_level_id,' . $this->grade_level_id;
-        } elseif ($this->grade_level_id) {
-            $uniqueRule .= ',NULL,id,grade_level_id,' . $this->grade_level_id;
+            $uniqueRule = 'unique:subjects,subject_name,' . $subjectId . ',id,grade_level_id,' . $this->grade_level_id;
+
+            return [
+                'subject_name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    $uniqueRule
+                ],
+                'description' => 'nullable|string|max:500',
+                'grade_level_id' => 'required|exists:grade_levels,id',
+                'is_active'   => 'required|boolean',
+            ];
         }
 
+        // For create mode (multiple subjects)
         return [
-            'subject_name' => [
-                'required',
-                'string',
-                'max:255',
-                $uniqueRule
-            ],
-            'description' => 'nullable|string|max:500',
             'grade_level_id' => 'required|exists:grade_levels,id',
-            'is_active'   => 'required|boolean',
+            'subjects' => 'required|array|min:1',
+            'subjects.*.subject_name' => 'required|string|max:255',
+            'subjects.*.description' => 'nullable|string|max:500',
+            'subjects.*.is_active' => 'required|boolean',
         ];
     }
 
@@ -59,6 +66,20 @@ class SubjectRequest extends FormRequest
 
             'grade_level_id.required' => 'Please select a grade level.',
             'grade_level_id.exists' => 'The selected grade level does not exist.',
+
+            'subjects.required' => 'At least one subject is required.',
+            'subjects.array' => 'Invalid subjects format.',
+            'subjects.min' => 'At least one subject must be added.',
+
+            'subjects.*.subject_name.required' => 'The subject name is required.',
+            'subjects.*.subject_name.string' => 'The subject name must be text.',
+            'subjects.*.subject_name.max' => 'The subject name must not exceed 255 characters.',
+
+            'subjects.*.description.string' => 'The description must be text.',
+            'subjects.*.description.max' => 'The description must not exceed 500 characters.',
+
+            'subjects.*.is_active.required' => 'The active status is required.',
+            'subjects.*.is_active.boolean' => 'The active status must be true or false.',
 
             'is_active.required' => 'Please select the status for this subject.',
             'is_active.boolean' => 'The status must be either active or inactive.',

@@ -14,16 +14,16 @@
    </div>
 
    <!-- Search Section -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-4">
          <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
             <form action="{{ route('academic-years.index') }}" method="GET" id="searchForm" class="w-full sm:w-auto">
-               <label class="input input-sm input-bordered flex items-center gap-2 w-full sm:w-80">
+               <label class="input input-sm input-bordered rounded-lg flex items-center gap-2 w-full sm:w-80">
                   <i class="fi fi-rr-search text-md pt-1"></i>
                   <input type="search" name="search" id="searchInput" value="{{ request('search') }}"
                      placeholder="Search academic year..." class="input" />
                   @if(request('search'))
-                  <a href="{{ route('academic-years.index') }}" class="btn btn-xs btn-circle btn-ghost"
+                  <a href="{{ route('academic-years.index') }}" class="btn btn-xs btn-circle btn-ghost rounded-lg"
                      title="Clear search">
                   </a>
                   @endif
@@ -72,13 +72,13 @@
                <td class="w-38">
                   <div class="flex gap-2">
                      <a href="{{route('academic-years.edit', $academicYear->id)}}"
-                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300"
+                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-base-300 rounded-lg"
                         data-tip="Edit Details">
                         <i class="fi fi-sr-pen-square text-[18px] pt-1"></i>
                      </a>
 
                      <button
-                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-white"
+                        class="btn btn-soft px-1 text-[#0F00CD] bg-primary-content btn-xs tooltip hover:bg-[#0F00CD] hover:text-white rounded-lg"
                         data-tip="Delete"
                         onclick="document.getElementById('delete_modal_{{ $academicYear->id }}').showModal()">
                         <i class="fi fi-sr-trash text-[18px] pt-1"></i>
@@ -104,13 +104,13 @@
                   <div class="modal-action flex justify-center">
                      <div class="flex gap-2">
                         <form method="dialog">
-                           <button class="btn btn-soft bg-base-300 w-50 btn-sm">Cancel</button>
+                           <button class="btn btn-soft bg-base-300 w-50 btn-sm rounded-lg">Cancel</button>
                         </form>
 
                         <form action="{{ route('academic-years.destroy', $academicYear->id) }}" method="POST">
                            @csrf
                            @method('DELETE')
-                           <button type="submit" class="w-50 btn btn-error btn-sm">
+                           <button type="submit" class="w-50 btn btn-error btn-sm rounded-lg">
                               Yes, Delete
                            </button>
                         </form>

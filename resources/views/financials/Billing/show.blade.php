@@ -20,7 +20,7 @@ $remainingBalance = $billing->total_amount - $totalPaid;
    </div>
 
    <!-- Student Information Card -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
             <div class="avatar placeholder">

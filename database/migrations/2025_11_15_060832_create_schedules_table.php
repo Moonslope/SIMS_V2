@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subject_id')->nullable();
             $table->unsignedBigInteger('grade_level_id')->nullable();
             $table->unsignedBigInteger('program_type_id');
-            $table->enum('day_of_the_week', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+            $table->enum('day_of_the_week', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday to Friday']);
             $table->time('start_time');
             $table->time('end_time');
             $table->boolean('is_active');

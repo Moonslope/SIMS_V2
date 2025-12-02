@@ -24,136 +24,31 @@
    </div>
 
    <div class="rounded-lg bg-base-100 shadow-md p-8">
-      <div class="flex items-center gap-3 mb-6">
-         <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
-         <h2 class="text-2xl font-semibold">Guardian/Parent Information</h2>
+      <div class="flex items-center justify-between mb-6">
+         <div class="flex items-center gap-3">
+            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <h2 class="text-2xl font-semibold">Guardian/Parent Information</h2>
+         </div>
+         <div class="flex gap-2">
+            <button type="button" id="addGuardianBtn" class="btn btn-sm btn-primary rounded-lg">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+               </svg>
+               Add Guardian
+            </button>
+            <button type="button" id="clearAllGuardiansBtn" class="btn btn-sm btn-ghost rounded-lg">
+               Clear All
+            </button>
+         </div>
       </div>
 
       <form action="{{ route('students.registration.store-step2') }}" method="POST" class="space-y-6">
          @csrf
 
-         <!-- Guardian Name -->
-         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">
-                     First Name <span class="text-error">*</span>
-                  </span>
-               </label>
-               <input name="guardian_first_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('guardian_first_name') input-error @enderror"
-                  value="{{ old('guardian_first_name', session('student_registration.guardian_first_name')) }}"
-                  placeholder="Enter first name">
-               @error('guardian_first_name')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
-
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">Middle Name</span>
-               </label>
-               <input name="guardian_middle_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('guardian_middle_name') input-error @enderror"
-                  value="{{ old('guardian_middle_name', session('student_registration.guardian_middle_name')) }}"
-                  placeholder="Enter middle name">
-               @error('guardian_middle_name')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
-
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">
-                     Last Name <span class="text-error">*</span>
-                  </span>
-               </label>
-               <input name="guardian_last_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('guardian_last_name') input-error @enderror"
-                  value="{{ old('guardian_last_name', session('student_registration.guardian_last_name')) }}"
-                  placeholder="Enter last name">
-               @error('guardian_last_name')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
-
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">
-                     Relation <span class="text-error">*</span>
-                  </span>
-               </label>
-               <select name="relation"
-                  class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('relation') select-error @enderror">
-                  <option disabled selected>Select relationship</option>
-                  <option value="Father" {{ old('relation', session('student_registration.relation'))=='Father'
-                     ? 'selected' : '' }}>Father</option>
-                  <option value="Mother" {{ old('relation', session('student_registration.relation'))=='Mother'
-                     ? 'selected' : '' }}>Mother</option>
-                  <option value="Guardian" {{ old('relation', session('student_registration. relation'))=='Guardian'
-                     ? 'selected' : '' }}>Guardian</option>
-               </select>
-               @error('relation')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
-         </div>
-
-         <!-- Contact Information -->
-         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">
-                     Contact Number <span class="text-error">*</span>
-                  </span>
-               </label>
-               <input name="contact_number" type="tel"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('contact_number') input-error @enderror"
-                  value="{{ old('contact_number', session('student_registration.contact_number')) }}"
-                  placeholder="09XX XXX XXXX">
-               @error('contact_number')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
-
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">Email <span class="text-error">*</span>
-               </label>
-               <input name="email" type="email"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('email') input-error @enderror"
-                  value="{{ old('email', session('student_registration.email')) }}" placeholder="guardian@example.com">
-               @error('email')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
-
-            <div class="form-control w-full">
-               <label class="label mb-2">
-                  <span class="label-text font-medium text-base">Address <span class="text-error">*</span>
-               </label>
-               <input name="guardian_address" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('guardian_address') input-error @enderror"
-                  value="{{ old('guardian_address', session('student_registration. guardian_address')) }}"
-                  placeholder="Complete address">
-               @error('guardian_address')
-               <label class="label">
-                  <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-               </label>
-               @enderror
-            </div>
+         <!-- Guardians Container -->
+         <div id="guardiansContainer" class="space-y-4">
+            <!-- Guardian cards will be inserted here by JavaScript -->
          </div>
 
          <!-- Divider -->
@@ -171,4 +66,6 @@
       </form>
    </div>
 </div>
+
+<script src="{{ asset('js/guardian-create.js') }}"></script>
 @endsection

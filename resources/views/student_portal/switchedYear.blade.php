@@ -5,7 +5,7 @@
 <div class="p-5">
    <!-- Back Button -->
    <div class="mb-4">
-      <a href="{{ route('students.schoolYears') }}" class="btn btn-sm btn-outline">
+      <a href="{{ route('students.schoolYears') }}" class="btn btn-sm btn-outline rounded-lg">
          <i class="fi fi-sr-arrow-left"></i> Back to School Years
       </a>
    </div>
@@ -50,21 +50,21 @@
 
    <!-- Stats Cards -->
    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
             <p class="text-2xl sm:text-3xl font-bold text-[#0F00CD]">₱{{ number_format($totalAssessment, 2) }}</p>
             <p class="text-sm sm:text-base">Total Assessment</p>
          </div>
       </div>
 
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
             <p class="text-2xl sm:text-3xl font-bold text-[#0F00CD]">₱{{ number_format($totalPaid, 2) }}</p>
             <p class="text-sm sm:text-base">Total Payment</p>
          </div>
       </div>
 
-      <div class="card bg-base-100 shadow">
+      <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
             <p class="text-2xl sm:text-3xl font-bold text-[#0F00CD]">₱{{ number_format($currentBalance, 2) }}</p>
             <p class="text-sm sm:text-base">Current Balance</p>

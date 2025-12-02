@@ -28,7 +28,7 @@
 
          <div>
             <div class="dropdown dropdown-end me-3">
-               <div tabindex="0" role="button" class="btn border-0 bg-base-100 shadow-none m-1">
+               <div tabindex="0" role="button" class="btn border-0 bg-base-100 shadow-none m-1 rounded-lg">
                   <div class="flex items-center gap-2">
                      <i class="fi fi-sr-user text-sm"></i>
                      <p class="pb-[3px]">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</p>

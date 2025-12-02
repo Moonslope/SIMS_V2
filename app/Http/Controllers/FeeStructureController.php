@@ -69,12 +69,29 @@ class FeeStructureController extends Controller
     public function store(Request $request, FeeStructureRequest $feeStructureRequest)
     {
         $validated = $feeStructureRequest->validated();
-        $feeStructure = FeeStructure::create($validated);
 
-        // Log activity
-        ActivityLogService::created($feeStructure, "Created fee structure: '{$feeStructure->fee_name}'");
+        $createdCount = 0;
 
-        return redirect()->route('fee-structures.index')->with('success');
+        // Loop through each fee and create it
+        foreach ($validated['fees'] as $feeData) {
+            $feeStructure = FeeStructure::create([
+                'grade_level_id' => $validated['grade_level_id'],
+                'program_type_id' => $validated['program_type_id'],
+                'fee_name' => $feeData['fee_name'],
+                'amount' => $feeData['amount'],
+                'is_active' => $feeData['is_active'],
+            ]);
+
+            // Log activity
+            ActivityLogService::created($feeStructure, "Created fee structure: '{$feeStructure->fee_name}'");
+            $createdCount++;
+        }
+
+        $message = $createdCount > 1
+            ? "Successfully created {$createdCount} fee structures."
+            : "Successfully created fee structure.";
+
+        return redirect()->route('fee-structures.index')->with('success', $message);
     }
 
     /**

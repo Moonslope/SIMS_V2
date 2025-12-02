@@ -7,7 +7,7 @@
       <h1 class="text-4xl font-bold text-[#0F00CD] mb-2 text-center">Payment History</h1>
    </div>
 
-   <div class="card bg-base-100 shadow-lg">
+   <div class="card bg-base-100 shadow-lg rounded-lg">
       <div class="card-body">
          <!-- Academic Year Header -->
          <div class="bg-base-200 rounded-lg p-4 mb-2">

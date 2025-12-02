@@ -20,7 +20,7 @@
    </div>
 
    <!-- Student Info Card -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3">
             <div class="avatar placeholder">
@@ -43,7 +43,7 @@
    </div>
 
    <!-- Enrollment Form -->
-   <div class="card bg-base-100 shadow-md">
+   <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-8">
          <div class="flex items-center gap-3 mb-6">
             <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
