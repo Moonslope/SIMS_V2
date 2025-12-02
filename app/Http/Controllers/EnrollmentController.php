@@ -265,14 +265,25 @@ class EnrollmentController extends Controller
                 Log::info('Queueing email', [
                     'student_id' => $student->id,
                     'guardian_exists' => $guardian ? 'yes' : 'no',
-                    'guardian_email' => $guardian?->email ?? 'none'
+                    'guardian_email' => $guardian?->email ?? 'none',
+                    'mail_mailer' => config('mail.default'),
+                    'resend_key_set' => !empty(config('services.resend.key'))
                 ]);
 
                 if ($guardian && $guardian->email) {
-                    Mail::to($guardian->email)->queue(
-                        new StudentAccountCreated($student, $user, $temporaryPassword)
-                    );
-                    Log::info('Email queued successfully for: ' . $guardian->email);
+                    try {
+                        Mail::to($guardian->email)->send(
+                            new StudentAccountCreated($student, $user, $temporaryPassword)
+                        );
+                        Log::info('Email sent successfully to: ' . $guardian->email);
+                    } catch (\Exception $e) {
+                        Log::error('Email failed: ' . $e->getMessage(), [
+                            'exception' => get_class($e),
+                            'file' => $e->getFile(),
+                            'line' => $e->getLine(),
+                            'trace' => $e->getTraceAsString()
+                        ]);
+                    }
                 } else {
                     Log::warning('No guardian email found for student: ' . $student->id);
                 }
