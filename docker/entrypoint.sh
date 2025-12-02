@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Set Resend API key for email sending
+export RESEND_KEY="re_UgKkFb8E_8ndXuxktA8scDFSAc9SSGJtg"
+export MAIL_MAILER="resend"
+export MAIL_FROM_ADDRESS="onboarding@resend.dev"
+export MAIL_FROM_NAME="SIMS Enrollment System"
+
 # Setup PostgreSQL SSL directory for www-data user (queue worker runs as www-data)
 mkdir -p /var/www/.postgresql
 chown -R www-data:www-data /var/www/.postgresql
