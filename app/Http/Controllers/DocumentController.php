@@ -8,8 +8,6 @@ use App\Services\ActivityLogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class DocumentController extends Controller
 {
@@ -47,25 +45,17 @@ class DocumentController extends Controller
             return back()->with('error', 'Student record not found.');
         }
 
-        // Upload file to Cloudinary
+        // Store the file
         $file = $request->file('document_file');
-        $uploadedFile = Cloudinary::upload($file->getRealPath(), [
-            'folder' => 'student-documents/' . $student->id,
-            'resource_type' => 'auto',
-            'public_id' => time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
-        ]);
-
-        // Get the secure URL from Cloudinary
-        $cloudinaryUrl = $uploadedFile->getSecurePath();
-        $cloudinaryPublicId = $uploadedFile->getPublicId();
+        $filename = time() .  '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('documents/students/' . $student->id, $filename, 'public');
 
         // Create document record
         $document = Document::create([
             'student_id' => $student->id,
             'document_name' => $file->getClientOriginalName(),
             'document_type' => $request->document_type,
-            'file_path' => $cloudinaryUrl, // Store Cloudinary URL
-            'cloudinary_public_id' => $cloudinaryPublicId, // Store for deletion later
+            'file_path' => $path,
         ]);
 
         // Log activity
@@ -118,14 +108,9 @@ class DocumentController extends Controller
         $documentName = $document->document_name;
         $documentType = $document->document_type;
 
-        // Delete the file from Cloudinary if public_id exists
-        if ($document->cloudinary_public_id) {
-            try {
-                Cloudinary::destroy($document->cloudinary_public_id);
-            } catch (\Exception $e) {
-                // Log error but continue with deletion
-                Log::error('Cloudinary deletion failed: ' . $e->getMessage());
-            }
+        // Delete the file from storage
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
         }
 
         // Log activity before deletion
@@ -159,7 +144,13 @@ class DocumentController extends Controller
             "Downloaded document: '{$document->document_name}' (Type: {$document->document_type}) - Student ID: {$student->id}"
         );
 
-        // Redirect to Cloudinary URL for download
-        return redirect($document->file_path);
+        if (! Storage::disk('public')->exists($document->file_path)) {
+            return back()->with('error', 'File not found.');
+        }
+
+        return response()->download(
+            storage_path('app/public/' . $document->file_path),
+            $document->document_name
+        );
     }
 }

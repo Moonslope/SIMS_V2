@@ -81,29 +81,10 @@ class StudentController extends Controller
             abort(403, 'Unauthorized access to document');
         }
 
-        // If file_path is a Cloudinary URL, redirect to it
-        if (str_starts_with($document->file_path, 'https://res.cloudinary.com')) {
-            return redirect($document->file_path);
-        }
+        $filePath = storage_path('app/public/' . $document->file_path);
 
-        // Fallback for old local files (backward compatibility)
-        $possiblePaths = [
-            storage_path('app/public/' . $document->file_path),
-            storage_path('app/' . $document->file_path),
-            public_path('storage/' . $document->file_path),
-            base_path($document->file_path)
-        ];
-
-        $filePath = null;
-        foreach ($possiblePaths as $path) {
-            if (file_exists($path)) {
-                $filePath = $path;
-                break;
-            }
-        }
-
-        if (!$filePath) {
-            abort(404, 'Document not found. Path: ' . $document->file_path);
+        if (! file_exists($filePath)) {
+            abort(404, 'Document not found');
         }
 
         // Return the file for viewing in browser
