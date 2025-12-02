@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Disable SSL for database connections (fix permission denied error)
+export DB_SSLMODE=disable
+
 # Run migrations
 php artisan migrate --force
 
