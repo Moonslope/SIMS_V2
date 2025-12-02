@@ -139,6 +139,13 @@ class UserController extends Controller
 
         $validated = $request->validated();
 
+        // Remove password from validated data if empty
+        if (empty($validated['password'])) {
+            unset($validated['password']);
+        } else {
+            $validated['password'] = Hash::make($validated['password']);
+        }
+
         $user->update($validated);
 
         // Log activity

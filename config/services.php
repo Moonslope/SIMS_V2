@@ -21,7 +21,7 @@ return [
     'resend' => [
         'key' => env('RESEND_KEY'),
     ],
-    
+
     'brevo' => [
         'key' => env('BREVO_API_KEY'),
     ],

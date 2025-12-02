@@ -94,10 +94,13 @@ class StudentController extends Controller
 
     public function profile()
     {
-        $student = Student::where('user_id', Auth::id())->with('documents')->first();
+        $student = Student::where('user_id', Auth::id())
+            ->with(['documents', 'guardians'])
+            ->first();
         $documents = $student ? $student->documents : collect();
+        $guardians = $student ? $student->guardians : collect();
 
-        return view('student_portal.profile', compact('student', 'documents'));
+        return view('student_portal.profile', compact('student', 'documents', 'guardians'));
     }
 
     /**
@@ -587,7 +590,7 @@ class StudentController extends Controller
         return redirect()->route('enrollments.create', ['student' => $student->id, 'source' => 'regular'])
             ->with('success', 'Student registered successfully!');
     }
-    
+
     public function show(Student $student)
     {
         $student->load('guardians', 'documents');

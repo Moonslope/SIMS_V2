@@ -97,10 +97,30 @@
       <div class="drawer-side z-60">
          <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
          <ul class="menu bg-base-200 min-h-full w-60 p-4">
-            <li><a href="{{route('students.dashboard')}}">Dashboard</a></li>
-            <li><a href="{{route('students.announcements')}}">Announcement</a></li>
-            <li><a href="{{route('students.classSchedule')}}">Class Schedules</a></li>
-            <li><a href="{{route('students.paymentHistory')}}">Payment History</a></li>
+            <li class="text-[16px]">
+               <a href="{{route('students.dashboard')}}" class="py-2.5">
+                  <i class="fi fi-ss-house-chimney text-[#0F00CD] me-2"></i>
+                  <span>Dashboard</span>
+               </a>
+            </li>
+            <li class="text-[16px]">
+               <a href="{{route('students.announcements')}}" class="py-2.5">
+                  <i class="fi fi-sr-bullhorn text-[#0F00CD] me-2"></i>
+                  <span>Announcement</span>
+               </a>
+            </li>
+            <li class="text-[16px]">
+               <a href="{{route('students.classSchedule')}}" class="py-2.5">
+                  <i class="fi fi-ss-calendar text-[#0F00CD] me-2"></i>
+                  <span>Class Schedule</span>
+               </a>
+            </li>
+            <li class="text-[16px]">
+               <a href="{{route('students.paymentHistory')}}" class="py-2.5">
+                  <i class="fi fi-sr-receipt text-[#0F00CD] me-2"></i>
+                  <span>Payment History</span>
+               </a>
+            </li>
          </ul>
       </div>
    </div>

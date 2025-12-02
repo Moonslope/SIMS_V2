@@ -45,13 +45,13 @@ class MainController extends Controller
             $totalStudents = Enrollment::where('academic_year_id', $currentYear->id)->count();
             $regularStudents = Enrollment::where('academic_year_id', $currentYear->id)
                 ->whereHas('programType', function ($query) {
-                    $query->where('program_name', 'like', '%regular%');
+                    $query->where('program_name', 'ILIKE', '%regular%');
                 })
                 ->count();
             $spedStudents = Enrollment::where('academic_year_id', $currentYear->id)
                 ->whereHas('programType', function ($query) {
-                    $query->where('program_name', 'like', '%sped%')
-                        ->orWhere('program_name', 'like', '%special%');
+                    $query->where('program_name', 'ILIKE', '%sped%')
+                        ->orWhere('program_name', 'ILIKE', '%special%');
                 })
                 ->count();
         }

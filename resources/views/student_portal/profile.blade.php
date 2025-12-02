@@ -79,6 +79,61 @@
    </div>
    @endif
 
+   <!-- Guardian Information Card -->
+   @if($guardians && $guardians->count() > 0)
+   <div class="card bg-base-100 shadow-md mb-6">
+      <div class="card-body">
+         <div class="flex items-center gap-3 mb-4">
+            <div class="w-1 h-8 bg-[#271AD2] rounded"></div>
+            <h2 class="text-xl font-semibold">Guardian Information</h2>
+         </div>
+
+         @foreach($guardians as $guardian)
+         <div class="mb-6 last:mb-0">
+            <h3 class="text-lg font-semibold text-[#0F00CD] mb-3">
+               {{ ucfirst($guardian->relationship) }}
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+               <div class="form-control">
+                  <label class="label">
+                     <span class="label-text font-semibold">Full Name</span>
+                  </label>
+                  <p class="text-gray-800">
+                     {{ $guardian->first_name }}
+                     {{ $guardian->middle_name ? $guardian->middle_name . ' ' : '' }}
+                     {{ $guardian->last_name }}
+                  </p>
+               </div>
+               <div class="form-control">
+                  <label class="label">
+                     <span class="label-text font-semibold">Contact Number</span>
+                  </label>
+                  <p class="text-gray-800">{{ $guardian->contact_number }}</p>
+               </div>
+               <div class="form-control">
+                  <label class="label">
+                     <span class="label-text font-semibold">Email Address</span>
+                  </label>
+                  <p class="text-gray-800">{{ $guardian->email ?? 'Not provided' }}</p>
+               </div>
+               @if($guardian->address)
+               <div class="form-control md:col-span-2">
+                  <label class="label">
+                     <span class="label-text font-semibold">Address</span>
+                  </label>
+                  <p class="text-gray-800">{{ $guardian->address }}</p>
+               </div>
+               @endif
+            </div>
+            @if(!$loop->last)
+            <div class="divider"></div>
+            @endif
+         </div>
+         @endforeach
+      </div>
+   </div>
+   @endif
+
    <!-- Document Upload Card -->
    <div class="card bg-base-100 shadow-md mb-6">
       <div class="card-body">
@@ -105,7 +160,7 @@
             class="space-y-4">
             @csrf
 
-            <div class="flex gap-5">
+            <div class="flex flex-col lg:flex-row gap-5">
                <div class="form-control w-full">
                   <label class="label">
                      <span class="label-text font-semibold">Document Type *</span>
@@ -114,7 +169,6 @@
                      <option value="">Select Document Type</option>
                      <option value="Birth Certificate">Birth Certificate</option>
                      <option value="Report Card">Report Card</option>
-                     <option value="Good Moral Certificate">Certificate of Good Moral</option>
                      <option value="Transfer Credential">Transfer Credential</option>
                      <option value="Medical Certificate">Medical Certificate</option>
                      <option value="ID Photo">ID Photo (2x2)</option>
@@ -134,7 +188,7 @@
                   <input type="file" name="document_file" id="document_file" required accept=".pdf,.jpg,.jpeg,. png"
                      class="file-input file-input-bordered w-full" />
                   <label class="label">
-                     <span class="label-text-alt">Allowed formats: PDF, JPG, PNG (Max: 5MB)</span>
+                     <span class="label-text-alt text-xs md:text-sm">Allowed formats: PDF, JPG, PNG (Max: 5MB)</span>
                   </label>
                   @error('document_file')
                   <label class="label">
@@ -166,12 +220,12 @@
 
          @if($documents && $documents->count() > 0)
          <div class="overflow-x-auto">
-            <table class="table table-zebra">
+            <table class="table table-zebra w-full">
                <thead>
                   <tr>
                      <th>Document Type</th>
                      <th>File Name</th>
-                     <th>Upload Date</th>
+                     <th class="hidden sm:table-cell">Upload Date</th>
                      <th>Actions</th>
                   </tr>
                </thead>
@@ -181,13 +235,13 @@
                      <td>
                         <div class="flex items-center gap-2">
                            <i class="fi fi-sr-document text-[#0F00CD]"></i>
-                           <span class="font-medium">{{ $document->document_type }}</span>
+                           <span class="font-medium text-sm">{{ $document->document_type }}</span>
                         </div>
                      </td>
-                     <td class="text-sm text-gray-600">
+                     <td class="text-sm text-gray-600 max-w-[150px] truncate">
                         {{ $document->document_name ?? basename($document->file_path) }}
                      </td>
-                     <td class="text-sm text-gray-600">
+                     <td class="text-sm text-gray-600 hidden sm:table-cell">
                         {{ \Carbon\Carbon::parse($document->created_at)->format('M d, Y') }}
                      </td>
                      <td>
