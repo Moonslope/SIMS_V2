@@ -89,7 +89,7 @@
                   </svg>
                </label>
                <ul tabindex="0" class="dropdown-content z-1 menu p-2 shadow-lg bg-base-100 rounded-box w-56 mt-2">
-                  {{-- View Archived: Admin Only --}}
+                  {{-- Admin --}}
                   @if(auth()->user()->canEditEnrollments())
                   <li>
                      <a href="{{ route('enrollments.archived') }}" class="flex items-center gap-2">
@@ -295,7 +295,7 @@
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>
 
-                     {{-- Archive Button: Admin Only --}}
+                     {{-- Admin  --}}
                      @if(auth()->user()->canEditEnrollments())
                      <form action="{{ route('enrollments.archive', $enrollment->id) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to archive this enrollment?');">

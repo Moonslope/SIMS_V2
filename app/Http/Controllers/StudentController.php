@@ -918,13 +918,49 @@ class StudentController extends Controller
                 'message' => 'No file uploaded'
             ], 400);
         } catch (\Exception $e) {
+            Log::error('Document upload failed: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to upload document: ' . $e->getMessage()
+                'message' => 'An error occurred while uploading the document.'
             ], 500);
         }
     }
 
+    /**
+     * Delete a document
+     */
+    public function deleteDocument(Student $student, Document $document)
+    {
+        try {
+            // Verify ownership
+            if ($document->student_id !== $student->id) {
+                return redirect()->back()->with('error', 'Document not found for this student.');
+            }
+
+            // Delete file
+            if (Storage::disk('public')->exists($document->file_path)) {
+                Storage::disk('public')->delete($document->file_path);
+            }
+
+            $document->delete();
+
+            ActivityLogService::log(
+                'delete',
+                'Document',
+                $document->id,
+                "Deleted document '{$document->document_name}' for student: {$student->first_name} {$student->last_name}"
+            );
+
+            return redirect()->back()->with('success', 'Document deleted successfully.');
+        } catch (\Exception $e) {
+            Log::error('Document deletion failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete document.');
+        }
+    }
+
+    /**
+     * View a specific document
+     */
     public function destroy(Student $student)
     {
         //

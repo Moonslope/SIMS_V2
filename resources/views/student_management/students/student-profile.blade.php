@@ -39,7 +39,7 @@
                   @endif
                </div>
             </div>
-            {{-- Edit Button: Admin Only --}}
+            {{-- Edit link --}}
             @if(auth()->user()->canEditStudents())
             <div class="flex gap-2">
                <a href="{{ route('students.edit', $student->id) }}" class="btn bg-blue-600 hover:bg-blue-700 text-white btn-sm rounded-lg">
@@ -274,6 +274,20 @@
                               {{ \Carbon\Carbon::parse($document->created_at)->format('M d, Y') }}
                            </p>
                         </div>
+
+                        @if(auth()->user()->canUploadDocuments())
+                        <div class="flex justify-end">
+                        <form action="{{ route('students.delete-document', [$student->id, $document->id]) }}" method="POST"
+                           onsubmit="return confirm('Are you sure you want to delete this document?');" class="flex-1">
+                           @csrf
+                           @method('DELETE')
+                           <button type="submit" class="border-0 btn-xs text-white w-auto rounded-lg tooltip tooltip-top hover:scale-110 transition-transform" data-tip="Delete Document">
+                              <i class="fi fi-rr-cross-circle text-lg pt-1 text-error hover:text-red-700"></i>
+                           </button>
+                        </form>
+                        </div>
+                        
+                        @endif
                      </div>
 
                      <div class="flex gap-2 mt-3">

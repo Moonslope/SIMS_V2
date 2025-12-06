@@ -13,7 +13,7 @@
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">My Profile</h1>
    </div>
 
-   {{-- Success Message --}}
+   {{-- Alerts --}}
    <x-success-alert />
 
    <form action="{{ route('profile.update') }}" method="POST" id="profileForm">

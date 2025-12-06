@@ -62,7 +62,6 @@
                </li>
                @endif
 
-               {{-- Student Management: Admin, Registrar, Cashier --}}
                @if(auth()->user()->canAccessAdminPanel())
                <li>
                   <details>
@@ -88,7 +87,6 @@
                </li>
                @endif
 
-               {{-- Enrollment: Admin, Registrar, Cashier --}}
                @if(auth()->user()->canAccessAdminPanel())
                <li>
                   <details>
@@ -127,7 +125,6 @@
                </li>
                @endif
 
-               {{-- Academics: Admin Only --}}
                @if(auth()->user()->canAccessAcademics())
                <li>
                   <details>
@@ -177,7 +174,6 @@
                </li>
                @endif
 
-               {{-- Billing & Payments: Admin, Registrar, Cashier --}}
                @if(auth()->user()->canAccessBillingPayments())
                <li>
                   <details>
@@ -198,7 +194,6 @@
                               Payments
                            </a>
                         </li>
-                        {{-- Fee Structure: Admin Only --}}
                         @if(auth()->user()->isAdmin())
                         <li>
                            <a href="{{route('fee-structures.index')}}"
@@ -212,7 +207,6 @@
                </li>
                @endif
 
-               {{-- System: Admin Only --}}
                @if(auth()->user()->canAccessSystem())
                <li>
                   <details>
@@ -244,7 +238,6 @@
                </li>
                @endif
 
-               {{-- Activity Logs: Admin Only --}}
                @if(auth()->user()->canAccessSystem())
                <li class="">
                   <a href="{{route('activity-logs.index')}}"

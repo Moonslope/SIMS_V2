@@ -41,7 +41,7 @@
                </label>
             </form>
 
-            {{-- View Archived: Admin Only --}}
+            {{-- Admin --}}
             @if(auth()->user()->canEditStudents())
             <a href="{{ route('students.archived') }}"
                class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700-focus w-full sm:w-auto gap-2">
@@ -104,7 +104,7 @@
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>
 
-                     {{-- Archive Button: Admin Only --}}
+                     {{-- Admin --}}
                      @if(auth()->user()->canEditStudents())
                      <form action="{{ route('students.archive', $student->id) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to archive this student?');">

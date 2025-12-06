@@ -54,18 +54,21 @@ Route::middleware(['auth', 'role:admin,registrar,cashier'])->group(function () {
     
     // Document Upload - All staff can upload
     Route::post('/students/{student}/documents/upload', [StudentController::class, 'uploadDocument'])->name('students.upload-document');
+    Route::delete('/students/{student}/documents/{document}', [StudentController::class, 'deleteDocument'])->name('students.delete-document');
+
 
     // Enrollment - CREATE ONLY for Registrar/Cashier
     Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('/enrollments/create', [EnrollmentController::class, 'create'])->name('enrollments.create');
+    Route::get('/enrollments/sections-by-grade', [EnrollmentController::class, 'getSectionsByGradeLevel'])->name('enrollments.sections-by-grade');
+    Route::get('/enrollments/re-enrollment/form', [EnrollmentController::class, 'reEnrollmentForm'])->name('enrollments.re-enrollment');
+    Route::get('/enrollments/archived/list', [EnrollmentController::class, 'archived'])->name('enrollments.archived');
+    Route::post('/enrollments/search', [EnrollmentController::class, 'searchStudents'])->name('enrollments.search-students');
+    Route::post('/enrollments/re-enrollment/create', [EnrollmentController::class, 'createReEnrollment'])->name('enrollments.create-re-enrollment');
     Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrollments.store');
     Route::get('/enrollments/{enrollment}', [EnrollmentController::class, 'show'])->name('enrollments.show');
     Route::get('/enrollments/{enrollment}/billing', [EnrollmentController::class, 'showBilling'])->name('enrollments.billing');
-    Route::get('/enrollments/sections-by-grade', [EnrollmentController::class, 'getSectionsByGradeLevel'])->name('enrollments.sections-by-grade');
-    Route::get('/enrollments/re-enrollment/form', [EnrollmentController::class, 'reEnrollmentForm'])->name('enrollments.re-enrollment');
-    Route::post('/enrollments/search', [EnrollmentController::class, 'searchStudents'])->name('enrollments.search-students');
-    Route::post('/enrollments/re-enrollment/create', [EnrollmentController::class, 'createReEnrollment'])->name('enrollments.create-re-enrollment');
-    Route::get('/enrollments/archived/list', [EnrollmentController::class, 'archived'])->name('enrollments.archived');
+
 
     // Regular Registration (Multi-step) - All staff
     Route::get('/registration/step1', [StudentController::class, 'createStep1'])->name('students.registration.step1');
