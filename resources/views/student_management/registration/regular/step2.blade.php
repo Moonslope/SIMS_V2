@@ -4,8 +4,10 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Registration</a></li>
-         <li><a>Enrollment Form</a></li>
+         <li><a>Enrollment</a></li>
+         <li><a>New Student</a></li>
+         <li><a>Regular</a></li>
+         <li class="text-blue-600 font-semibold">Guardian Information</li>
       </ul>
    </div>
 

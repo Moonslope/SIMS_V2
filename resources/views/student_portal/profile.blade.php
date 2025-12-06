@@ -134,83 +134,6 @@
    </div>
    @endif
 
-   <!-- Document Upload Card -->
-   <div class="card bg-base-100 shadow-md mb-6">
-      <div class="card-body">
-         <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-blue-600 rounded"></div>
-            <h2 class="text-xl font-semibold">Upload Documents</h2>
-         </div>
-
-         @if(session('success'))
-         <div role="alert" class="alert alert-success mb-4">
-            <i class="fi fi-sr-check-circle"></i>
-            <span>{{ session('success') }}</span>
-         </div>
-         @endif
-
-         @if(session('error'))
-         <div role="alert" class="alert alert-error mb-4">
-            <i class="fi fi-sr-cross-circle"></i>
-            <span>{{ session('error') }}</span>
-         </div>
-         @endif
-
-         <form action="{{ route('student.documents.upload') }}" method="POST" enctype="multipart/form-data"
-            class="space-y-4">
-            @csrf
-
-            <div class="flex flex-col lg:flex-row gap-5">
-               <div class="form-control w-full">
-                  <label class="label">
-                     <span class="label-text font-semibold">Document Type *</span>
-                  </label>
-                  <select name="document_type" id="document_type" required
-                     class="select select-bordered w-full rounded-lg">
-                     <option value="">Select Document Type</option>
-                     <option value="Birth Certificate">Birth Certificate</option>
-                     <option value="Report Card">Report Card</option>
-                     <option value="Transfer Credential">Transfer Credential</option>
-                     <option value="Medical Certificate">Medical Certificate</option>
-                     <option value="ID Photo">ID Photo (2x2)</option>
-                     <option value="Other">Other</option>
-                  </select>
-                  @error('document_type')
-                  <label class="label">
-                     <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-                  </label>
-                  @enderror
-               </div>
-
-               <div class="form-control w-full">
-                  <label class="label">
-                     <span class="label-text font-semibold">Select File *</span>
-                  </label>
-                  <input type="file" name="document_file" id="document_file" required accept=".pdf,.jpg,.jpeg,. png"
-                     class="file-input file-input-bordered w-full rounded-lg" />
-                  <label class="label">
-                     <span class="label-text-alt text-xs md:text-sm">Allowed formats: PDF, JPG, PNG (Max: 5MB)</span>
-                  </label>
-                  @error('document_file')
-                  <label class="label">
-                     <span class="label-text-alt text-error text-sm">{{ $message }}</span>
-                  </label>
-                  @enderror
-               </div>
-
-            </div>
-
-            <div class="flex justify-end">
-               <button type="submit" class="btn btn-sm bg-blue-600 text-white rounded-lg">
-                  <i class="fi fi-sr-upload"></i>
-                  Upload Document
-               </button>
-            </div>
-
-         </form>
-      </div>
-   </div>
-
    <!-- Uploaded Documents Card -->
    <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body">
@@ -218,61 +141,22 @@
             <div class="w-1 h-8 bg-blue-600 rounded"></div>
             <h2 class="text-xl font-semibold">My Documents</h2>
          </div>
+         <p class="text-sm text-gray-600 mb-4">These are your uploaded documents managed by school staff.</p>
 
          @if($documents && $documents->count() > 0)
-         <div class="overflow-x-auto">
-            <table class="table table-zebra w-full">
-               <thead>
-                  <tr>
-                     <th>Document Type</th>
-                     <th>File Name</th>
-                     <th class="hidden sm:table-cell">Upload Date</th>
-                     <th>Actions</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  @foreach($documents as $document)
-                  <tr>
-                     <td>
-                        <div class="flex items-center gap-2">
-                           <i class="fi fi-sr-document text-blue-600"></i>
-                           <span class="font-medium text-sm">{{ $document->document_type }}</span>
-                        </div>
-                     </td>
-                     <td class="text-sm text-gray-600 max-w-[150px] truncate">
-                        {{ $document->document_name ?? basename($document->file_path) }}
-                     </td>
-                     <td class="text-sm text-gray-600 hidden sm:table-cell">
-                        {{ \Carbon\Carbon::parse($document->created_at)->format('M d, Y') }}
-                     </td>
-                     <td>
-                        <div class="flex gap-2">
-                           <a href="{{ route('student.documents.download', $document->id) }}"
-                              class="btn btn-sm btn-ghost text-blue-600 rounded-lg" title="Download">
-                              <i class="fi fi-sr-download"></i>
-                           </a>
-                           <form action="{{ route('student.documents.delete', $document->id) }}" method="POST"
-                              class="inline">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit"
-                                 onclick="return confirm('Are you sure you want to delete this document?')"
-                                 class="btn btn-sm btn-ghost text-error rounded-lg" title="Delete">
-                                 <i class="fi fi-sr-trash"></i>
-                              </button>
-                           </form>
-                        </div>
-                     </td>
-                  </tr>
-                  @endforeach
-               </tbody>
-            </table>
+         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            @foreach($documents as $document)
+            <div class="flex items-center gap-3 p-3 bg-base-200 rounded-lg">
+               <i class="fi fi-sr-document text-blue-600 text-2xl"></i>
+               <span class="font-medium">{{ $document->document_type }}</span>
+            </div>
+            @endforeach
          </div>
          @else
          <div class="text-center py-12">
             <i class="fi fi-sr-folder-open text-[80px] text-gray-300"></i>
             <h3 class="text-lg font-semibold text-gray-600 mb-2 mt-4">No Documents Yet</h3>
-            <p class="text-gray-500">Upload your documents to keep them organized. </p>
+            <p class="text-gray-500">Your documents will appear here once uploaded by school staff.</p>
          </div>
          @endif
       </div>

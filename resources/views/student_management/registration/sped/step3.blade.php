@@ -4,9 +4,10 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{ route('students.index') }}">Students</a></li>
-         <li><a>SPED Registration</a></li>
+         <li><a>Enrollment</a></li>
+         <li><a>New Student</a></li>
+         <li><a>SPED</a></li>
+         <li class="text-blue-600 font-semibold">Documents</li>
       </ul>
    </div>
 
@@ -47,7 +48,7 @@
                               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <div class="flex-1">
-                           <h3 class="font-semibold text-base mb-2">Birth Certificate</h3>
+                           <h3 class="font-semibold text-base mb-2">Birth Certificate <span class="text-error">*</span></h3>
                            <input type="file" name="documents[birth_certificate]"
                               class="file-input file-input-bordered file-input-sm w-full rounded-lg @error('documents. birth_certificate') file-input-error @enderror"
                               accept=".pdf,.jpg,.jpeg,.png">
@@ -60,29 +61,6 @@
                   </div>
                </div>
 
-               <!-- Report Card -->
-               <div class="card bg-base-200">
-                  <div class="card-body p-4">
-                     <div class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-blue-600 flex-shrink-0 mt-1"
-                           fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                        </svg>
-                        <div class="flex-1">
-                           <h3 class="font-semibold text-base mb-2">Report Card (Previous School)</h3>
-                           <input type="file" name="documents[report_card]"
-                              class="file-input file-input-bordered file-input-sm w-full rounded-lg @error('documents.report_card') file-input-error @enderror"
-                              accept=".pdf,.jpg,.jpeg,.png">
-                           <p class="text-xs text-gray-500 mt-2">If available - Latest report card from previous school
-                           </p>
-                           @error('documents.report_card')
-                           <p class="text-error text-sm mt-1">{{ $message }}</p>
-                           @enderror
-                        </div>
-                     </div>
-                  </div>
-               </div>
 
                <!-- Medical Certificate (SPED Specific) -->
                <div class="card bg-warning/10 border-2 border-warning">
@@ -95,15 +73,14 @@
                         </svg>
                         <div class="flex-1">
                            <div class="flex items-center gap-2 mb-2">
-                              <h3 class="font-semibold text-base">Medical Certificate / Disability Assessment</h3>
+                              <h3 class="font-semibold text-base">Certificate of Diagnosis <span class="text-error">*</span></h3>
                               <span class="badge badge-warning badge-sm">Required for SPED</span>
                            </div>
-                           <input type="file" name="documents[medical_certificate]"
-                              class="file-input file-input-bordered file-input-sm w-full rounded-lg @error('documents.medical_certificate') file-input-error @enderror"
+                           <input type="file" name="documents[certificate_of_diagnosis]"
+                              class="file-input file-input-bordered file-input-sm w-full rounded-lg @error('documents.certificate_of_diagnosis') file-input-error @enderror"
                               accept=".pdf,.jpg,.jpeg,.png">
-                           <p class="text-xs text-gray-600 mt-2 font-medium">This document must include disability
-                              diagnosis and professional recommendations</p>
-                           @error('documents.medical_certificate')
+                           <p class="text-xs text-gray-600 mt-2 font-medium">Official diagnosis from a licensed medical professional</p>
+                           @error('documents.certificate_of_diagnosis')
                            <p class="text-error text-sm mt-1">{{ $message }}</p>
                            @enderror
                         </div>
@@ -114,43 +91,6 @@
          </div>
       </div>
 
-      <!-- ID Photos Card -->
-      <div class="card bg-base-100 shadow-md">
-         <div class="card-body p-6">
-            <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-blue-600 rounded"></div>
-               <h2 class="text-xl font-semibold">ID Photos</h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-               <div class="card bg-base-200">
-                  <div class="card-body p-4">
-                     <h3 class="font-semibold text-base mb-3">1x1 ID Photo</h3>
-                     <input type="file" name="documents[id_photo_1x1]"
-                        class="file-input file-input-bordered file-input-sm w-full rounded-lg @error('documents.id_photo_1x1') file-input-error @enderror"
-                        accept=". jpg,.jpeg,.png">
-                     <p class="text-xs text-gray-500 mt-2">Recent photo, white background</p>
-                     @error('documents.id_photo_1x1')
-                     <p class="text-error text-sm mt-1">{{ $message }}</p>
-                     @enderror
-                  </div>
-               </div>
-
-               <div class="card bg-base-200">
-                  <div class="card-body p-4">
-                     <h3 class="font-semibold text-base mb-3">2x2 ID Photo</h3>
-                     <input type="file" name="documents[id_photo_2x2]"
-                        class="file-input file-input-bordered file-input-sm w-full rounded-lg @error('documents.id_photo_2x2') file-input-error @enderror"
-                        accept=".jpg,.jpeg,.png">
-                     <p class="text-xs text-gray-500 mt-2">Recent photo, white background</p>
-                     @error('documents.id_photo_2x2')
-                     <p class="text-error text-sm mt-1">{{ $message }}</p>
-                     @enderror
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
 
       <!-- Additional Documents Card -->
       <div class="card bg-base-100 shadow-md">

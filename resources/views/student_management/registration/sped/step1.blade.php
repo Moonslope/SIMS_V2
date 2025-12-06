@@ -4,9 +4,10 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{ route('students.index') }}">Students</a></li>
-         <li><a>SPED Registration</a></li>
+         <li><a>Enrollment</a></li>
+         <li><a>New Student</a></li>
+         <li><a>SPED</a></li>
+         <li class="text-blue-600 font-semibold">Student Information</li>
       </ul>
    </div>
 
@@ -44,7 +45,7 @@
                </label>
                <input name="learner_reference_number" type="text"
                   class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('learner_reference_number') input-error @enderror"
-                  value="{{ old('learner_reference_number', session('sped_student_registration. learner_reference_number')) }}"
+                  value="{{ old('learner_reference_number', session('sped_student_registration.learner_reference_number')) }}"
                   placeholder="Enter 12-digit LRN">
                @error('learner_reference_number')
                <label class="label">
@@ -264,7 +265,7 @@
                </label>
                <input name="address" type="text"
                   class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('address') input-error @enderror"
-                  value="{{ old('address', session('sped_student_registration. address')) }}"
+                  value="{{ old('address', session('sped_student_registration.address')) }}"
                   placeholder="House No., Street, Barangay, City, Province">
                @error('address')
                <label class="label">
@@ -309,7 +310,7 @@
                   </label>
                   <input name="date_of_diagnosis" type="date"
                      class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('date_of_diagnosis') input-error @enderror"
-                     value="{{ old('date_of_diagnosis', session('sped_student_registration. date_of_diagnosis')) }}"
+                     value="{{ old('date_of_diagnosis', session('sped_student_registration.date_of_diagnosis')) }}"
                      max="{{ date('Y-m-d') }}">
                   @error('date_of_diagnosis')
                   <label class="label">

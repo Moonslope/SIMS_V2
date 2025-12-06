@@ -4,8 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Financial</a></li>
-         <li><a>Payments</a></li>
+         <li><a>Financials</a></li>
+         <li class="text-blue-600 font-semibold">Payments</li>
       </ul>
    </div>
 
@@ -91,7 +91,7 @@
                                  }}>
                                  {{ $year->year_name }}
                                  @if($year->is_active)
-                                 <span class="badge badge-success badge-sm">Active</span>
+                                 <span class="badge badge-success badge-soft badge-sm">Active</span>
                                  @endif
                               </option>
                               @endforeach
@@ -132,21 +132,7 @@
       </div>
    </div>
 
-   <script>
-      function toggleDateFields() {
-         const reportType = document.getElementById('reportType').value;
-         const academicYearField = document.getElementById('academicYearField');
-         const dateRangeFields = document.getElementById('dateRangeFields');
-         
-         if (reportType === 'date_range') {
-            academicYearField.style.display = 'none';
-            dateRangeFields.style.display = 'block';
-         } else {
-            academicYearField.style.display = 'block';
-            dateRangeFields.style.display = 'none';
-         }
-      }
-   </script>
+   <script src="{{ asset('js/payment-index.js') }}"></script>
 
    <div class="overflow-x-auto rounded-xl">
       <table class="table table-md ">

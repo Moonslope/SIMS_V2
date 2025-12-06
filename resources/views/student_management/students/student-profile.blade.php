@@ -4,20 +4,14 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{ route('students.index') }}">All Students</a></li>
-         <li>Student Profile</li>
+         <li><a href="{{ route('students.index') }}">Student Management</a></li>
+         <li><a>Students</a></li>
+         <li class="text-blue-600 font-semibold">Profile</li>
       </ul>
    </div>
 
    <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Profile</h1>
-      <a href="{{ route('students.index') }}" class="btn btn-sm btn-ghost text-base-300 me-3 rounded-lg">
-         <svg xmlns="http://www.w3. org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-         </svg>
-         Back to List
-      </a>
    </div>
 
    <!-- Student Header Card -->
@@ -26,7 +20,7 @@
          <div class="flex items-center gap-4">
             <div class="avatar placeholder">
                <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-20">
-                  <span class="text-3xl">{{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1)
+                  <span class="text-3xl text-white font-semibold">{{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1)
                      }}</span>
                </div>
             </div>
@@ -37,30 +31,32 @@
                </h2>
                <p class="text-sm text-gray-500">LRN: {{ $student->learner_reference_number }}</p>
                <div class="flex gap-2 mt-2">
-                  <span class="badge badge badge-info badge-sm">{{ ucfirst($student->gender) }}</span>
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#F0F4FF] text-blue-600 border border-blue-100">{{ ucfirst($student->gender) }}</span>
                   @if($student->birthdate)
-                  <span class="badge badge-ghost badge-sm">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#F0F4FF] text-blue-600 border border-blue-100">
                      Age: {{ \Carbon\Carbon::parse($student->birthdate)->age }} years old
                   </span>
                   @endif
                </div>
             </div>
+            {{-- Edit Button: Admin Only --}}
+            @if(auth()->user()->canEditStudents())
             <div class="flex gap-2">
                <a href="{{ route('students.edit', $student->id) }}" class="btn bg-blue-600 hover:bg-blue-700 text-white btn-sm rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9. 414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                   Edit Profile
                </a>
             </div>
+            @endif
          </div>
       </div>
    </div>
 
    <div class="grid grid-cols-3 gap-5">
-      <!-- Personal Information -->
       <div class="card bg-base-100 shadow-md col-span-2 rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
@@ -236,10 +232,6 @@
                   <h2 class="text-xl font-semibold">Documents</h2>
                </div>
                <div class="flex items-center gap-2">
-                  @if($documents->count() > 0)
-                  <span class="badge badge badge-info">{{ $documents->count() }} {{ $documents->count() === 1 ? 'File' :
-                     'Files' }}</span>
-                  @endif
                   <button type="button" onclick="document.getElementById('upload_modal').showModal()" 
                      class="btn bg-blue-600 hover:bg-blue-700 text-white btn-sm rounded-lg">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -398,63 +390,9 @@
    </div>
 </dialog>
 
-<script>
-document.getElementById('uploadDocumentForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const form = this;
-    const formData = new FormData(form);
-    const uploadBtn = document.getElementById('upload_btn');
-    const progressDiv = document.getElementById('upload_progress');
-    const progressBar = document.getElementById('progress_bar');
-    const progressText = document.getElementById('progress_text');
-    const alertDiv = document.getElementById('upload_alert');
-    const uploadMessage = document.getElementById('upload_message');
-    
-    // Clear previous errors
-    document.getElementById('document_type_error').classList.add('hidden');
-    document.getElementById('document_file_error').classList.add('hidden');
-    alertDiv.classList.add('hidden');
-    
-    // Disable upload button
-    uploadBtn.disabled = true;
-    progressDiv.classList.remove('hidden');
-    
-    try {
-        const response = await fetch('{{ route("students.upload-document", $student->id) }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || form.querySelector('[name="_token"]').value
-            },
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            alertDiv.classList.remove('hidden', 'alert-error');
-            alertDiv.classList.add('alert-success');
-            uploadMessage.textContent = result.message;
-            
-            // Reset form
-            form.reset();
-            
-            // Reload page after 1.5 seconds to show new document
-            setTimeout(() => {
-                location.reload();
-            }, 1500);
-        } else {
-            throw new Error(result.message || 'Upload failed');
-        }
-    } catch (error) {
-        alertDiv.classList.remove('hidden', 'alert-success');
-        alertDiv.classList.add('alert-error');
-        uploadMessage.textContent = error.message || 'An error occurred during upload';
-        uploadBtn.disabled = false;
-    } finally {
-        progressDiv.classList.add('hidden');
-        progressBar.value = 0;
-    }
-});
-</script>
+<!-- Hidden inputs for JavaScript -->
+<input type="hidden" id="upload_url" value="{{ route('students.upload-document', $student->id) }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script src="{{ asset('js/student-profile.js') }}"></script>
 @endsection

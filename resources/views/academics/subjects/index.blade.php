@@ -4,8 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Academic</a></li>
-         <li><a href="{{route('subjects.index')}}">Subjects</a></li>
+         <li><a>Academics</a></li>
+         <li class="text-blue-600 font-semibold">Subjects</li>
       </ul>
    </div>
 

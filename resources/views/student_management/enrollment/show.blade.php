@@ -10,22 +10,14 @@
    <!-- Breadcrumbs (Screen Only) -->
    <div class="breadcrumbs text-xs no-print">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{route('enrollments.index')}}">Enrollments</a></li>
-         <li>Statement of Account</li>
+         <li><a href="{{route('enrollments.index')}}">Enrollment</a></li>
+         <li class="text-blue-600 font-semibold">Statement of Account</li>
       </ul>
    </div>
 
    <!-- Page Title (Screen Only) -->
    <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center no-print">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Statement of Account</h1>
-      <button onclick="window.print()" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg mr-3">
-         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-               d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-         </svg>
-         Print
-      </button>
    </div>
 
    <!-- PRINT LAYOUT (Print Only) -->
@@ -128,7 +120,7 @@
                <td class="text-right">₱{{ number_format($item->amount, 2) }}</td>
                <td class="text-right">₱{{ number_format($item->amount_paid, 2) }}</td>
                <td class="text-right">₱{{ number_format($item->amount - $item->amount_paid, 2) }}</td>
-               <td class="text-center">{{ $item->remarks ?? 'Unpaid' }}</td>
+               <td class="text-center">{{ $item->status ?? 'Unpaid' }}</td>
                <td class="text-center">{{ $item->payment_date ? $item->payment_date->format('M d, Y') : '-' }}</td>
             </tr>
             @endforeach
@@ -165,15 +157,6 @@
       @else
       <p style="text-align: center; padding: 20px;">No billing information available.</p>
       @endif
-
-      <!-- Footer -->
-      <div class="print-footer">
-         <p><strong>NOTE:</strong> This is a computer-generated statement of account for School Year {{
-            $enrollment->academicYear->year_name }}.</p>
-         <p>Please feel free to let us know if there are any queries regarding the records. Kindly disregard this notice
-            if payment has already been made. Thank you.</p>
-         <p style="text-align: center; margin-top: 10px;">Printed on: {{ now()->format('F d, Y h:i A') }}</p>
-      </div>
    </div>
 
    <!-- Student Information Card (Screen Only) -->
@@ -183,7 +166,7 @@
             <div class="avatar placeholder">
                <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-12">
                   @if($enrollment->student)
-                  <span class="text-xl">{{ substr($enrollment->student->first_name, 0, 1) }}{{
+                  <span class="text-xl text-white font-semibold">{{ substr($enrollment->student->first_name, 0, 1) }}{{
                      substr($enrollment->student->last_name, 0, 1) }}</span>
                   @else
                   <span class="text-xl">?</span>

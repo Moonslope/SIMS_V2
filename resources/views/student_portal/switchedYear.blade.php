@@ -4,11 +4,11 @@
 
 <div class="p-5">
    <!-- Back Button -->
-   <div class="mb-4">
+   <!-- <div class="mb-4">
       <a href="{{ route('students.schoolYears') }}" class="btn btn-sm btn-outline rounded-lg">
          <i class="fi fi-sr-arrow-left"></i> Back to School Years
       </a>
-   </div>
+   </div> -->
 
    <!-- Old School Year Alert - Only show if it's actually old -->
    @php
@@ -18,12 +18,9 @@
 
    @if($isOldYear)
    <div role="alert" class="alert alert-warning rounded-lg mb-6">
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 9v2m0 4v2m0 0v2m0-6v-2m0 0V7a2 2 0 012-2h2.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-2.586a1 1 0 01-.707-.293l-5.414-5.414a1 1 0 01-.293-.707V9z">
-         </path>
-      </svg>
-      <span>⚠️ You are viewing an old school year data</span>
+      <i class="fi fi-sr-triangle-warning text-3xl pt-1"></i>
+      <span>You are viewing an old school year. <a href="{{ route('students.schoolYears') }}"
+            class="link link-primary font-bold">Switch School Year</a></span>
    </div>
    @endif
 

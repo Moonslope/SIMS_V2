@@ -4,15 +4,13 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a>Enrolled Students</a></li>
+         <li><a>Enrollment</a></li>
+         <li class="text-blue-600 font-semibold">List</li>
       </ul>
    </div>
 
    <div class="rounded-lg bg-blue-600 shadow-lg mb-5 flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">List of Enrolled Students</h1>
-      <h1 class="text-[20px] font-semibold text-base-300 me-3 p-2">SY {{ $currentAcademicYear->year_name ?? 'N/A' }}
-      </h1>
    </div>
 
    <!-- Search Section -->
@@ -91,6 +89,8 @@
                   </svg>
                </label>
                <ul tabindex="0" class="dropdown-content z-1 menu p-2 shadow-lg bg-base-100 rounded-box w-56 mt-2">
+                  {{-- View Archived: Admin Only --}}
+                  @if(auth()->user()->canEditEnrollments())
                   <li>
                      <a href="{{ route('enrollments.archived') }}" class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -101,6 +101,7 @@
                         View Archived
                      </a>
                   </li>
+                  @endif
                   <li class="menu-title"><span>Reports</span></li>
                   <li>
                      <a onclick="report_modal.showModal()" class="flex items-center gap-2">
@@ -140,7 +141,7 @@
                            <option value="{{ $year->id }}" {{ request('academic_year')==$year->id ? 'selected' : '' }}>
                               {{ $year->year_name }}
                               @if($year->is_active)
-                              <span class="badge badge-success badge-sm">Active</span>
+                              <span class="badge badge-success badge-soft badge-sm">Active</span>
                               @endif
                            </option>
                            @endforeach
@@ -294,6 +295,8 @@
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>
 
+                     {{-- Archive Button: Admin Only --}}
+                     @if(auth()->user()->canEditEnrollments())
                      <form action="{{ route('enrollments.archive', $enrollment->id) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to archive this enrollment?');">
                         @csrf
@@ -308,6 +311,7 @@
                            </svg>
                         </button>
                      </form>
+                     @endif
                   </div>
                </td>
             </tr>

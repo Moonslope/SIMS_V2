@@ -66,6 +66,78 @@ class User extends Authenticatable
         return $this->hasMany(Announcement::class, 'publishedBy');
     }
 
+    // ========================================
+    // Role Checking Methods
+    // ========================================
+    
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isRegistrar(): bool
+    {
+        return $this->role === 'registrar';
+    }
+
+    public function isCashier(): bool
+    {
+        return $this->role === 'cashier';
+    }
+
+    public function isStudent(): bool
+    {
+        return $this->role === 'student';
+    }
+
+    // Permission helper - can access admin panel
+    public function canAccessAdminPanel(): bool
+    {
+        return in_array($this->role, ['admin', 'registrar', 'cashier']);
+    }
+
+    // Can edit student information
+    public function canEditStudents(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Can edit/delete enrollments
+    public function canEditEnrollments(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Can upload documents (all staff)
+    public function canUploadDocuments(): bool
+    {
+        return in_array($this->role, ['admin', 'registrar', 'cashier']);
+    }
+
+    // Can access academics section
+    public function canAccessAcademics(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Can access financials section
+    public function canAccessFinancials(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Can access billing and payments (cashier, registrar, admin)
+    public function canAccessBillingPayments(): bool
+    {
+        return in_array($this->role, ['admin', 'registrar', 'cashier']);
+    }
+
+    // Can access system settings
+    public function canAccessSystem(): bool
+    {
+        return $this->role === 'admin';
+    }
+
     /**
      * Get the attributes that should be cast.
      *

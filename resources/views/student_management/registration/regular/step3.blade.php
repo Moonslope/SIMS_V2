@@ -4,8 +4,10 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Registration</a></li>
-         <li><a>Enrollment Form</a></li>
+         <li><a>Enrollment</a></li>
+         <li><a>New Student</a></li>
+         <li><a>Regular</a></li>
+         <li class="text-blue-600 font-semibold">Documents</li>
       </ul>
    </div>
 
@@ -42,16 +44,16 @@
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  Birth Certificate <span class="text-error">*</span>
+                  Form 137 <span class="text-error">*</span>
                </h3>
                <div class="form-control w-full">
-                  <input type="file" name="documents[birth_certificate]" id="birth_certificate"
+                  <input type="file" name="documents[form_137]" id="form_137"
                      class="file-input file-input-bordered w-full @error('documents. birth_certificate') file-input-error @enderror"
                      accept=".pdf,.jpg,.jpeg,.png">
                   <label class="label">
                      <span class="label-text-alt text-gray-500">PDF, JPG, PNG - Max: 5MB</span>
                   </label>
-                  @error('documents.birth_certificate')
+                  @error('documents.form_137')
                   <label class="label">
                      <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                   </label>
@@ -60,7 +62,7 @@
             </div>
          </div>
 
-         <!-- Report Card -->
+         <!-- Certification -->
          <div class="card bg-base-200 shadow-sm">
             <div class="card-body p-6">
                <h3 class="card-title text-lg mb-3">
@@ -69,16 +71,16 @@
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                   </svg>
-                  Report Card (Previous School)
+                  Certification <span class="text-error">*</span>
                </h3>
                <div class="form-control w-full">
-                  <input type="file" name="documents[report_card]" id="report_card"
-                     class="file-input file-input-bordered w-full @error('documents.report_card') file-input-error @enderror"
+                  <input type="file" name="documents[certification]" id="certification"
+                     class="file-input file-input-bordered w-full @error('documents.certification') file-input-error @enderror"
                      accept=".pdf,.jpg,.jpeg,.png">
                   <label class="label">
-                     <span class="label-text-alt text-gray-500">PDF, JPG, PNG - Max: 5MB (For transferees)</span>
+                     <span class="label-text-alt text-gray-500">PDF, JPG, PNG - Max: 5MB</span>
                   </label>
-                  @error('documents.report_card')
+                  @error('documents.certification')
                   <label class="label">
                      <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                   </label>
@@ -96,17 +98,16 @@
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  2x2 ID Photo
+                  Photocopy of Birth Certificate <span class="text-error">*</span>
                </h3>
                <div class="form-control w-full">
-                  <input type="file" name="documents[id_photo_2x2]" id="id_photo_2x2"
-                     class="file-input file-input-bordered w-full @error('documents.id_photo_2x2') file-input-error @enderror"
+                  <input type="file" name="documents[birth_certificate_copy]" id="birth_certificate_copy"
+                     class="file-input file-input-bordered w-full @error('documents.birth_certificate_copy') file-input-error @enderror"
                      accept=".jpg,. jpeg,. png">
                   <label class="label">
-                     <span class="label-text-alt text-gray-500">JPG, PNG only - Recent photo with white
-                        background</span>
+                     <span class="label-text-alt text-gray-500">PDF, JPG, PNG - Max: 5MB</span>
                   </label>
-                  @error('documents.id_photo_2x2')
+                  @error('documents.birth_certificate_copy')
                   <label class="label">
                      <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                   </label>
@@ -124,7 +125,7 @@
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  Additional Documents (Optional)
+                  Other Documents (Specify)
                </h3>
                <div id="additional-docs" class="space-y-3">
                   <!-- Dynamic docs will be added here -->

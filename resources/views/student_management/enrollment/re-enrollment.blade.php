@@ -5,9 +5,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-         <li><a href="{{ route('enrollments.index') }}">Enrollments</a></li>
-         <li>Old Student</li>
+         <li><a href="{{ route('enrollments.index') }}">Enrollment</a></li>
+         <li class="text-blue-600 font-semibold">Old Student</li>
       </ul>
    </div>
 
@@ -25,105 +24,22 @@
                   <h2 class="text-xl font-semibold">Search Student</h2>
                </div>
 
-               <form method="POST" action="{{ route('enrollments.search-students') }}" class="space-y-4">
-                  @csrf
-                  <div class="form-control">
-                     <div class="flex gap-2">
-                        <input type="text" name="query" placeholder="Enter name or LRN..."
-                           class="input input-bordered flex-1 rounded-lg focus:outline-none focus:border-blue-600"
-                           minlength="2" required>
-                        <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
-                           <svg xmlns="http://www.w3. org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                              stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                           </svg>
-                           Search
-                        </button>
+               <div class="form-control">
+                  <div class="flex gap-2">
+                     <input type="text" id="studentSearchInput" placeholder="Enter name or LRN..."
+                        class="input input-bordered flex-1 rounded-lg focus:outline-none focus:border-blue-600"
+                        minlength="2">
+                     <div id="searchSpinner" class="hidden">
+                        <span class="loading loading-spinner loading-md text-blue-600"></span>
                      </div>
                   </div>
-               </form>
-
-               <!-- Display search results -->
-               @if(isset($students) && $students->count() > 0)
-               <div class="divider"></div>
-               <div class="space-y-2 max-h-[500px] overflow-y-auto">
-                  <p class="text-sm font-medium text-gray-600 mb-3">{{ $students->count() }} {{ $students->count() === 1
-                     ? 'student' : 'students' }} found</p>
-
-                  @foreach($students as $student)
-                  @php
-                  $latestEnrollment = \App\Models\Enrollment::where('student_id',
-                  $student->id)->latest('date_enrolled')->first();
-                  $isEligible = true;
-                  $statusMessage = 'Ready for re-enrollment';
-                  $statusColor = 'badge-success';
-
-                  if ($latestEnrollment) {
-                  $billing = \App\Models\Billing::where('enrollment_id', $latestEnrollment->id)->first();
-                  if ($billing) {
-                  $totalPaid = \App\Models\Payment::where('billing_id', $billing->id)->sum('amount_paid');
-                  $remainingBalance = $billing->total_amount - $totalPaid;
-                  if ($remainingBalance > 0) {
-                  $isEligible = false;
-                  $statusMessage = 'Unpaid balance: ₱' . number_format($remainingBalance, 2);
-                  $statusColor = 'badge-error';
-                  }
-                  }
-                  }
-                  @endphp
-
-                  <button type="button"
-                     class="card bg-base-200 hover:bg-base-300 w-full text-left transition-colors cursor-pointer"
-                     onclick="selectThisStudent(
-                        {{ $student->id }}, 
-                        '{{ $student->last_name }}, {{ $student->first_name }} {{ $student->middle_name }}', 
-                        '{{ $student->learner_reference_number }}', 
-                        {{ $isEligible ? 'true' : 'false' }}, 
-                        '{{ $statusMessage }}', 
-                        {{ $latestEnrollment?->program_type_id ?? 'null' }}, 
-                        {{ $latestEnrollment?->academic_year_id ??  'null' }}
-                     )">
-                     <div class="card-body p-4">
-
-                        <div class="flex items-center gap-3">
-                           <div class="avatar placeholder">
-                              <div
-                                 class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-10">
-                                 <span class="text-sm">{{ substr($student->first_name, 0, 1) }}{{
-                                    substr($student->last_name, 0, 1) }}</span>
-                              </div>
-                           </div>
-
-                           <div>
-                              <p class="font-semibold">{{ $student->last_name }}, {{ $student->first_name }}</p>
-                              <p class="text-xs text-gray-500">LRN: {{ $student->learner_reference_number }}</p>
-                           </div>
-
-                           <div class="ms-10">
-                              <span class="badge {{ $isEligible ? 'badge-success' : 'badge-error' }} badge-sm">
-                                 {{ $isEligible ? 'Eligible' : 'Not Eligible' }}
-                              </span>
-                           </div>
-                        </div>
-
-                        @if(! $isEligible)
-                        <p class="text-xs text-error mt-2">{{ $statusMessage }}</p>
-                        @endif
-                     </div>
-                  </button>
-                  @endforeach
+                  <label class="label">
+                     <span class="label-text-alt text-gray-500">Type at least 2 characters to search</span>
+                  </label>
                </div>
-               @elseif(request()->filled('query'))
-               <div class="alert alert-neutral mt-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     class="stroke-current shrink-0 w-6 h-6">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <span>No students found matching "{{ request('query') }}"</span>
-               </div>
-               @endif
+
+               <!-- Display search results (dynamically loaded) -->
+               <div id="searchResults"></div>
             </div>
          </div>
       </div>
@@ -284,149 +200,42 @@
    </div>
 </div>
 
-<script>
-   function selectThisStudent(id, name, lrn, isEligible, statusMsg, programTypeId, academicYearId) {
-   // Show student info
-   document.getElementById('studentIdInput'). value = id;
-   document. getElementById('selectedStudentName').textContent = name;
-   document. getElementById('selectedStudentLRN').textContent = lrn;
-   
-   
-   document.getElementById('studentInfo').classList.remove('hidden');
-   
-   // Update status badge
-   let badge = document.getElementById('statusBadge');
-   let statusMsgEl = document.getElementById('statusMessage');
-   
-   if (isEligible) {
-      badge. className = 'badge badge-sm badge-success';
-      badge.textContent = 'Eligible';
-      statusMsgEl.classList.add('hidden');
-   } else {
-      badge.className = 'badge badge-sm badge-error';
-      badge.textContent = 'Not Eligible';
-      statusMsgEl.textContent = statusMsg;
-      statusMsgEl.classList.remove('hidden');
-   }
-   
-   // Pre-fill program type
-   if (programTypeId) {
-      document.getElementById('programTypeSelect').value = programTypeId;
-   }
-   
-   // Enable/Disable submit button
-   document.getElementById('submitBtn').disabled = !isEligible;
-}
+<!-- Grade Repeat Confirmation Modal -->
+<dialog id="grade_repeat_modal" class="modal">
+   <div class="modal-box">
+      <h3 class="font-bold text-lg mb-4">⚠️ Same Grade Level Detected</h3>
+      <div class="alert alert-warning mb-4">
+         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+         </svg>
+         <div>
+            <p class="font-semibold">You are enrolling this student to the same grade level as the previous year.</p>
+            <p class="text-sm mt-1">This typically means the student is repeating the grade.</p>
+         </div>
+      </div>
+      
+      <p class="mb-4">Please confirm:</p>
+      <p class="font-medium mb-2">Is the student repeating <span id="repeatGradeName" class="text-blue-600"></span>?</p>
+      
+      <div class="modal-action">
+         <button type="button" onclick="grade_repeat_modal.close()" class="btn btn-ghost rounded-lg">
+            Cancel - Let me check
+         </button>
+         <button type="button" id="confirmRepeatBtn" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+            Yes, Student is Repeating
+         </button>
+      </div>
+   </div>
+   <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+   </form>
+</dialog>
 
-   // Dynamic section filtering by grade level
-   document.addEventListener('DOMContentLoaded', function() {
-      const gradeLevelSelect = document.getElementById('gradeLevelSelect');
-      const sectionSelect = document.getElementById('sectionSelect');
-      const academicYearSelect = document.getElementById('academicYearSelect');
-      const capacityIndicator = document.getElementById('capacityIndicator');
-      const capacityBadge = document. getElementById('capacityBadge');
-      const capacityText = document.getElementById('capacityText');
-      const capacityStatus = document.getElementById('capacityStatus');
-      
-      // When grade level changes, fetch sections
-      gradeLevelSelect. addEventListener('change', function() {
-         const gradeLevelId = this.value;
-         const academicYearId = academicYearSelect.value;
-         
-         if (! gradeLevelId || !academicYearId) {
-            sectionSelect.innerHTML = '<option value="">Select Grade Level and School Year First</option>';
-            capacityIndicator.classList.add('hidden');
-            return;
-         }
-         
-         // Show loading
-         sectionSelect.innerHTML = '<option value="">Loading sections...</option>';
-         sectionSelect.disabled = true;
-         capacityIndicator.classList. add('hidden');
-         
-         // Fetch sections via AJAX
-         fetch(`{{ route('enrollments.sections-by-grade') }}?grade_level_id=${gradeLevelId}&academic_year_id=${academicYearId}`)
-            .then(response => response.json())
-            . then(data => {
-               sectionSelect.innerHTML = '<option value="">Select Section</option>';
-               
-               if (data.length === 0) {
-                  sectionSelect.innerHTML += '<option value="">No sections available</option>';
-               } else {
-                  data. forEach(section => {
-                     const option = document.createElement('option');
-                     option.value = section.id;
-                     option.textContent = section.display;
-                     option.dataset.capacity = section.capacity;
-                     option.dataset.enrolled = section.enrolled;
-                     option.dataset.available = section.available;
-                     option.dataset.status = section.status;
-                     option.dataset.color = section. color;
-                     
-                     if (section.status === 'full') {
-                        option.disabled = true;
-                        option. textContent += ' - FULL';
-                     }
-                     
-                     sectionSelect. appendChild(option);
-                  });
-               }
-               
-               sectionSelect.disabled = false;
-            })
-            .catch(error => {
-               console.error('Error fetching sections:', error);
-               sectionSelect.innerHTML = '<option value="">Error loading sections</option>';
-               sectionSelect.disabled = false;
-            });
-      });
-      
-      // Also trigger when academic year changes
-      academicYearSelect.addEventListener('change', function() {
-         if (gradeLevelSelect.value) {
-            gradeLevelSelect.dispatchEvent(new Event('change'));
-         }
-      });
-      
-      // When section changes, show capacity indicator
-      sectionSelect. addEventListener('change', function() {
-         const selectedOption = this.options[this.selectedIndex];
-         
-         if (! selectedOption. value) {
-            capacityIndicator.classList.add('hidden');
-            return;
-         }
-         
-         const capacity = selectedOption.dataset.capacity;
-         const enrolled = selectedOption. dataset.enrolled;
-         const available = selectedOption.dataset.available;
-         const status = selectedOption. dataset.status;
-         const color = selectedOption.dataset.color;
-         
-         // Update status text
-         if (status === 'full') {
-            capacityStatus.textContent = 'Section Full';
-         } else if (status === 'almost-full') {
-            capacityStatus.textContent = 'Almost Full - Limited Slots';
-         } else {
-            capacityStatus.textContent = 'Section Available';
-         }
-         
-         // Update badge
-         capacityBadge.className = `badge badge-sm badge-${color} mr-2`;
-         capacityBadge.textContent = status === 'full' ? 'FULL' : status === 'almost-full' ?  'Almost Full' : 'Available';
-         
-         // Update text
-         capacityText.innerHTML = `<strong>${enrolled}/${capacity}</strong> enrolled • <strong>${available}</strong> slots remaining`;
-         
-         // Update alert color
-         const alertDiv = capacityIndicator;
-         alertDiv.className = `alert alert-${color === 'error' ? 'error' : color === 'warning' ? 'warning' : 'success'}`;
-         
-         // Show indicator
-         capacityIndicator.classList.remove('hidden');
-      });
-   });
-</script>
+<!-- Hidden inputs for JavaScript -->
+<input type="hidden" id="searchStudentsUrl" value="{{ route('enrollments.search-students') }}">
+<input type="hidden" id="sectionsUrl" value="{{ route('enrollments.sections-by-grade') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script src="{{ asset('js/re-enrollment.js') }}"></script>
 
 @endsection

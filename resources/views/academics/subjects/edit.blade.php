@@ -4,9 +4,9 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Academics</a></li>
-         <li><a href="{{route('subjects.index')}}">Subjects</a></li>
-         <li><a>Edit Subject</a></li>
+         <li><a href="{{route('subjects.index')}}">Academics</a></li>
+         <li><a>Subjects</a></li>
+         <li class="text-blue-600 font-semibold">Edit</li>
       </ul>
    </div>
 

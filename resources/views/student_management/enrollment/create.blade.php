@@ -4,9 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{route('enrollments.index')}}">Enrollment</a></li>
-         <li><a>Enroll Student</a></li>
+         <li><a href="{{ route('enrollments.index') }}">Enrollment</a></li>
+         <li class="text-blue-600 font-semibold">New  Enrollment</li>
       </ul>
    </div>
 
@@ -25,7 +24,7 @@
          <div class="flex items-center gap-3">
             <div class="avatar placeholder">
                <div class="bg-blue-600 text-blue-600-content flex justify-center items-center rounded-full w-12">
-                  <span class="text-xl">{{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1)
+                  <span class="text-xl text-white font-semibold">{{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1)
                      }}</span>
                </div>
             </div>

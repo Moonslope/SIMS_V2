@@ -4,21 +4,15 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{ route('students.index') }}">All Students</a></li>
-         <li><a href="{{ route('students.student-profile', $student->id) }}">Student Profile</a></li>
-         <li>Edit</li>
+         <li><a href="{{ route('students.index') }}">Student Management</a></li>
+         <li><a>Students</a></li>
+         <li><a href="{{ route('students.student-profile', $student->id) }}">Profile</a></li>
+         <li class="text-blue-600 font-semibold">Edit</li>
       </ul>
    </div>
 
    <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Edit Student Profile</h1>
-      <a href="{{ route('students.student-profile', $student->id) }}" class="btn btn-sm btn-ghost text-base-300 me-3 rounded-lg">
-         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-         </svg>
-         Back to Profile
-      </a>
    </div>
 
    @if(session('error'))
@@ -139,7 +133,7 @@
                      <span class="label-text font-medium">Gender <span class="text-error">*</span></span>
                   </label>
                   <select name="gender" class="select select-bordered rounded-lg w-full @error('gender') select-error @enderror" required>
-                     <option value="">Select Gender</option>
+                     <option value="" disabled>Select Gender</option>
                      <option value="male" {{ old('gender', $student->gender) == 'male' ? 'selected' : '' }}>Male</option>
                      <option value="female" {{ old('gender', $student->gender) == 'female' ? 'selected' : '' }}>Female</option>
                   </select>
@@ -322,9 +316,13 @@
                      <label class="label">
                         <span class="label-text font-medium">Relationship <span class="text-error">*</span></span>
                      </label>
-                     <input type="text" name="guardians[{{ $index }}][relationship]" 
-                        class="input input-bordered rounded-lg w-full @error("guardians.{$index}.relationship") input-error @enderror"
-                        value="{{ old("guardians.{$index}.relationship", $guardian->relationship) }}" required>
+                     <select name="guardians[{{ $index }}][relationship]" 
+                        class="select select-bordered rounded-lg w-full @error("guardians.{$index}.relationship") select-error @enderror" required>
+                        <option value="" disabled>Select Relationship</option>
+                        <option value="Father" {{ old("guardians.{$index}.relationship", $guardian->relationship) == 'Father' ? 'selected' : '' }}>Father</option>
+                        <option value="Mother" {{ old("guardians.{$index}.relationship", $guardian->relationship) == 'Mother' ? 'selected' : '' }}>Mother</option>
+                        <option value="Guardian" {{ old("guardians.{$index}.relationship", $guardian->relationship) == 'Guardian' ? 'selected' : '' }}>Guardian</option>
+                     </select>
                      @error("guardians.{$index}.relationship")
                      <label class="label">
                         <span class="label-text-alt text-error text-sm">{{ $message }}</span>
@@ -384,13 +382,10 @@
 
       <!-- Action Buttons -->
       <div class="flex justify-end gap-3">
-         <a href="{{ route('students.student-profile', $student->id) }}" class="btn btn-ghost rounded-lg">
+         <a href="{{ route('students.student-profile', $student->id) }}" class="btn btn-ghost btn-sm rounded-lg">
             Cancel
          </a>
-         <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
+         <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg btn-sm">
             Update Profile
          </button>
       </div>

@@ -42,7 +42,7 @@
             </form>
 
             <a href="{{route('announcements.create')}}"
-               class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700 w-full sm:w-auto gap-2">
+               class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700-focus w-full sm:w-auto gap-2">
                <i class="fi fi-sr-plus-small text-lg pt-1"></i>
                <span>Create New</span>
             </a>

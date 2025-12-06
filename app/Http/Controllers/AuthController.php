@@ -23,7 +23,7 @@ class AuthController extends Controller
             // Check the user's role
             $user = Auth::user();
 
-            if ($user->role === 'admin') {
+            if ($user->role === 'admin' || $user->role === 'cashier' || $user->role === 'registrar') {
                 return redirect()->route('dashboard')->with('login_success', true);
             }
 

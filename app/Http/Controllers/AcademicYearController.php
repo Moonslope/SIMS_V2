@@ -32,7 +32,8 @@ class AcademicYearController extends Controller
      */
     public function create()
     {
-        return view('system.academic_year.add');
+        $activeYear = AcademicYear::where('is_active', true)->first();
+        return view('system.academic_year.add', compact('activeYear'));
     }
 
     /**
@@ -41,6 +42,12 @@ class AcademicYearController extends Controller
     public function store(Request $request, AcademicYearRequest $academicYearRequest)
     {
         $validated = $academicYearRequest->validated();
+        
+        // If setting this year as active, deactivate all other years
+        if (isset($validated['is_active']) && $validated['is_active']) {
+            AcademicYear::where('is_active', true)->update(['is_active' => false]);
+        }
+        
         $academicYear = AcademicYear::create($validated);
 
         // Log activity
@@ -63,7 +70,8 @@ class AcademicYearController extends Controller
      */
     public function edit(AcademicYear $academicYear)
     {
-        return view('system.academic_year.edit', compact('academicYear'));
+        $activeYear = AcademicYear::where('is_active', true)->where('id', '!=', $academicYear->id)->first();
+        return view('system.academic_year.edit', compact('academicYear', 'activeYear'));
     }
 
     /**
@@ -73,6 +81,14 @@ class AcademicYearController extends Controller
     {
         $oldYearName = $academicYear->year_name;
         $updated_data = $academicYearRequest->validated();
+        
+        // If setting this year as active, deactivate all other years
+        if (isset($updated_data['is_active']) && $updated_data['is_active']) {
+            AcademicYear::where('id', '!=', $academicYear->id)
+                ->where('is_active', true)
+                ->update(['is_active' => false]);
+        }
+        
         $academicYear->update($updated_data);
 
         // Log activity

@@ -653,12 +653,13 @@ class EnrollmentController extends Controller
         // Active academic year drives who is eligible to show up for re-enrollment
         $activeAcademicYear = AcademicYear::where('is_active', true)->first();
 
-        // Base student search
+        // Base student search (case-insensitive)
+        $searchLower = strtolower("%{$query}%");
         $studentsQuery = Student::query()
-            ->where(function ($q) use ($query) {
-                $q->where('learner_reference_number', 'LIKE', "%{$query}%")
-                    ->orWhere('first_name', 'LIKE', "%{$query}%")
-                    ->orWhere('last_name', 'LIKE', "%{$query}%");
+            ->where(function ($q) use ($searchLower) {
+                $q->whereRaw('LOWER(learner_reference_number) LIKE ?', [$searchLower])
+                    ->orWhereRaw('LOWER(first_name) LIKE ?', [$searchLower])
+                    ->orWhereRaw('LOWER(last_name) LIKE ?', [$searchLower]);
             });
 
         // Exclude students already enrolled in the active academic year
@@ -673,20 +674,42 @@ class EnrollmentController extends Controller
             ->limit(10)
             ->get();
 
-        // Keep passing data to the same view
-        $academicYears = AcademicYear::orderBy('year_name', 'desc')->get();
-        $gradeLevels = GradeLevel::where('is_active', true)->get();
-        $sections = Section::where('is_active', true)->get();
-        $programTypes = ProgramType::where('is_active', true)->get();
+        // Format students for JSON response
+        $formattedStudents = $students->map(function ($student) {
+            $latestEnrollment = Enrollment::where('student_id', $student->id)
+                ->latest('date_enrolled')
+                ->first();
+            
+            $isEligible = true;
+            $statusMessage = 'Ready for re-enrollment';
+            
+            if ($latestEnrollment) {
+                $billing = Billing::where('enrollment_id', $latestEnrollment->id)->first();
+                if ($billing) {
+                    $totalPaid = Payment::where('billing_id', $billing->id)->sum('amount_paid');
+                    $remainingBalance = $billing->total_amount - $totalPaid;
+                    if ($remainingBalance > 0) {
+                        $isEligible = false;
+                        $statusMessage = 'Unpaid balance: ₱' . number_format($remainingBalance, 2);
+                    }
+                }
+            }
 
-        return view('student_management.enrollment.re-enrollment', compact(
-            'students',
-            'academicYears',
-            'gradeLevels',
-            'sections',
-            'programTypes',
-            'activeAcademicYear'
-        ));
+            return [
+                'id' => $student->id,
+                'name' => "{$student->last_name}, {$student->first_name} " . ($student->middle_name ?? ''),
+                'lrn' => $student->learner_reference_number,
+                'is_eligible' => $isEligible,
+                'status_message' => $statusMessage,
+                'program_type_id' => $latestEnrollment?->program_type_id,
+                'academic_year_id' => $latestEnrollment?->academic_year_id,
+                'grade_level_id' => $latestEnrollment?->grade_level_id,
+            ];
+        });
+
+        return response()->json([
+            'students' => $formattedStudents
+        ]);
     }
 
     /**
@@ -780,7 +803,6 @@ class EnrollmentController extends Controller
         // Get fee structures and create billing
         $feeStructures = FeeStructure::where('grade_level_id', $validated['grade_level_id'])
             ->where('program_type_id', $validated['program_type_id'])
-            ->where('academic_year_id', $academicYear->id)
             ->where('is_active', true)
             ->get();
 

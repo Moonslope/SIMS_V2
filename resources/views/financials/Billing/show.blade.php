@@ -9,9 +9,8 @@ $remainingBalance = $billing->total_amount - $totalPaid;
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Financial</a></li>
-         <li><a href="{{route('billings.index')}}">Billing</a></li>
-         <li><a>Bill Details</a></li>
+         <li><a href="{{route('billings.index')}}">Financials</a></li>
+         <li class="text-blue-600 font-semibold">Details</li>
       </ul>
    </div>
 
@@ -25,7 +24,7 @@ $remainingBalance = $billing->total_amount - $totalPaid;
          <div class="flex items-center gap-3 mb-4">
             <div class="avatar placeholder">
                <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-12">
-                  <span class="text-xl">
+                  <span class="text-xl text-white font-semibold">
                      {{ substr($billing->enrollment->student->first_name, 0, 1) }}{{
                      substr($billing->enrollment->student->last_name, 0, 1) }}
                   </span>

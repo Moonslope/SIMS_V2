@@ -22,11 +22,9 @@ class RegularStudentStep3Request extends FormRequest
     public function rules(): array
     {
         return [
-            'documents.birth_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documents.report_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documents.good_moral' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documents.id_photo_1x1' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'documents.id_photo_2x2' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'documents.form_137' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'documents.certification' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'documents.birth_certificate_copy' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'documents.additional' => 'nullable|array',
             'documents.additional.*.type' => 'nullable|string|max:255',
             'documents.additional.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
@@ -39,25 +37,17 @@ class RegularStudentStep3Request extends FormRequest
     public function messages(): array
     {
         return [
-            'documents.birth_certificate.file' => 'The birth certificate must be a file.',
-            'documents.birth_certificate.mimes' => 'The birth certificate must be a PDF, JPG, JPEG, or PNG file.',
-            'documents.birth_certificate.max' => 'The birth certificate must not exceed 5MB.',
+            'documents.form_137.file' => 'Form 137 must be a file.',
+            'documents.form_137.mimes' => 'Form 137 must be a PDF, JPG, JPEG, or PNG file.',
+            'documents.form_137.max' => 'Form 137 must not exceed 5MB.',
 
-            'documents.report_card.file' => 'The report card must be a file.',
-            'documents.report_card.mimes' => 'The report card must be a PDF, JPG, JPEG, or PNG file.',
-            'documents.report_card.max' => 'The report card must not exceed 5MB.',
+            'documents.certification.file' => 'The certification must be a file.',
+            'documents.certification.mimes' => 'The certification must be a PDF, JPG, JPEG, or PNG file.',
+            'documents.certification.max' => 'The certification must not exceed 5MB.',
 
-            'documents.good_moral.file' => 'The good moral certificate must be a file.',
-            'documents.good_moral.mimes' => 'The good moral certificate must be a PDF, JPG, JPEG, or PNG file.',
-            'documents.good_moral.max' => 'The good moral certificate must not exceed 5MB.',
-
-            'documents.id_photo_1x1.image' => 'The 1x1 ID photo must be an image.',
-            'documents.id_photo_1x1.mimes' => 'The 1x1 ID photo must be a JPG, JPEG, or PNG file.',
-            'documents.id_photo_1x1.max' => 'The 1x1 ID photo must not exceed 2MB.',
-
-            'documents.id_photo_2x2.image' => 'The 2x2 ID photo must be an image.',
-            'documents.id_photo_2x2.mimes' => 'The 2x2 ID photo must be a JPG, JPEG, or PNG file.',
-            'documents.id_photo_2x2.max' => 'The 2x2 ID photo must not exceed 2MB.',
+            'documents.birth_certificate_copy.file' => 'The photocopy of birth certificate must be a file.',
+            'documents.birth_certificate_copy.mimes' => 'The photocopy of birth certificate must be a PDF, JPG, JPEG, or PNG file.',
+            'documents.birth_certificate_copy.max' => 'The photocopy of birth certificate must not exceed 5MB.',
 
             'documents.additional.array' => 'Additional documents must be an array.',
 

@@ -4,8 +4,10 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Registration</a></li>
-         <li><a>Enrollment Form</a></li>
+         <li><a>Enrollment</a></li>
+         <li><a>New Student</a></li>
+         <li><a>Regular</a></li>
+         <li class="text-blue-600 font-semibold">Student Information</li>
       </ul>
    </div>
 
@@ -41,7 +43,7 @@
             </label>
             <input name="learner_reference_number" type="text"
                class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('learner_reference_number') input-error @enderror"
-               value="{{ old('learner_reference_number', session('student_registration. learner_reference_number')) }}"
+               value="{{ old('learner_reference_number', session('student_registration.learner_reference_number')) }}"
                placeholder="Enter 12-digit LRN">
             @error('learner_reference_number')
             <label class="label">
@@ -75,7 +77,7 @@
                </label>
                <input name="middle_name" type="text"
                   class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('middle_name') input-error @enderror"
-                  value="{{ old('middle_name', session('student_registration. middle_name')) }}"
+                  value="{{ old('middle_name', session('student_registration.middle_name')) }}"
                   placeholder="Enter middle name">
                @error('middle_name')
                <label class="label">

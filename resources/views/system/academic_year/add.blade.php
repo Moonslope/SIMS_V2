@@ -86,6 +86,78 @@
       </form>
    </div>
 
+   </div>
+
+   <!-- Active Year Confirmation Modal -->
+   @if($activeYear)
+   <dialog id="activeYearModal" class="modal">
+      <div class="modal-box">
+         <h3 class="font-bold text-lg mb-4">Change Active Academic Year?</h3>
+         <div class="alert alert-warning alert-soft mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div>
+               <p class="font-semibold">There is already an active academic year.</p>
+            </div>
+         </div>
+         
+         <p class="mb-4">Setting this as active will automatically deactivate academic year <strong>{{ $activeYear->year_name }}</strong>.</p>
+
+         <div class="divider"></div>
+         <div class="modal-action">
+            <button type="button" id="cancelActiveBtn" class="btn btn-sm btn-ghost rounded-lg">
+               Cancel
+            </button>
+            <button type="button" id="confirmActiveBtn" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+               Yes, Set as Active
+            </button>
+         </div>
+      </div>
+   </dialog>
+
+   <script>
+      document.addEventListener('DOMContentLoaded', function() {
+         const isActiveCheckbox = document.querySelector('input[name="is_active"][type="checkbox"]');
+         const form = document.querySelector('form');
+         const modal = document.getElementById('activeYearModal');
+         
+         @if($activeYear)
+         let confirmationNeeded = false;
+         
+         if (isActiveCheckbox) {
+            isActiveCheckbox.addEventListener('change', function() {
+               if (this.checked) {
+                  // Show confirmation modal
+                  confirmationNeeded = true;
+                  modal.showModal();
+               }
+            });
+         }
+         
+         // Handle modal buttons
+         document.getElementById('cancelActiveBtn').addEventListener('click', function() {
+            isActiveCheckbox.checked = false;
+            confirmationNeeded = false;
+            modal.close();
+         });
+         
+         document.getElementById('confirmActiveBtn').addEventListener('click', function() {
+            confirmationNeeded = false;
+            modal.close();
+         });
+         
+         // Intercept form submission if checkbox is checked but not confirmed
+         form.addEventListener('submit', function(e) {
+            if (isActiveCheckbox.checked && confirmationNeeded) {
+               e.preventDefault();
+               modal.showModal();
+            }
+         });
+         @endif
+      });
+   </script>
+   @endif
 </div>
 
 <script type="module" src="https://unpkg.com/cally"></script>

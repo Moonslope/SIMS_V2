@@ -5,7 +5,7 @@
    <div class="breadcrumbs text-xs">
       <ul>
          <li><a href="{{ route('students.index') }}">Student Management</a></li>
-         <li><a>Archived Students</a></li>
+         <li class="text-blue-600 font-semibold">Archived Students</li>
       </ul>
    </div>
 

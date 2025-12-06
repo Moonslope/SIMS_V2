@@ -4,9 +4,9 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Billing</a></li>
-         <li><a href="{{route('fee-structures.index')}}">Fee Structure</a></li>
-         <li><a>Edit Fee</a></li>
+         <li><a href="{{route('fee-structures.index')}}">Financials</a></li>
+         <li><a>Fee Structure</a></li>
+         <li class="text-blue-600 font-semibold">Edit</li>
       </ul>
    </div>
 

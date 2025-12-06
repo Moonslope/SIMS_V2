@@ -4,9 +4,10 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{ route('students.index') }}">Students</a></li>
-         <li><a>SPED Registration</a></li>
+         <li><a>Enrollment</a></li>
+         <li><a>New Student</a></li>
+         <li><a>SPED</a></li>
+         <li class="text-blue-600 font-semibold">Guardian Information</li>
       </ul>
    </div>
 

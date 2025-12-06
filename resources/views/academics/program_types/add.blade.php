@@ -4,9 +4,9 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Academics</a></li>
-         <li><a href="{{route('program-types.index')}}">Program Types</a></li>
-         <li><a>Create New Program Type</a></li>
+         <li><a href="{{route('program-types.index')}}">Academics</a></li>
+         <li><a>Program Types</a></li>
+         <li class="text-blue-600 font-semibold">Add</li>
       </ul>
    </div>
 

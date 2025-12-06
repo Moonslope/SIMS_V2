@@ -4,8 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a>Schedules</a></li>
+         <li><a>Academics</a></li>
+         <li class="text-blue-600 font-semibold">Schedules</li>
       </ul>
    </div>
 
@@ -41,7 +41,7 @@
                   @endif
                </label>
 
-               <select name="academic_year" class="select select-sm select-bordered w-full sm:w-40"
+               <select name="academic_year" class="select select-sm select-bordered w-auto"
                   onchange="this.form.submit()">
                   <option value="all">All Academic Years</option>
                   @foreach($academicYears as $academicYear)
@@ -52,7 +52,7 @@
                   @endforeach
                </select>
 
-               <select name="grade_level" class="select select-sm select-bordered w-full sm:w-25"
+               <select name="grade_level" class="select select-sm select-bordered w-auto"
                   onchange="this.form.submit()">
                   <option value="all">All Grade Levels</option>
                   @foreach($gradeLevels as $gradeLevel)
@@ -62,7 +62,7 @@
                   @endforeach
                </select>
 
-               <select name="program_type" class="select select-sm select-bordered w-full sm:w-25"
+               <select name="program_type" class="select select-sm select-bordered w-auto"
                   onchange="this.form.submit()">
                   <option value="all">All Program Types</option>
                   @foreach($programTypes as $programType)
@@ -91,7 +91,7 @@
                <th>Subject</th>
                <th>Program</th>
                <th>Grade Level</th>
-               <th>Day</th>
+               <th>Day of the Week</th>
                <th>Time</th>
                <th>Academic Year</th>
                <th>Status</th>

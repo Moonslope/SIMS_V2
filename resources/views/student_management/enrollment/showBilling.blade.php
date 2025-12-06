@@ -4,9 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Student Management</a></li>
-         <li><a href="{{ route('enrollments.index') }}">Enrollments</a></li>
-         <li>Billing</li>
+         <li><a href="{{ route('enrollments.index') }}">Enrollment</a></li>
+         <li class="text-blue-600 font-semibold">Billing</li>
       </ul>
    </div>
 
@@ -21,7 +20,7 @@
             <div class="avatar placeholder">
                <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-12">
                   @if($enrollment->student)
-                  <span class="text-xl">{{ substr($enrollment->student->first_name, 0, 1) }}{{
+                  <span class="text-xl text-white font-semibold">{{ substr($enrollment->student->first_name, 0, 1) }}{{
                      substr($enrollment->student->last_name, 0, 1) }}</span>
                   @else
                   <span class="text-xl">?</span>

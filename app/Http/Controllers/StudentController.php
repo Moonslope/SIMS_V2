@@ -469,7 +469,8 @@ class StudentController extends Controller
 
     public function createStep2()
     {
-        if (!session('student_registration.step1')) {
+        // Allow access if step1 is complete OR if coming from review page
+        if (!session('student_registration.step1') && !session('student_registration')) {
             return redirect()->route('students.registration.step1')->with('error', 'Please complete student information first.');
         }
         return view('student_management.registration.regular.step2');
@@ -487,7 +488,8 @@ class StudentController extends Controller
 
     public function createStep3()
     {
-        if (!session('student_registration.step2')) {
+        // Allow access if step2 is complete OR if coming from review page
+        if (!session('student_registration.step2') && !session('student_registration')) {
             return redirect()->route('students.registration.step1')->with('error', 'Please complete guardian information first.');
         }
         return view('student_management.registration.regular.step3');
@@ -651,7 +653,8 @@ class StudentController extends Controller
 
     public function createSpedStep2()
     {
-        if (!session('sped_student_registration.step1')) {
+        // Allow access if step1 is complete OR if coming from review page
+        if (!session('sped_student_registration.step1') && !session('sped_student_registration')) {
             return redirect()->route('students.sped-registration.step1')->with('error', 'Please complete student information first.');
         }
         return view('student_management.registration.sped.step2');
@@ -667,7 +670,8 @@ class StudentController extends Controller
 
     public function createSpedStep3()
     {
-        if (!session('sped_student_registration.step2')) {
+        // Allow access if step2 is complete OR if coming from review page
+        if (!session('sped_student_registration.step2') && !session('sped_student_registration')) {
             return redirect()->route('students.sped-registration.step1')->with('error', 'Please complete guardian information first.');
         }
         return view('student_management.registration.sped.step3');

@@ -50,6 +50,8 @@
       <div class="flex flex-1 overflow-hidden">
          <div id="sidebar" class="w-60 bg-base-200 overflow-y-auto scrollbar-thin scrollbar-blue shrink-0">
             <ul class="menu w-full flex flex-col gap-3">
+               {{-- Dashboard: Admin, Registrar, Cashier --}}
+               @if(auth()->user()->canAccessAdminPanel())
                <li class="ms-0.5">
                   <a href="{{route('dashboard')}}"
                      class="py-2.5 {{ request()->routeIs('dashboard') ? 'active bg-blue-600 text-white' : '' }}">
@@ -58,7 +60,10 @@
                      <span>Dashboard</span>
                   </a>
                </li>
+               @endif
 
+               {{-- Student Management: Admin, Registrar, Cashier --}}
+               @if(auth()->user()->canAccessAdminPanel())
                <li>
                   <details>
                      <summary>
@@ -81,7 +86,10 @@
                      </ul>
                   </details>
                </li>
+               @endif
 
+               {{-- Enrollment: Admin, Registrar, Cashier --}}
+               @if(auth()->user()->canAccessAdminPanel())
                <li>
                   <details>
                      <summary>
@@ -117,7 +125,10 @@
                      </ul>
                   </details>
                </li>
+               @endif
 
+               {{-- Academics: Admin Only --}}
+               @if(auth()->user()->canAccessAcademics())
                <li>
                   <details>
                      <summary>
@@ -164,7 +175,10 @@
                      </ul>
                   </details>
                </li>
+               @endif
 
+               {{-- Billing & Payments: Admin, Registrar, Cashier --}}
+               @if(auth()->user()->canAccessBillingPayments())
                <li>
                   <details>
                      <summary>
@@ -172,12 +186,6 @@
                         <span class="mb-1">Financial</span>
                      </summary>
                      <ul>
-                        <li>
-                           <a href="{{route('fee-structures.index')}}"
-                              class="{{ request()->routeIs('fee-structures.*') ?  'active bg-blue-600 text-white' : '' }}">
-                              Fee Structure
-                           </a>
-                        </li>
                         <li>
                            <a href="{{route('billings.index')}}"
                               class="{{ request()->routeIs('billings.*') ? 'active bg-blue-600 text-white' : '' }}">
@@ -190,10 +198,22 @@
                               Payments
                            </a>
                         </li>
+                        {{-- Fee Structure: Admin Only --}}
+                        @if(auth()->user()->isAdmin())
+                        <li>
+                           <a href="{{route('fee-structures.index')}}"
+                              class="{{ request()->routeIs('fee-structures.*') ?  'active bg-blue-600 text-white' : '' }}">
+                              Fee Structure
+                           </a>
+                        </li>
+                        @endif
                      </ul>
                   </details>
                </li>
+               @endif
 
+               {{-- System: Admin Only --}}
+               @if(auth()->user()->canAccessSystem())
                <li>
                   <details>
                      <summary>
@@ -222,7 +242,10 @@
                      </ul>
                   </details>
                </li>
+               @endif
 
+               {{-- Activity Logs: Admin Only --}}
+               @if(auth()->user()->canAccessSystem())
                <li class="">
                   <a href="{{route('activity-logs.index')}}"
                      class="py-2.5 {{ request()->routeIs('activity-logs.*') ? 'active bg-blue-600 text-white' : '' }}">
@@ -231,6 +254,7 @@
                      <span>Activity Logs</span>
                   </a>
                </li>
+               @endif
             </ul>
          </div>
 

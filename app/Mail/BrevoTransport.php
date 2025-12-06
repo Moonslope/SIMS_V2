@@ -13,9 +13,14 @@ class BrevoTransport extends AbstractTransport
 {
    protected $api;
 
-   public function __construct(string $apiKey)
+   public function __construct(?string $apiKey)
    {
       parent::__construct();
+
+      // If no API key is provided (local development), skip initialization
+      if (!$apiKey) {
+         return;
+      }
 
       $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
       $this->api = new TransactionalEmailsApi(null, $config);

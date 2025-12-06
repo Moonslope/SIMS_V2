@@ -4,8 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a>Financial</a></li>
-         <li><a href="{{route('billings.index')}}">Billing</a></li>
+         <li><a>Financials</a></li>
+         <li class="text-blue-600 font-semibold">Billing</li>
       </ul>
    </div>
 

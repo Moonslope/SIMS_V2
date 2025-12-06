@@ -5,7 +5,7 @@
    <div class="breadcrumbs text-xs">
       <ul>
          <li><a>Student Management</a></li>
-         <li><a>All Students</a></li>
+         <li class="text-blue-600 font-semibold">Students</li>
       </ul>
    </div>
 
@@ -41,6 +41,8 @@
                </label>
             </form>
 
+            {{-- View Archived: Admin Only --}}
+            @if(auth()->user()->canEditStudents())
             <a href="{{ route('students.archived') }}"
                class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700-focus w-full sm:w-auto gap-2">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -50,6 +52,7 @@
                </svg>
                <span>View Archived</span>
             </a>
+            @endif
          </div>
       </div>
    </div>
@@ -101,6 +104,8 @@
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>
 
+                     {{-- Archive Button: Admin Only --}}
+                     @if(auth()->user()->canEditStudents())
                      <form action="{{ route('students.archive', $student->id) }}" method="POST"
                         onsubmit="return confirm('Are you sure you want to archive this student?');">
                         @csrf
@@ -115,6 +120,7 @@
                            </svg>
                         </button>
                      </form>
+                     @endif
                   </div>
                </td>
             </tr>

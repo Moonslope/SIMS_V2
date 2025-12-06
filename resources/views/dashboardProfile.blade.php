@@ -5,7 +5,7 @@
    <div class="breadcrumbs text-xs">
       <ul>
          <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-         <li>My Profile</li>
+         <li class="text-blue-600 font-semibold">Profile</li>
       </ul>
    </div>
 
@@ -13,16 +13,8 @@
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">My Profile</h1>
    </div>
 
-   <!-- Success Message -->
-   @if(session('success'))
-   <div class="alert alert-success shadow-md">
-      <svg xmlns="http://www. w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-      <span>{{ session('success') }}</span>
-   </div>
-   @endif
+   {{-- Success Message --}}
+   <x-success-alert />
 
    <form action="{{ route('profile.update') }}" method="POST" id="profileForm">
       @csrf
@@ -38,7 +30,7 @@
                      <div class="avatar placeholder">
                         <div
                            class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-20">
-                           <span class="text-3xl">{{ substr($user->first_name, 0, 1) }}{{ substr($user->last_name, 0, 1)
+                           <span class="text-3xl text-white font-semibold">{{ substr($user->first_name, 0, 1) }}{{ substr($user->last_name, 0, 1)
                               }}</span>
                         </div>
                      </div>

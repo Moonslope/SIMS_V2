@@ -23,11 +23,7 @@ class SpedStudentStep3Request extends FormRequest
     {
         return [
             'documents.birth_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documents.report_card' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documents.good_moral' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'documents.id_photo_1x1' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'documents.id_photo_2x2' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'documents.medical_certificate' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'documents.certificate_of_diagnosis' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'documents.additional' => 'nullable|array',
             'documents.additional.*.type' => 'nullable|string|max:255',
             'documents.additional.*.file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
@@ -44,25 +40,9 @@ class SpedStudentStep3Request extends FormRequest
             'documents.birth_certificate.mimes' => 'The birth certificate must be a PDF, JPG, JPEG, or PNG file.',
             'documents.birth_certificate.max' => 'The birth certificate must not exceed 5MB.',
 
-            'documents.report_card.file' => 'The report card must be a file.',
-            'documents.report_card.mimes' => 'The report card must be a PDF, JPG, JPEG, or PNG file.',
-            'documents.report_card.max' => 'The report card must not exceed 5MB.',
-
-            'documents.good_moral.file' => 'The good moral certificate must be a file.',
-            'documents.good_moral.mimes' => 'The good moral certificate must be a PDF, JPG, JPEG, or PNG file.',
-            'documents.good_moral.max' => 'The good moral certificate must not exceed 5MB.',
-
-            'documents.id_photo_1x1.image' => 'The 1x1 ID photo must be an image.',
-            'documents.id_photo_1x1.mimes' => 'The 1x1 ID photo must be a JPG, JPEG, or PNG file.',
-            'documents.id_photo_1x1.max' => 'The 1x1 ID photo must not exceed 2MB.',
-
-            'documents.id_photo_2x2.image' => 'The 2x2 ID photo must be an image.',
-            'documents.id_photo_2x2.mimes' => 'The 2x2 ID photo must be a JPG, JPEG, or PNG file.',
-            'documents.id_photo_2x2.max' => 'The 2x2 ID photo must not exceed 2MB.',
-
-            'documents.medical_certificate.file' => 'The medical certificate must be a file.',
-            'documents.medical_certificate.mimes' => 'The medical certificate must be a PDF, JPG, JPEG, or PNG file.',
-            'documents.medical_certificate.max' => 'The medical certificate must not exceed 5MB.',
+            'documents.certificate_of_diagnosis.file' => 'The certificate of diagnosis must be a file.',
+            'documents.certificate_of_diagnosis.mimes' => 'The certificate of diagnosis must be a PDF, JPG, JPEG, or PNG file.',
+            'documents.certificate_of_diagnosis.max' => 'The certificate of diagnosis must not exceed 5MB.',
 
             'documents.additional.array' => 'Additional documents must be an array.',
 

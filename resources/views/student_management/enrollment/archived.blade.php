@@ -4,8 +4,8 @@
 <div class="px-5 py-3 flex flex-col gap-4">
    <div class="breadcrumbs text-xs">
       <ul>
-         <li><a href="{{ route('enrollments.index') }}">Student Management</a></li>
-         <li><a>Archived Enrollments</a></li>
+         <li><a href="{{ route('enrollments.index') }}">Enrollment</a></li>
+         <li class="text-blue-600 font-semibold">Archived</li>
       </ul>
    </div>
 
