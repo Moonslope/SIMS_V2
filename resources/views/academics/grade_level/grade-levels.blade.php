@@ -84,13 +84,13 @@
                <td class="w-25">
                   <div class="flex gap-2">
                      <a href="{{route('grade-levels.edit', $gradeLevel->id)}}"
-                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                        class="btn btn-soft px-1 text-primary btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
                         data-tip="Edit Details">
                         <i class="fi fi-sr-pen-square text-[18px] pt-1"></i>
                      </a>
 
                      <button
-                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-white rounded-lg"
+                        class="btn btn-soft px-1 text-primary btn-xs tooltip hover:bg-primary hover:text-white rounded-lg"
                         data-tip="Delete"
                         onclick="document.getElementById('delete_modal_{{ $gradeLevel->id }}').showModal()">
                         <i class="fi fi-sr-trash text-[18px] pt-1"></i>

@@ -36,7 +36,8 @@
                <div class="card-body p-6">
                   <div class="flex flex-col items-center">
                      <div class="avatar placeholder">
-                        <div class="bg-primary flex justify-center items-center text-primary-content rounded-full w-20">
+                        <div
+                           class="bg-primary flex justify-center items-center text-primary-content rounded-full w-20">
                            <span class="text-3xl">{{ substr($user->first_name, 0, 1) }}{{ substr($user->last_name, 0, 1)
                               }}</span>
                         </div>
@@ -209,7 +210,7 @@
          <a href="{{ route('dashboard') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
             Cancel
          </a>
-         <button type="submit" id="saveBtn" class="btn btn-sm btn-primary w-35 rounded-lg px-6" disabled>
+         <button type="submit" id="saveBtn" class="btn btn-sm bg-primary text-white w-35 rounded-lg px-6" disabled>
             Save Changes
          </button>
       </div>

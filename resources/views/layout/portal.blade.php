@@ -8,9 +8,12 @@
    <link rel='stylesheet'
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-straight/css/uicons-regular-straight.css'>
    <link rel='stylesheet'
+      href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+   <link rel='stylesheet'
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
    <link rel='stylesheet'
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
    <link rel="icon" type="image/png" href="{{ asset('images/logo-f.png') }}">
    @vite('resources/css/app.css')
    <title>@yield('title')</title>
@@ -20,7 +23,6 @@
    <div class="drawer h-screen">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col h-screen">
-         <!-- Navbar -->
          <div class="navbar bg-base-100 w-full shadow sticky top-0 z-50">
             <div class="flex-none lg:hidden">
                <label for="my-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost rounded-lg">
@@ -55,70 +57,87 @@
 
          <div class="flex flex-1 overflow-hidden">
 
-            <!-- Static Sidebar for Desktop -->
             <div class="hidden lg:block w-60 bg-base-200 flex-shrink-0 overflow-y-auto">
-               <ul class="menu">
+               <ul class="menu p-4 gap-2">
                   <li class="text-[16px]">
-                     <a href="{{route('students.dashboard')}}" class="py-2.5">
-                        <i class="fi fi-ss-house-chimney text-primary me-2"></i>
+                     <a href="{{route('students.dashboard')}}"
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.dashboard') ? 'bg-primary text-white' : '' }}">
+                        <i
+                           class="fi fi-ss-house-chimney me-2 {{ request()->routeIs('students.dashboard') ? 'text-white' : 'text-primary' }}"></i>
                         <span>Dashboard</span>
                      </a>
                   </li>
+
                   <li class="text-[16px]">
-                     <a href="{{route('students.announcements')}}" class="py-2.5">
-                        <i class="fi fi-sr-bullhorn text-primary me-2"></i>
+                     <a href="{{route('students.announcements')}}"
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.announcements') ? 'bg-primary text-white' : '' }}">
+                        <i
+                           class="fi fi-sr-bullhorn me-2 {{ request()->routeIs('students.announcements') ? 'text-white' : 'text-primary' }}"></i>
                         <span>Announcement</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
-                     <a href="{{route('students.classSchedule')}}" class="py-2.5">
-                        <i class="fi fi-ss-calendar text-primary me-2"></i>
+                     <a href="{{route('students.classSchedule')}}"
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.classSchedule') ? 'bg-primary text-white' : '' }}">
+                        <i
+                           class="fi fi-ss-calendar me-2 {{ request()->routeIs('students.classSchedule') ? 'text-white' : 'text-primary' }}"></i>
                         <span>Class Schedule</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
-                     <a href="{{route('students.paymentHistory')}}" class="py-2.5">
-                        <i class="fi fi-sr-receipt text-primary me-2"></i>
+                     <a href="{{route('students.paymentHistory')}}"
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.paymentHistory') ? 'bg-primary text-white' : '' }}">
+                        <i
+                           class="fi fi-sr-receipt me-2 {{ request()->routeIs('students.paymentHistory') ? 'text-white' : 'text-primary' }}"></i>
                         <span>Payment History</span>
                      </a>
                   </li>
                </ul>
             </div>
 
-            <!-- Page content here -->
             <div class="flex-1 bg-base-200 overflow-y-auto scrollbar-thin scrollbar-purple">
                @yield('content')
             </div>
          </div>
       </div>
 
-      <!-- Mobile drawer sidebar -->
-      <div class="drawer-side z-60">
+      <div class="drawer-side z-50">
          <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-         <ul class="menu bg-base-200 min-h-full w-60 p-4">
+         <ul class="menu bg-base-200 min-h-full w-60 p-4 gap-2">
             <li class="text-[16px]">
-               <a href="{{route('students.dashboard')}}" class="py-2.5">
-                  <i class="fi fi-ss-house-chimney text-primary me-2"></i>
+               <a href="{{route('students.dashboard')}}"
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.dashboard') ? 'bg-primary text-white' : '' }}">
+                  <i
+                     class="fi fi-ss-house-chimney me-2 {{ request()->routeIs('students.dashboard') ? 'text-white' : 'text-primary' }}"></i>
                   <span>Dashboard</span>
                </a>
             </li>
+
             <li class="text-[16px]">
-               <a href="{{route('students.announcements')}}" class="py-2.5">
-                  <i class="fi fi-sr-bullhorn text-primary me-2"></i>
+               <a href="{{route('students.announcements')}}"
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.announcements') ? 'bg-primary text-white' : '' }}">
+                  <i
+                     class="fi fi-sr-bullhorn me-2 {{ request()->routeIs('students.announcements') ? 'text-white' : 'text-primary' }}"></i>
                   <span>Announcement</span>
                </a>
             </li>
+
             <li class="text-[16px]">
-               <a href="{{route('students.classSchedule')}}" class="py-2.5">
-                  <i class="fi fi-ss-calendar text-primary me-2"></i>
+               <a href="{{route('students.classSchedule')}}"
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.classSchedule') ? 'bg-primary text-white' : '' }}">
+                  <i
+                     class="fi fi-ss-calendar me-2 {{ request()->routeIs('students.classSchedule') ? 'text-white' : 'text-primary' }}"></i>
                   <span>Class Schedule</span>
                </a>
             </li>
+
             <li class="text-[16px]">
-               <a href="{{route('students.paymentHistory')}}" class="py-2.5">
-                  <i class="fi fi-sr-receipt text-primary me-2"></i>
+               <a href="{{route('students.paymentHistory')}}"
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.paymentHistory') ? 'bg-primary text-white' : '' }}">
+                  <i
+                     class="fi fi-sr-receipt me-2 {{ request()->routeIs('students.paymentHistory') ? 'text-white' : 'text-primary' }}"></i>
                   <span>Payment History</span>
                </a>
             </li>

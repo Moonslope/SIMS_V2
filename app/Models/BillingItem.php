@@ -14,7 +14,7 @@ class BillingItem extends Model
         'status',
         'payment_date'
     ];
-
+        
     protected $casts = [
         'payment_date' => 'date',
     ];

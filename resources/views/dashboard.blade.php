@@ -180,7 +180,8 @@
    <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-6">
          <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
-         <a href="{{ route('activity-logs.index') }}" class="text-sm text-primary hover:text-primary-focus">View All</a>
+         <a href="{{ route('activity-logs.index') }}" class="text-sm text-primary hover:text-primary-focus">View
+            All</a>
       </div>
       <div class="overflow-x-auto">
          <table class="table table-xs">

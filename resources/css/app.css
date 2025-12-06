@@ -9,6 +9,9 @@
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    
+    /* DaisyUI Primary Color Configuration */
+    --color-primary: #0d00c9;
 }
 
 @plugin "daisyui";

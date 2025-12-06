@@ -57,7 +57,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                <a href="{{route('program-types.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
-               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">
+               <button type="submit" class="btn bg-primary w-35 btn-sm rounded-lg">
                   Save
                </button>
             </div>

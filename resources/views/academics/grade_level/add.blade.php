@@ -57,7 +57,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                <a href="{{route('grade-levels.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
-               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">
+               <button type="submit" class="btn bg-primary hover:bg-primary-focus text-white w-35 btn-sm rounded-lg">
                   Save
                </button>
             </div>

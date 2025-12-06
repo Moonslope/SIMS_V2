@@ -13,6 +13,9 @@
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
    <link rel='stylesheet'
       href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+   <link rel='stylesheet'
+      href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
    <link rel="icon" type="image/png" href="{{ asset('images/logo-f.png') }}">
    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/search.js'])
    @stack('styles')
@@ -24,7 +27,7 @@
       <div class="sticky top-0 z-50 bg-base-100 shrink-0 flex justify-between items-center shadow-md">
          <div class="flex items-center py-1.5 ms-5 gap-1">
             <img src="{{ asset('images/logo-f.png') }}" alt="Logo" height="50" width="50">
-            <h1 class="text font-bold text-[#143F81]">Enrollment System</h1>
+            <h1 class="text font-bold text-primary">Enrollment System</h1>
          </div>
 
          <div>
@@ -51,7 +54,7 @@
                   <a href="{{route('dashboard')}}"
                      class="py-2.5 {{ request()->routeIs('dashboard') ? 'active bg-primary text-white' : '' }}">
                      <i
-                        class="fi fi-ss-house-chimney text-[18px]pt-1 {{ request()->routeIs('dashboard') ?  'text-white' : 'text-primary' }}"></i>
+                        class="fi fi-ss-house-chimney text-[18px] pt-1 {{ request()->routeIs('dashboard') ?  'text-white' : 'text-primary' }}"></i>
                      <span>Dashboard</span>
                   </a>
                </li>
