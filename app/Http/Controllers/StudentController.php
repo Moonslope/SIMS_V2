@@ -16,6 +16,7 @@ use App\Http\Requests\RegularStudentStep3Request;
 use App\Http\Requests\SpedStudentStep1Request;
 use App\Http\Requests\SpedStudentStep2Request;
 use App\Http\Requests\SpedStudentStep3Request;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Announcement;
 use App\Models\AcademicYear;
 use App\Models\Billing;
@@ -808,12 +809,115 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
-        //
+        $student->load(['guardians', 'spedStudentDetails']);
+        return view('student_management.students.edit', compact('student'));
     }
 
-    public function update(Request $request, Student $student)
+    public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        try {
+            // Update student information
+            $student->update($request->only([
+                'learner_reference_number',
+                'first_name',
+                'middle_name',
+                'last_name',
+                'extension_name',
+                'nickname',
+                'birthdate',
+                'birthplace',
+                'gender',
+                'nationality',
+                'spoken_dialect',
+                'other_spoken_dialect',
+                'religion',
+                'address',
+            ]));
+
+            // Update guardian information if provided
+            if ($request->has('guardians')) {
+                foreach ($request->guardians as $guardianData) {
+                    if (isset($guardianData['id'])) {
+                        // Update existing guardian
+                        $guardian = Guardian::find($guardianData['id']);
+                        if ($guardian) {
+                            $guardian->update([
+                                'first_name' => $guardianData['first_name'],
+                                'middle_name' => $guardianData['middle_name'] ?? null,
+                                'last_name' => $guardianData['last_name'],
+                                'relationship' => $guardianData['relationship'],
+                                'contact_number' => $guardianData['contact_number'],
+                                'email' => $guardianData['email'] ?? null,
+                                'address' => $guardianData['address'] ?? null,
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            // Log activity
+            ActivityLogService::log(
+                'update',
+                'Student',
+                $student->id,
+                "Updated student profile: {$student->first_name} {$student->last_name} (LRN: {$student->learner_reference_number})"
+            );
+
+            return redirect()
+                ->route('students.student-profile', $student->id)
+                ->with('success', 'Student profile updated successfully');
+        } catch (\Exception $e) {
+            return back()
+                ->withInput()
+                ->with('error', 'Failed to update student profile: ' . $e->getMessage());
+        }
+    }
+
+    public function uploadDocument(Request $request, Student $student)
+    {
+        $request->validate([
+            'document_type' => 'required|string|max:255',
+            'document_file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120', // 5MB max
+        ]);
+
+        try {
+            if ($request->hasFile('document_file')) {
+                $file = $request->file('document_file');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('student_documents', $fileName, 'public');
+
+                $document = Document::create([
+                    'student_id' => $student->id,
+                    'document_type' => $request->document_type,
+                    'document_name' => $file->getClientOriginalName(),
+                    'file_path' => $filePath,
+                ]);
+
+                // Log activity
+                ActivityLogService::log(
+                    'create',
+                    'Document',
+                    $document->id,
+                    "Uploaded document for student: {$student->first_name} {$student->last_name} (Type: {$request->document_type})"
+                );
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Document uploaded successfully',
+                    'document' => $document
+                ]);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'No file uploaded'
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to upload document: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function destroy(Student $student)

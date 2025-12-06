@@ -9,9 +9,10 @@
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    
+
     /* DaisyUI Primary Color Configuration */
-    --color-primary: #0d00c9;
+    --color-primary: #2563eb;
+    /* Pure blue - consistent across displays */
 }
 
 @plugin "daisyui";
@@ -91,4 +92,3 @@ textarea::placeholder {
     color: #5b616eca;
     opacity: 1;
 }
-

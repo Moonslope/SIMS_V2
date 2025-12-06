@@ -87,6 +87,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::get('/students/{student}/student-profile', [StudentController::class, 'studentProfile'])->name('students.student-profile');
     Route::get('/students/{student}/documents/{document}', [StudentController::class, 'viewDocument'])->name('students.view-document');
+    Route::post('/students/{student}/documents/upload', [StudentController::class, 'uploadDocument'])->name('students.upload-document');
 
     // Student Archive Routes
     Route::delete('/students/{id}/archive', [StudentController::class, 'archive'])->name('students.archive');

@@ -235,10 +235,19 @@
                   <div class="w-1 h-8 bg-primary rounded"></div>
                   <h2 class="text-xl font-semibold">Documents</h2>
                </div>
-               @if($documents->count() > 0)
-               <span class="badge badge-primary">{{ $documents->count() }} {{ $documents->count() === 1 ? 'File' :
-                  'Files' }}</span>
-               @endif
+               <div class="flex items-center gap-2">
+                  @if($documents->count() > 0)
+                  <span class="badge badge-primary">{{ $documents->count() }} {{ $documents->count() === 1 ? 'File' :
+                     'Files' }}</span>
+                  @endif
+                  <button type="button" onclick="document.getElementById('upload_modal').showModal()" 
+                     class="btn btn-primary btn-sm rounded-lg">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                     </svg>
+                     Upload Document
+                  </button>
+               </div>
             </div>
 
             @if($documents->count() > 0)
@@ -318,4 +327,134 @@
       </div>
    </div>
 </div>
+
+<!-- Upload Document Modal -->
+<dialog id="upload_modal" class="modal">
+   <div class="modal-box">
+      <form method="dialog">
+         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <h3 class="font-bold text-lg mb-4">Upload Document</h3>
+      
+      <form id="uploadDocumentForm" enctype="multipart/form-data">
+         @csrf
+         <div class="space-y-4">
+            <!-- Document Type -->
+            <div class="form-control w-full">
+               <label class="label">
+                  <span class="label-text font-semibold">Document Type <span class="text-error">*</span></span>
+               </label>
+               <select name="document_type" id="document_type" required class="select select-bordered w-full rounded-lg">
+                  <option value="">Select Document Type</option>
+                  <option value="Birth Certificate">Birth Certificate</option>
+                  <option value="Report Card">Report Card</option>
+                  <option value="Transfer Credential">Transfer Credential</option>
+                  <option value="Medical Certificate">Medical Certificate</option>
+                  <option value="ID Photo">ID Photo (2x2)</option>
+                  <option value="Good Moral">Good Moral Certificate</option>
+                  <option value="Other">Other</option>
+               </select>
+               <span class="text-error text-sm hidden" id="document_type_error"></span>
+            </div>
+
+            <!-- File Upload -->
+            <div class="form-control w-full">
+               <label class="label">
+                  <span class="label-text font-semibold">Select File <span class="text-error">*</span></span>
+               </label>
+               <input type="file" name="document_file" id="document_file" required accept=".pdf,.jpg,.jpeg,.png"
+                  class="file-input file-input-bordered w-full rounded-lg" />
+               <label class="label">
+                  <span class="label-text-alt text-sm">Allowed formats: PDF, JPG, PNG (Max: 5MB)</span>
+               </label>
+               <span class="text-error text-sm hidden" id="document_file_error"></span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div id="upload_progress" class="hidden">
+               <progress class="progress progress-primary w-full" value="0" max="100" id="progress_bar"></progress>
+               <p class="text-sm text-center mt-2" id="progress_text">Uploading...</p>
+            </div>
+
+            <!-- Alert Messages -->
+            <div id="upload_alert" class="alert hidden">
+               <span id="upload_message"></span>
+            </div>
+
+            <!-- Actions -->
+            <div class="modal-action">
+               <button type="button" onclick="document.getElementById('upload_modal').close()" class="btn btn-ghost rounded-lg">
+                  Cancel
+               </button>
+               <button type="submit" id="upload_btn" class="btn btn-primary rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  </svg>
+                  Upload
+               </button>
+            </div>
+         </div>
+      </form>
+   </div>
+</dialog>
+
+<script>
+document.getElementById('uploadDocumentForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = this;
+    const formData = new FormData(form);
+    const uploadBtn = document.getElementById('upload_btn');
+    const progressDiv = document.getElementById('upload_progress');
+    const progressBar = document.getElementById('progress_bar');
+    const progressText = document.getElementById('progress_text');
+    const alertDiv = document.getElementById('upload_alert');
+    const uploadMessage = document.getElementById('upload_message');
+    
+    // Clear previous errors
+    document.getElementById('document_type_error').classList.add('hidden');
+    document.getElementById('document_file_error').classList.add('hidden');
+    alertDiv.classList.add('hidden');
+    
+    // Disable upload button
+    uploadBtn.disabled = true;
+    progressDiv.classList.remove('hidden');
+    
+    try {
+        const response = await fetch('{{ route("students.upload-document", $student->id) }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || form.querySelector('[name="_token"]').value
+            },
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alertDiv.classList.remove('hidden', 'alert-error');
+            alertDiv.classList.add('alert-success');
+            uploadMessage.textContent = result.message;
+            
+            // Reset form
+            form.reset();
+            
+            // Reload page after 1.5 seconds to show new document
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        } else {
+            throw new Error(result.message || 'Upload failed');
+        }
+    } catch (error) {
+        alertDiv.classList.remove('hidden', 'alert-success');
+        alertDiv.classList.add('alert-error');
+        uploadMessage.textContent = error.message || 'An error occurred during upload';
+        uploadBtn.disabled = false;
+    } finally {
+        progressDiv.classList.add('hidden');
+        progressBar.value = 0;
+    }
+});
+</script>
 @endsection
