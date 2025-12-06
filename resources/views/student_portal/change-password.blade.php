@@ -6,10 +6,10 @@
    <!-- Page Header -->
    <div class="my-8">
       <div class="flex items-center justify-center gap-3 mb-2">
-         <a href="{{ route('students.profile') }}" class="btn btn-circle btn-ghost text-primary">
+         <a href="{{ route('students.profile') }}" class="btn btn-circle btn-ghost text-blue-600">
             <i class="fi fi-sr-arrow-left text-xl pt-2"></i>
          </a>
-         <h1 class="text-4xl font-bold text-primary">Change Password</h1>
+         <h1 class="text-4xl font-bold text-blue-600">Change Password</h1>
       </div>
       <p class="text-gray-600 text-center">Update your account password</p>
    </div>
@@ -87,7 +87,7 @@
                      Cancel
                   </a>
 
-                  <button type="submit" class="btn btn-sm bg-primary text-white flex-1 sm:flex-none">
+                  <button type="submit" class="btn btn-sm bg-blue-600 text-white flex-1 sm:flex-none">
                      Change Password
                   </button>
 
@@ -99,29 +99,29 @@
       <!-- Password Security Tips Card -->
       <div class="card bg-[#d1ecf1] shadow-md">
          <div class="card-body">
-            <h3 class="card-title text-primary">
+            <h3 class="card-title text-blue-600">
                <i class="fi fi-sr-info"></i>
                Password Security Tips
             </h3>
             <ul class="space-y-2 text-sm mt-2">
                <li class="flex items-start gap-2">
-                  <i class="fi fi-sr-check-circle text-primary mt-0.5"></i>
+                  <i class="fi fi-sr-check-circle text-blue-600 mt-0.5"></i>
                   <span>Use at least 8 characters</span>
                </li>
                <li class="flex items-start gap-2">
-                  <i class="fi fi-sr-check-circle text-primary mt-0.5"></i>
+                  <i class="fi fi-sr-check-circle text-blue-600 mt-0.5"></i>
                   <span>Include uppercase and lowercase letters</span>
                </li>
                <li class="flex items-start gap-2">
-                  <i class="fi fi-sr-check-circle text-primary mt-0.5"></i>
+                  <i class="fi fi-sr-check-circle text-blue-600 mt-0.5"></i>
                   <span>Add numbers and special characters</span>
                </li>
                <li class="flex items-start gap-2">
-                  <i class="fi fi-sr-check-circle text-primary mt-0.5"></i>
+                  <i class="fi fi-sr-check-circle text-blue-600 mt-0.5"></i>
                   <span>Don't use common words or personal information</span>
                </li>
                <li class="flex items-start gap-2">
-                  <i class="fi fi-sr-check-circle text-primary mt-0.5"></i>
+                  <i class="fi fi-sr-check-circle text-blue-600 mt-0.5"></i>
                   <span>Don't share your password with anyone</span>
                </li>
             </ul>

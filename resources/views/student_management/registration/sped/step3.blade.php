@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - SPED</h1>
    </div>
 
@@ -32,7 +32,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Required Documents</h2>
             </div>
 
@@ -41,7 +41,7 @@
                <div class="card bg-base-200">
                   <div class="card-body p-4">
                      <div class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3.  org/2000/svg" class="h-6 w-6 text-primary flex-shrink-0 mt-1"
+                        <svg xmlns="http://www.w3.  org/2000/svg" class="h-6 w-6 text-blue-600 flex-shrink-0 mt-1"
                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -64,7 +64,7 @@
                <div class="card bg-base-200">
                   <div class="card-body p-4">
                      <div class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-primary flex-shrink-0 mt-1"
+                        <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-blue-600 flex-shrink-0 mt-1"
                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -118,7 +118,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">ID Photos</h2>
             </div>
 
@@ -157,7 +157,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-6">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Additional Documents</h2>
                </div>
                <span class="badge badge-ghost badge-sm">Optional</span>
@@ -187,7 +187,7 @@
          <a href="{{ route('students.sped-registration.step2') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
             Previous
          </a>
-         <button type="submit" class="btn btn-sm btn-primary w-35 rounded-lg px-6">
+         <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-35 rounded-lg px-6">
             Review
          </button>
       </div>

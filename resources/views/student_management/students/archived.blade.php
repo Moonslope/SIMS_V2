@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Archived Students</h1>
       <a href="{{ route('students.index') }}" class="btn btn-sm btn-ghost text-base-300 me-3 rounded-lg">
          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -87,7 +87,7 @@
                         onsubmit="return confirm('Are you sure you want to restore this student?');">
                         @csrf
                         <button type="submit"
-                           class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                           class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-base-300 rounded-lg"
                            data-tip="Restore">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                               stroke="currentColor">
@@ -102,7 +102,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit"
-                           class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                           class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-base-300 rounded-lg"
                            data-tip="Delete">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                               stroke="currentColor">

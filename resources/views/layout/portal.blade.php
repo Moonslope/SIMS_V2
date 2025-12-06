@@ -36,7 +36,7 @@
 
             <div class="mx-2 flex-1 px-2 flex items-center gap-3">
                <img src="{{ asset('images/logo-f.png') }}" alt="Profile" height="50" width="50">
-               <h1 class="text-lg font-bold text-primary">Student Portal</h1>
+               <h1 class="text-lg font-bold text-blue-600">Student Portal</h1>
             </div>
 
             <div class="dropdown dropdown-end me-3">
@@ -61,36 +61,36 @@
                <ul class="menu p-4 gap-2">
                   <li class="text-[16px]">
                      <a href="{{route('students.dashboard')}}"
-                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.dashboard') ? 'bg-primary text-white' : '' }}">
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.dashboard') ? 'bg-blue-600 text-white' : '' }}">
                         <i
-                           class="fi fi-ss-house-chimney me-2 {{ request()->routeIs('students.dashboard') ? 'text-white' : 'text-primary' }}"></i>
+                           class="fi fi-ss-house-chimney me-2 {{ request()->routeIs('students.dashboard') ? 'text-white' : 'text-blue-600' }}"></i>
                         <span>Dashboard</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
                      <a href="{{route('students.announcements')}}"
-                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.announcements') ? 'bg-primary text-white' : '' }}">
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.announcements') ? 'bg-blue-600 text-white' : '' }}">
                         <i
-                           class="fi fi-sr-bullhorn me-2 {{ request()->routeIs('students.announcements') ? 'text-white' : 'text-primary' }}"></i>
+                           class="fi fi-sr-bullhorn me-2 {{ request()->routeIs('students.announcements') ? 'text-white' : 'text-blue-600' }}"></i>
                         <span>Announcement</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
                      <a href="{{route('students.classSchedule')}}"
-                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.classSchedule') ? 'bg-primary text-white' : '' }}">
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.classSchedule') ? 'bg-blue-600 text-white' : '' }}">
                         <i
-                           class="fi fi-ss-calendar me-2 {{ request()->routeIs('students.classSchedule') ? 'text-white' : 'text-primary' }}"></i>
+                           class="fi fi-ss-calendar me-2 {{ request()->routeIs('students.classSchedule') ? 'text-white' : 'text-blue-600' }}"></i>
                         <span>Class Schedule</span>
                      </a>
                   </li>
 
                   <li class="text-[16px]">
                      <a href="{{route('students.paymentHistory')}}"
-                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.paymentHistory') ? 'bg-primary text-white' : '' }}">
+                        class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.paymentHistory') ? 'bg-blue-600 text-white' : '' }}">
                         <i
-                           class="fi fi-sr-receipt me-2 {{ request()->routeIs('students.paymentHistory') ? 'text-white' : 'text-primary' }}"></i>
+                           class="fi fi-sr-receipt me-2 {{ request()->routeIs('students.paymentHistory') ? 'text-white' : 'text-blue-600' }}"></i>
                         <span>Payment History</span>
                      </a>
                   </li>
@@ -108,36 +108,36 @@
          <ul class="menu bg-base-200 min-h-full w-60 p-4 gap-2">
             <li class="text-[16px]">
                <a href="{{route('students.dashboard')}}"
-                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.dashboard') ? 'bg-primary text-white' : '' }}">
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.dashboard') ? 'bg-blue-600 text-white' : '' }}">
                   <i
-                     class="fi fi-ss-house-chimney me-2 {{ request()->routeIs('students.dashboard') ? 'text-white' : 'text-primary' }}"></i>
+                     class="fi fi-ss-house-chimney me-2 {{ request()->routeIs('students.dashboard') ? 'text-white' : 'text-blue-600' }}"></i>
                   <span>Dashboard</span>
                </a>
             </li>
 
             <li class="text-[16px]">
                <a href="{{route('students.announcements')}}"
-                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.announcements') ? 'bg-primary text-white' : '' }}">
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.announcements') ? 'bg-blue-600 text-white' : '' }}">
                   <i
-                     class="fi fi-sr-bullhorn me-2 {{ request()->routeIs('students.announcements') ? 'text-white' : 'text-primary' }}"></i>
+                     class="fi fi-sr-bullhorn me-2 {{ request()->routeIs('students.announcements') ? 'text-white' : 'text-blue-600' }}"></i>
                   <span>Announcement</span>
                </a>
             </li>
 
             <li class="text-[16px]">
                <a href="{{route('students.classSchedule')}}"
-                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.classSchedule') ? 'bg-primary text-white' : '' }}">
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.classSchedule') ? 'bg-blue-600 text-white' : '' }}">
                   <i
-                     class="fi fi-ss-calendar me-2 {{ request()->routeIs('students.classSchedule') ? 'text-white' : 'text-primary' }}"></i>
+                     class="fi fi-ss-calendar me-2 {{ request()->routeIs('students.classSchedule') ? 'text-white' : 'text-blue-600' }}"></i>
                   <span>Class Schedule</span>
                </a>
             </li>
 
             <li class="text-[16px]">
                <a href="{{route('students.paymentHistory')}}"
-                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.paymentHistory') ? 'bg-primary text-white' : '' }}">
+                  class="py-2.5 rounded-lg transition-colors {{ request()->routeIs('students.paymentHistory') ? 'bg-blue-600 text-white' : '' }}">
                   <i
-                     class="fi fi-sr-receipt me-2 {{ request()->routeIs('students.paymentHistory') ? 'text-white' : 'text-primary' }}"></i>
+                     class="fi fi-sr-receipt me-2 {{ request()->routeIs('students.paymentHistory') ? 'text-white' : 'text-blue-600' }}"></i>
                   <span>Payment History</span>
                </a>
             </li>

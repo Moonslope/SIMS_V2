@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Users</h1>
    </div>
 
@@ -32,7 +32,7 @@
             </form>
 
             <a href="{{route('users.create')}}"
-               class="btn bg-primary text-base-300 btn-sm rounded-lg hover:bg-primary-focus w-full sm:w-auto gap-2">
+               class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700-focus w-full sm:w-auto gap-2">
                <i class="fi fi-sr-plus-small text-lg pt-1"></i>
                <span>Create New</span>
             </a>
@@ -70,13 +70,13 @@
                <td class=" w-38">
                   <div class="flex gap-2">
                      <a href="{{route('users.edit', $user->id)}}"
-                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                        class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-base-300 rounded-lg"
                         data-tip="Edit Details">
                         <i class="fi fi-sr-pen-square text-[18px] pt-1"></i>
                      </a>
 
                      <button
-                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-white rounded-lg"
+                        class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-white rounded-lg"
                         data-tip="Delete" onclick="document.getElementById('delete_modal_{{ $user->id }}').showModal()">
                         <i class="fi fi-sr-trash text-[18px] pt-1"></i>
                      </button>

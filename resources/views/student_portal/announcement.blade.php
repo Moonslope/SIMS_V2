@@ -4,7 +4,7 @@
 
 <div class="px-5">
    <div class="my-12">
-      <h1 class="text-4xl font-bold text-primary mb-2 text-center">Announcements</h1>
+      <h1 class="text-4xl font-bold text-blue-600 mb-2 text-center">Announcements</h1>
       <p class="text-gray-600 text-center">Stay updated with the latest school announcements</p>
    </div>
 
@@ -15,19 +15,19 @@
             <!-- Header -->
             <div class="flex justify-between items-start gap-4">
                <div class="flex-1">
-                  <h2 class="card-title text-primary mb-2">{{ $announcement->title }}</h2>
+                  <h2 class="card-title text-blue-600 mb-2">{{ $announcement->title }}</h2>
                   <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-gray-600">
                      <div class="flex items-center gap-1">
-                        <i class="fi fi-sr-calendar text-primary"></i>
+                        <i class="fi fi-sr-calendar text-blue-600"></i>
                         <span>{{ $announcement->announcement_date->format('M d, Y') }}</span>
                      </div>
                      <div class="flex items-center gap-1">
-                        <i class="fi fi-sr-user text-primary"></i>
+                        <i class="fi fi-sr-user text-blue-600"></i>
                         <span>{{ $announcement->publisher->first_name ?? 'Admin' }} {{
                            $announcement->publisher->last_name ?? '' }}</span>
                      </div>
                      <div class="flex items-center gap-1">
-                        <i class="fi fi-sr-clock text-primary"></i>
+                        <i class="fi fi-sr-clock text-blue-600"></i>
                         <span>{{ $announcement->created_at->diffForHumans() }}</span>
                      </div>
                   </div>
@@ -41,7 +41,7 @@
 
             <!-- View More Link -->
             <div class="card-actions justify-end mt-4">
-               <button class="btn bg-primary btn-sm text-white"
+               <button class="btn bg-blue-600 btn-sm text-white"
                   onclick="document.getElementById('announcement_modal_{{ $announcement->id }}').showModal()">
                   View Full Announcement
                </button>
@@ -53,7 +53,7 @@
       <dialog id="announcement_modal_{{ $announcement->id }}" class="modal">
          <div class="modal-box w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-start mb-4">
-               <h3 class="font-bold text-lg text-primary">{{ $announcement->title }}</h3>
+               <h3 class="font-bold text-lg text-blue-600">{{ $announcement->title }}</h3>
                <form method="dialog">
                   <button class="btn btn-sm btn-circle btn-ghost">✕</button>
                </form>

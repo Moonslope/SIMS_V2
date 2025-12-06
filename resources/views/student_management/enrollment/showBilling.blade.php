@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Billing</h1>
    </div>
 
@@ -19,7 +19,7 @@
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
             <div class="avatar placeholder">
-               <div class="bg-primary flex justify-center items-center text-primary-content rounded-full w-12">
+               <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-12">
                   @if($enrollment->student)
                   <span class="text-xl">{{ substr($enrollment->student->first_name, 0, 1) }}{{
                      substr($enrollment->student->last_name, 0, 1) }}</span>
@@ -76,10 +76,10 @@
             <div class="card-body p-6">
                <div class="flex items-center justify-between mb-4">
                   <div class="flex items-center gap-3">
-                     <div class="w-1 h-8 bg-primary rounded"></div>
+                     <div class="w-1 h-8 bg-blue-600 rounded"></div>
                      <h2 class="text-xl font-semibold">Billing Statement</h2>
                   </div>
-                  <button class="btn btn-sm btn-outline btn-primary rounded-lg" onclick="window.print()">
+                  <button class="btn btn-sm btn-outline bg-blue-600 hover:bg-blue-700 text-white rounded-lg" onclick="window.print()">
                      <svg xmlns="http://www.w3. org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -142,7 +142,7 @@
          <div class="card bg-base-100 shadow-md rounded-lg">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Record Payment</h2>
                </div>
 
@@ -162,7 +162,7 @@
                            $totalPaid, 2) }}</span> --}}
                      </label>
                      <input type="number" name="amount_paid"
-                        class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('amount_paid') input-error @enderror"
+                        class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('amount_paid') input-error @enderror"
                         step="0.01" min="0.01" max="{{ $billing->total_amount - $totalPaid }}" placeholder="0.00"
                         required>
                      @error('amount_paid')
@@ -179,7 +179,7 @@
                         <span class="label-text-alt text-gray-500">(Optional)</span>
                      </label>
                      <textarea name="description" rows="3"
-                        class="textarea textarea-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('description') textarea-error @enderror"
+                        class="textarea textarea-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('description') textarea-error @enderror"
                         placeholder="Add payment notes... "></textarea>
                      @error('description')
                      <label class="label">
@@ -196,7 +196,7 @@
                      <a href="{{ route('enrollments.index') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                         Cancel
                      </a>
-                     <button type="submit" class="btn btn-sm btn-primary rounded-lg px-6">
+                     <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                            stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -228,7 +228,7 @@
          <div class="card bg-base-100 shadow-md rounded-lg sticky top-4">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Payment Summary</h2>
                </div>
 

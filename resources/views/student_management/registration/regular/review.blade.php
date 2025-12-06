@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - Regular</h1>
    </div>
 
@@ -25,7 +25,7 @@
 
    <div class="rounded-lg bg-base-100 shadow-md p-8">
       <div class="flex items-center gap-3 mb-6">
-         <div class="w-1 h-8 bg-primary rounded"></div>
+         <div class="w-1 h-8 bg-blue-600 rounded"></div>
          <h2 class="text-2xl font-semibold">Review & Confirm Registration</h2>
       </div>
 
@@ -112,7 +112,7 @@
                   @if(isset($registrationData['guardians']) && is_array($registrationData['guardians']))
                   @foreach($registrationData['guardians'] as $index => $guardian)
                   <div class="mb-6 {{ $index > 0 ? 'border-t pt-4' : '' }}">
-                     <h4 class="font-semibold text-sm mb-3 text-primary">Guardian #{{ $index + 1 }}</h4>
+                     <h4 class="font-semibold text-sm mb-3 text-blue-600">Guardian #{{ $index + 1 }}</h4>
                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="form-control">
                            <label class="label">
@@ -203,7 +203,7 @@
             <a href="{{ route('students.registration.step3') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                Previous
             </a>
-            <button type="submit" class="btn btn-sm bg-primary text-base-300 hover:bg-primary-focus w-48 rounded-lg px-6">
+            <button type="submit" class="btn btn-sm bg-blue-600 text-base-300 hover:bg-blue-700-focus w-48 rounded-lg px-6">
                Proceed to Enrollment
             </button>
          </div>

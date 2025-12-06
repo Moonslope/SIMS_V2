@@ -11,8 +11,7 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 
     /* DaisyUI Primary Color Configuration */
-    --color-primary: #2563eb;
-    /* Pure blue - consistent across displays */
+    --color-primary: #0d00c9;
 }
 
 @plugin "daisyui";

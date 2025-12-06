@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Create New Academic Year</h1>
    </div>
    <div class="bg-base-100 h-auto rounded-lg p-6 shadow">
@@ -80,7 +80,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                <a href="{{route('academic-years.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
-               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">Save</button>
+               <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white w-35 btn-sm rounded-lg">Save</button>
             </div>
          </div>
       </form>

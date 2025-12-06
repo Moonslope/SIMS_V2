@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - Regular</h1>
    </div>
 
@@ -25,7 +25,7 @@
 
    <div class="rounded-lg bg-base-100 shadow-md p-8">
       <div class="flex items-center gap-3 mb-6">
-         <div class="w-1 h-8 bg-primary rounded"></div>
+         <div class="w-1 h-8 bg-blue-600 rounded"></div>
          <h2 class="text-2xl font-semibold">Student Information</h2>
       </div>
 
@@ -40,7 +40,7 @@
                </span>
             </label>
             <input name="learner_reference_number" type="text"
-               class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('learner_reference_number') input-error @enderror"
+               class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('learner_reference_number') input-error @enderror"
                value="{{ old('learner_reference_number', session('student_registration. learner_reference_number')) }}"
                placeholder="Enter 12-digit LRN">
             @error('learner_reference_number')
@@ -59,7 +59,7 @@
                   </span>
                </label>
                <input name="first_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('first_name') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('first_name') input-error @enderror"
                   value="{{ old('first_name', session('student_registration.first_name')) }}"
                   placeholder="Enter first name">
                @error('first_name')
@@ -74,7 +74,7 @@
                   <span class="label-text font-medium text-base">Middle Name</span>
                </label>
                <input name="middle_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('middle_name') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('middle_name') input-error @enderror"
                   value="{{ old('middle_name', session('student_registration. middle_name')) }}"
                   placeholder="Enter middle name">
                @error('middle_name')
@@ -91,7 +91,7 @@
                   </span>
                </label>
                <input name="last_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('last_name') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('last_name') input-error @enderror"
                   value="{{ old('last_name', session('student_registration.last_name')) }}"
                   placeholder="Enter last name">
                @error('last_name')
@@ -106,7 +106,7 @@
                   <span class="label-text font-medium text-base">Suffix</span>
                </label>
                <input name="extension_name" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('extension_name') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('extension_name') input-error @enderror"
                   value="{{ old('extension_name', session('student_registration.extension_name')) }}"
                   placeholder="Jr, Sr">
                @error('extension_name')
@@ -124,7 +124,7 @@
                   <span class="label-text font-medium text-base">Nickname</span>
                </label>
                <input name="nickname" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('nickname') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('nickname') input-error @enderror"
                   value="{{ old('nickname', session('student_registration.nickname')) }}" placeholder="Enter nickname">
                @error('nickname')
                <label class="label">
@@ -140,7 +140,7 @@
                   </span>
                </label>
                <select
-                  class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('gender') select-error @enderror"
+                  class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('gender') select-error @enderror"
                   name="gender">
                   <option disabled selected>Select gender</option>
                   <option value="male" {{ old('gender', session('student_registration.gender'))=='male' ? 'selected'
@@ -162,7 +162,7 @@
                   </span>
                </label>
                <input name="birthdate" type="date"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('birthdate') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('birthdate') input-error @enderror"
                   value="{{ old('birthdate', session('student_registration.birthdate')) }}" max="{{ date('Y-m-d') }}">
                @error('birthdate')
                <label class="label">
@@ -176,7 +176,7 @@
                   <span class="label-text font-medium text-base">Birthplace <span class="text-error">*</span></span>
                </label>
                <input name="birthplace" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('birthplace') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('birthplace') input-error @enderror"
                   value="{{ old('birthplace', session('student_registration.birthplace')) }}"
                   placeholder="Enter birthplace">
                @error('birthplace')
@@ -196,7 +196,7 @@
                   </span>
                </label>
                <input name="nationality" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('nationality') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('nationality') input-error @enderror"
                   value="{{ old('nationality', session('student_registration.nationality')) }}"
                   placeholder="e.g., Filipino">
                @error('nationality')
@@ -213,7 +213,7 @@
                   </span>
                </label>
                <input name="spoken_dialect" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('spoken_dialect') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('spoken_dialect') input-error @enderror"
                   value="{{ old('spoken_dialect', session('student_registration.spoken_dialect')) }}"
                   placeholder="e.g., Tagalog, Cebuano">
                @error('spoken_dialect')
@@ -228,7 +228,7 @@
                   <span class="label-text font-medium text-base">Other Dialect</span>
                </label>
                <input name="other_spoken_dialect" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('other_spoken_dialect') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('other_spoken_dialect') input-error @enderror"
                   value="{{ old('other_spoken_dialect', session('student_registration.other_spoken_dialect')) }}"
                   placeholder="Other dialect">
                @error('other_spoken_dialect')
@@ -243,7 +243,7 @@
                   <span class="label-text font-medium text-base">Religion <span class="text-error">*</span></span>
                </label>
                <input name="religion" type="text"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('religion') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('religion') input-error @enderror"
                   value="{{ old('religion', session('student_registration.religion')) }}" placeholder="Enter religion">
                @error('religion')
                <label class="label">
@@ -259,7 +259,7 @@
                <span class="label-text font-medium text-base">Permanent Address <span class="text-error">*</span></span>
             </label>
             <input name="address" type="text"
-               class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('address') input-error @enderror"
+               class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('address') input-error @enderror"
                value="{{ old('address', session('student_registration.address')) }}"
                placeholder="House No., Street, Barangay, City, Province">
             @error('address')
@@ -277,7 +277,7 @@
             <a href="{{ route('students.registration.step1') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                Cancel
             </a>
-            <button type="submit" class="btn btn-sm btn-primary w-35 rounded-lg px-6">
+            <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-35 rounded-lg px-6">
                Next
             </button>
          </div>

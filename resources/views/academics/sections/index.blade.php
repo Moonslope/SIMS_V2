@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Sections</h1>
    </div>
 
@@ -64,7 +64,7 @@
             </form>
 
             <a href="{{route('sections.create')}}"
-               class="btn bg-primary text-base-300 btn-sm rounded-lg hover:bg-primary-focus w-full sm:w-auto gap-2">
+               class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700-focus w-full sm:w-auto gap-2">
                <i class="fi fi-sr-plus-small text-lg pt-1"></i>
                <span>Create New</span>
             </a>
@@ -109,7 +109,7 @@
                <td class="w-25">
                   <div class="flex gap-2">
                      <a href="{{route('sections.edit', $section->id)}}"
-                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300"
+                        class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-base-300"
                         data-tip="Edit Details">
                         <i class="fi fi-sr-pen-square text-[18px] pt-1"></i>
                      </a>

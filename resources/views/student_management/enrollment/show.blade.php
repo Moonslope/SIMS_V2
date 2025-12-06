@@ -17,9 +17,9 @@
    </div>
 
    <!-- Page Title (Screen Only) -->
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center no-print">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center no-print">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Statement of Account</h1>
-      <button onclick="window.print()" class="btn btn-sm btn-primary rounded-lg mr-3">
+      <button onclick="window.print()" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg mr-3">
          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -181,7 +181,7 @@
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
             <div class="avatar placeholder">
-               <div class="bg-primary flex justify-center items-center text-primary-content rounded-full w-12">
+               <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-12">
                   @if($enrollment->student)
                   <span class="text-xl">{{ substr($enrollment->student->first_name, 0, 1) }}{{
                      substr($enrollment->student->last_name, 0, 1) }}</span>
@@ -237,7 +237,7 @@
    <div class="card bg-base-100 shadow-md no-print rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-primary rounded"></div>
+            <div class="w-1 h-8 bg-blue-600 rounded"></div>
             <h2 class="text-xl font-semibold">Class Schedule</h2>
          </div>
 
@@ -292,7 +292,7 @@
    <div class="card bg-base-100 shadow-md no-print rounded-lg">
       <div class="card-body p-6">
          <div class="flex items-center gap-3 mb-4">
-            <div class="w-1 h-8 bg-primary rounded"></div>
+            <div class="w-1 h-8 bg-blue-600 rounded"></div>
             <h2 class="text-xl font-semibold">Billing Information</h2>
          </div>
 
@@ -412,7 +412,7 @@
             <a href="{{route('enrollments.index')}}" class="btn btn-sm btn-ghost w-45 rounded-lg">
                Close
             </a>
-            <button onclick="window.print()" class="btn btn-sm btn-primary w-45 rounded-lg px-6">
+            <button onclick="window.print()" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-45 rounded-lg px-6">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

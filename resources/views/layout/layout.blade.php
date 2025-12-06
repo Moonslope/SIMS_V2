@@ -27,7 +27,7 @@
       <div class="sticky top-0 z-50 bg-base-100 shrink-0 flex justify-between items-center shadow-md">
          <div class="flex items-center py-1.5 ms-5 gap-1">
             <img src="{{ asset('images/logo-f.png') }}" alt="Logo" height="50" width="50">
-            <h1 class="text font-bold text-primary">Enrollment System</h1>
+            <h1 class="text font-bold text-blue-600">Enrollment System</h1>
          </div>
 
          <div>
@@ -52,9 +52,9 @@
             <ul class="menu w-full flex flex-col gap-3">
                <li class="ms-0.5">
                   <a href="{{route('dashboard')}}"
-                     class="py-2.5 {{ request()->routeIs('dashboard') ? 'active bg-primary text-white' : '' }}">
+                     class="py-2.5 {{ request()->routeIs('dashboard') ? 'active bg-blue-600 text-white' : '' }}">
                      <i
-                        class="fi fi-ss-house-chimney text-[18px] pt-1 {{ request()->routeIs('dashboard') ?  'text-white' : 'text-primary' }}"></i>
+                        class="fi fi-ss-house-chimney text-[18px] pt-1 {{ request()->routeIs('dashboard') ?  'text-white' : 'text-blue-600' }}"></i>
                      <span>Dashboard</span>
                   </a>
                </li>
@@ -62,19 +62,19 @@
                <li>
                   <details>
                      <summary>
-                        <i class="fi fi-ss-user-graduate text-lg text-primary"></i>
+                        <i class="fi fi-ss-user-graduate text-lg text-blue-600"></i>
                         <span class="mb-1">Student Management</span>
                      </summary>
                      <ul>
                         <li>
                            <a href="{{route('students.index')}}"
-                              class="{{ request()->routeIs('students.index') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('students.index') ? 'active bg-blue-600 text-white' : '' }}">
                               Student Profiles
                            </a>
                         </li>
                         <li>
                            <a href="{{route('enrollments.index')}}"
-                              class="{{ request()->routeIs('enrollments.index') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('enrollments.index') ? 'active bg-blue-600 text-white' : '' }}">
                               Enrolled Students
                            </a>
                         </li>
@@ -85,7 +85,7 @@
                <li>
                   <details>
                      <summary>
-                        <i class="fi fi-ss-form text-lg text-primary"></i>
+                        <i class="fi fi-ss-form text-lg text-blue-600"></i>
                         <span class="mb-1">Enrollment</span>
                      </summary>
                      <ul>
@@ -95,13 +95,13 @@
                               <ul>
                                  <li>
                                     <a href="{{route('students.registration.step1')}}"
-                                       class="{{ request()->routeIs('students.registration.*') ? 'active bg-primary text-white' : '' }}">
+                                       class="{{ request()->routeIs('students.registration.*') ? 'active bg-blue-600 text-white' : '' }}">
                                        Regular
                                     </a>
                                  </li>
                                  <li>
                                     <a href="{{route('students.sped-registration.step1')}}"
-                                       class="{{ request()->routeIs('students.sped-registration.*') ? 'active bg-primary text-white' : '' }}">
+                                       class="{{ request()->routeIs('students.sped-registration.*') ? 'active bg-blue-600 text-white' : '' }}">
                                        SPED
                                     </a>
                                  </li>
@@ -110,7 +110,7 @@
                         </li>
                         <li>
                            <a href="{{route('enrollments.re-enrollment')}}"
-                              class="{{ request()->routeIs('enrollments.re-enrollment') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('enrollments.re-enrollment') ? 'active bg-blue-600 text-white' : '' }}">
                               Old Student
                            </a>
                         </li>
@@ -121,43 +121,43 @@
                <li>
                   <details>
                      <summary>
-                        <i class="fi fi-ss-book-open-cover text-lg text-primary"></i>
+                        <i class="fi fi-ss-book-open-cover text-lg text-blue-600"></i>
                         <span class="mb-1">Academic</span>
                      </summary>
                      <ul>
                         <li>
                            <a href="{{route('grade-levels.index')}}"
-                              class="{{ request()->routeIs('grade-levels.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('grade-levels.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Grade Levels
                            </a>
                         </li>
                         <li>
                            <a href="{{route('program-types.index')}}"
-                              class="{{ request()->routeIs('program-types.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('program-types.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Program Types
                            </a>
                         </li>
                         <li>
                            <a href="{{route('sections.index')}}"
-                              class="{{ request()->routeIs('sections.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('sections.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Sections
                            </a>
                         </li>
                         <li>
                            <a href="{{route('subjects.index')}}"
-                              class="{{ request()->routeIs('subjects.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('subjects.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Subjects
                            </a>
                         </li>
                         <li>
                            <a href="{{route('schedules.index')}}"
-                              class="{{ request()->routeIs('schedules.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('schedules.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Schedules
                            </a>
                         </li>
                         <li>
                            <a href="{{route('teachers.index')}}"
-                              class="{{ request()->routeIs('teachers.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('teachers.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Teachers
                            </a>
                         </li>
@@ -168,25 +168,25 @@
                <li>
                   <details>
                      <summary>
-                        <i class="fi fi-ss-calculator-money text-lg text-primary"></i>
+                        <i class="fi fi-ss-calculator-money text-lg text-blue-600"></i>
                         <span class="mb-1">Financial</span>
                      </summary>
                      <ul>
                         <li>
                            <a href="{{route('fee-structures.index')}}"
-                              class="{{ request()->routeIs('fee-structures.*') ?  'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('fee-structures.*') ?  'active bg-blue-600 text-white' : '' }}">
                               Fee Structure
                            </a>
                         </li>
                         <li>
                            <a href="{{route('billings.index')}}"
-                              class="{{ request()->routeIs('billings.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('billings.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Billing
                            </a>
                         </li>
                         <li>
                            <a href="{{route('payments.index')}}"
-                              class="{{ request()->routeIs('payments.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('payments.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Payments
                            </a>
                         </li>
@@ -197,25 +197,25 @@
                <li>
                   <details>
                      <summary>
-                        <i class="fi fi-ss-tools text-lg text-primary"></i>
+                        <i class="fi fi-ss-tools text-lg text-blue-600"></i>
                         <span>System</span>
                      </summary>
                      <ul>
                         <li>
                            <a href="{{route('users.index')}}"
-                              class="{{ request()->routeIs('users.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('users.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Users
                            </a>
                         </li>
                         <li>
                            <a href="{{route('academic-years.index')}}"
-                              class="{{ request()->routeIs('academic-years.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('academic-years.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Academic Years
                            </a>
                         </li>
                         <li>
                            <a href="{{route('announcements.index')}}"
-                              class="{{ request()->routeIs('announcements.*') ? 'active bg-primary text-white' : '' }}">
+                              class="{{ request()->routeIs('announcements.*') ? 'active bg-blue-600 text-white' : '' }}">
                               Announcement
                            </a>
                         </li>
@@ -225,9 +225,9 @@
 
                <li class="">
                   <a href="{{route('activity-logs.index')}}"
-                     class="py-2.5 {{ request()->routeIs('activity-logs.*') ? 'active bg-primary text-white' : '' }}">
+                     class="py-2.5 {{ request()->routeIs('activity-logs.*') ? 'active bg-blue-600 text-white' : '' }}">
                      <i
-                        class="fi fi-ss-book-alt text-[18px] pt-1 {{ request()->routeIs('activity-logs.*') ?  'text-white' : 'text-primary' }}"></i>
+                        class="fi fi-ss-book-alt text-[18px] pt-1 {{ request()->routeIs('activity-logs.*') ?  'text-white' : 'text-blue-600' }}"></i>
                      <span>Activity Logs</span>
                   </a>
                </li>

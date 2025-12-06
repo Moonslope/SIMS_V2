@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Payments</h1>
    </div>
 
@@ -54,7 +54,7 @@
             </form>
 
             <button onclick="payment_report_modal.showModal()"
-               class="btn bg-primary text-base-300 btn-sm w-full sm:w-auto gap-2 rounded-lg hover:bg-primary-focus">
+               class="btn bg-blue-600 text-base-300 btn-sm w-full sm:w-auto gap-2 rounded-lg hover:bg-blue-700-focus">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -118,7 +118,7 @@
                      <div class="modal-action">
                         <button type="button" onclick="payment_report_modal.close()"
                            class="btn btn-sm btn-ghost rounded-lg">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-primary rounded-lg">
+                        <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                            Generate Report
                         </button>
                      </div>

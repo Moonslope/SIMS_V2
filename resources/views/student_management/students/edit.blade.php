@@ -11,7 +11,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Edit Student Profile</h1>
       <a href="{{ route('students.student-profile', $student->id) }}" class="btn btn-sm btn-ghost text-base-300 me-3 rounded-lg">
          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,7 +38,7 @@
       <div class="card bg-base-100 shadow-md rounded-lg mb-5">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Personal Information</h2>
             </div>
 
@@ -262,7 +262,7 @@
       <div class="card bg-base-100 shadow-md rounded-lg mb-5">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Guardian Information</h2>
             </div>
 
@@ -387,7 +387,7 @@
          <a href="{{ route('students.student-profile', $student->id) }}" class="btn btn-ghost rounded-lg">
             Cancel
          </a>
-         <button type="submit" class="btn btn-primary rounded-lg">
+         <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>

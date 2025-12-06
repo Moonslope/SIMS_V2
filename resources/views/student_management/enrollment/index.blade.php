@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg mb-5 flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg mb-5 flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">List of Enrolled Students</h1>
       <h1 class="text-[20px] font-semibold text-base-300 me-3 p-2">SY {{ $currentAcademicYear->year_name ?? 'N/A' }}
       </h1>
@@ -78,7 +78,7 @@
 
             <!-- Actions Dropdown -->
             <div class="dropdown dropdown-end">
-               <label tabindex="0" class="btn bg-primary text-base-300 btn-sm gap-2 rounded-lg hover:bg-primary-focus">
+               <label tabindex="0" class="btn bg-blue-600 text-base-300 btn-sm gap-2 rounded-lg hover:bg-blue-700-focus">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -167,7 +167,7 @@
                      <div class="modal-action">
                         <button type="button" onclick="report_modal.close()"
                            class="btn btn-sm btn-ghost rounded-lg">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-primary rounded-lg">
+                        <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                            Generate Report
                         </button>
                      </div>
@@ -236,7 +236,7 @@
                      <div class="modal-action">
                         <button type="button" onclick="classlist_modal.close()"
                            class="btn btn-sm btn-ghost rounded-lg">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-primary rounded-lg">
+                        <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                            Generate Class List
                         </button>
                      </div>
@@ -289,7 +289,7 @@
                <td>
                   <div class="flex gap-2">
                      <a href="{{ route('enrollments.show', $enrollment->id) }}"
-                        class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                        class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-base-300 rounded-lg"
                         data-tip="View Details">
                         <i class="fi fi-sr-eye text-[18px] pt-1"></i>
                      </a>
@@ -299,7 +299,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit"
-                           class="btn btn-soft px-1 text-primary bg-primary-content btn-xs tooltip hover:bg-primary hover:text-base-300 rounded-lg"
+                           class="btn btn-soft px-1 text-blue-600 bg-blue-600-content btn-xs tooltip hover:bg-blue-700 hover:text-base-300 rounded-lg"
                            data-tip="Archive">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                               stroke="currentColor">

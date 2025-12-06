@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Create New Fee</h1>
    </div>
 
@@ -80,7 +80,7 @@
                         </svg>
                         Clear All
                      </button>
-                     <button type="button" id="addFeeBtn" class="btn btn-sm btn-primary rounded-lg">
+                     <button type="button" id="addFeeBtn" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                            stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -98,7 +98,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                <a href="{{route('fee-structures.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
-               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">Save All Fees</button>
+               <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white w-35 btn-sm rounded-lg">Save All Fees</button>
             </div>
          </div>
       </form>

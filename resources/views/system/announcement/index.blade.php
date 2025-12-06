@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Announcements</h1>
    </div>
 
@@ -42,7 +42,7 @@
             </form>
 
             <a href="{{route('announcements.create')}}"
-               class="btn bg-primary text-base-300 btn-sm rounded-lg hover:bg-primary w-full sm:w-auto gap-2">
+               class="btn bg-blue-600 text-base-300 btn-sm rounded-lg hover:bg-blue-700 w-full sm:w-auto gap-2">
                <i class="fi fi-sr-plus-small text-lg pt-1"></i>
                <span>Create New</span>
             </a>
@@ -89,12 +89,12 @@
                <td class="w-38">
                   <div class="flex gap-2">
                      <a href="{{route('announcements.edit', $announcement->id)}}"
-                        class="btn btn-soft text-primary rounded-lg bg-primary-content btn-xs tooltip"
+                        class="btn btn-soft text-blue-600 rounded-lg bg-blue-600-content btn-xs tooltip"
                         data-tip="Edit Details">
                         <i class="fi fi-sr-pen-square text-lg pt-1"></i>
                      </a>
 
-                     <button class="btn btn-soft text-primary rounded-lg bg-primary-content btn-xs tooltip"
+                     <button class="btn btn-soft text-blue-600 rounded-lg bg-blue-600-content btn-xs tooltip"
                         data-tip="Delete"
                         onclick="document.getElementById('delete_modal_{{ $announcement->id }}').showModal()">
                         <i class="fi fi-sr-trash text-lg pt-1"></i>

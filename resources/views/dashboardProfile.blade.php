@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">My Profile</h1>
    </div>
 
@@ -37,7 +37,7 @@
                   <div class="flex flex-col items-center">
                      <div class="avatar placeholder">
                         <div
-                           class="bg-primary flex justify-center items-center text-primary-content rounded-full w-20">
+                           class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-20">
                            <span class="text-3xl">{{ substr($user->first_name, 0, 1) }}{{ substr($user->last_name, 0, 1)
                               }}</span>
                         </div>
@@ -46,7 +46,7 @@
                         {{ $user->first_name }} {{ $user->last_name }}
                      </h2>
                      <p class="text-sm text-gray-500">{{ $user->email }}</p>
-                     <span class="badge badge-primary badge-sm mt-2">{{ ucfirst($user->role) }}</span>
+                     <span class="badge badge badge-info badge-sm mt-2">{{ ucfirst($user->role) }}</span>
                   </div>
 
                   <div class="divider"></div>
@@ -67,7 +67,7 @@
             <div class="card bg-base-100 shadow-md h-full">
                <div class="card-body p-6">
                   <div class="flex items-center gap-3 mb-6">
-                     <div class="w-1 h-8 bg-primary rounded"></div>
+                     <div class="w-1 h-8 bg-blue-600 rounded"></div>
                      <h2 class="text-xl font-semibold">Personal Information</h2>
                   </div>
 
@@ -80,7 +80,7 @@
                            </span>
                         </label>
                         <input type="text" name="first_name" data-original="{{ $user->first_name }}"
-                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary form-input @error('first_name') input-error @enderror"
+                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 form-input @error('first_name') input-error @enderror"
                            value="{{ old('first_name', $user->first_name) }}" required>
                         @error('first_name')
                         <label class="label">
@@ -96,7 +96,7 @@
                            <span class="label-text-alt text-gray-500">(Optional)</span>
                         </label>
                         <input type="text" name="middle_name" data-original="{{ $user->middle_name }}"
-                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary form-input @error('middle_name') input-error @enderror"
+                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 form-input @error('middle_name') input-error @enderror"
                            value="{{ old('middle_name', $user->middle_name) }}">
                         @error('middle_name')
                         <label class="label">
@@ -113,7 +113,7 @@
                            </span>
                         </label>
                         <input type="text" name="last_name" data-original="{{ $user->last_name }}"
-                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary form-input @error('last_name') input-error @enderror"
+                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 form-input @error('last_name') input-error @enderror"
                            value="{{ old('last_name', $user->last_name) }}" required>
                         @error('last_name')
                         <label class="label">
@@ -130,7 +130,7 @@
                            </span>
                         </label>
                         <input type="email" name="email" data-original="{{ $user->email }}"
-                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary form-input @error('email') input-error @enderror"
+                           class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 form-input @error('email') input-error @enderror"
                            value="{{ old('email', $user->email) }}" required>
                         @error('email')
                         <label class="label">
@@ -148,7 +148,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-6">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Change Password</h2>
             </div>
 
@@ -167,7 +167,7 @@
                   <span class="label-text font-medium text-base">Current Password</span>
                </label>
                <input type="password" name="current_password" id="current_password"
-                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary password-input @error('current_password') input-error @enderror"
+                  class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 password-input @error('current_password') input-error @enderror"
                   placeholder="Enter current password">
                @error('current_password')
                <label class="label">
@@ -183,7 +183,7 @@
                      <span class="label-text font-medium text-base">New Password</span>
                   </label>
                   <input type="password" name="new_password" id="new_password"
-                     class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary password-input @error('new_password') input-error @enderror"
+                     class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 password-input @error('new_password') input-error @enderror"
                      placeholder="Enter new password">
                   @error('new_password')
                   <label class="label">
@@ -198,7 +198,7 @@
                      <span class="label-text font-medium text-base">Confirm New Password</span>
                   </label>
                   <input type="password" name="new_password_confirmation" id="new_password_confirmation"
-                     class="input input-bordered rounded-lg w-full focus:outline-none focus:border-primary password-input"
+                     class="input input-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 password-input"
                      placeholder="Confirm new password">
                </div>
             </div>
@@ -210,7 +210,7 @@
          <a href="{{ route('dashboard') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
             Cancel
          </a>
-         <button type="submit" id="saveBtn" class="btn btn-sm bg-primary text-white w-35 rounded-lg px-6" disabled>
+         <button type="submit" id="saveBtn" class="btn btn-sm bg-blue-600 text-white w-35 rounded-lg px-6" disabled>
             Save Changes
          </button>
       </div>

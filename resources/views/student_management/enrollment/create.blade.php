@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Enroll Student</h1>
       @if($currentAcademicYear)
       <h1 class="text-[20px] font-semibold text-base-300 me-3 p-2">SY {{ $currentAcademicYear->year_name }}</h1>
@@ -24,7 +24,7 @@
       <div class="card-body p-6">
          <div class="flex items-center gap-3">
             <div class="avatar placeholder">
-               <div class="bg-primary text-primary-content flex justify-center items-center rounded-full w-12">
+               <div class="bg-blue-600 text-blue-600-content flex justify-center items-center rounded-full w-12">
                   <span class="text-xl">{{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1)
                      }}</span>
                </div>
@@ -46,7 +46,7 @@
    <div class="card bg-base-100 shadow-md rounded-lg">
       <div class="card-body p-8">
          <div class="flex items-center gap-3 mb-6">
-            <div class="w-1 h-8 bg-primary rounded"></div>
+            <div class="w-1 h-8 bg-blue-600 rounded"></div>
             <h2 class="text-2xl font-semibold">Enrollment Details</h2>
          </div>
 
@@ -70,7 +70,7 @@
                      </span>
                   </label>
                   <select name="program_type_id"
-                     class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('program_type_id') select-error @enderror">
+                     class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('program_type_id') select-error @enderror">
                      <option disabled selected>Select Program Type</option>
                      @forelse($programTypes as $programType)
                      <option value="{{ $programType->id }}" {{ old('program_type_id')==$programType->id ||
@@ -99,7 +99,7 @@
                      </span>
                   </label>
                   <select name="grade_level_id" id="grade_level_id"
-                     class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('grade_level_id') select-error @enderror">
+                     class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('grade_level_id') select-error @enderror">
                      <option disabled selected>Select Grade Level</option>
                      @forelse($gradeLevels as $gradeLevel)
                      <option value="{{ $gradeLevel->id }}" {{ old('grade_level_id')==$gradeLevel->id ? 'selected' : ''
@@ -125,7 +125,7 @@
                      </span>
                   </label>
                   <select name="section_id" id="section_id"
-                     class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary @error('section_id') select-error @enderror">
+                     class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600 @error('section_id') select-error @enderror">
                      <option disabled selected>Select Grade Level First</option>
                   </select>
                   @error('section_id')
@@ -175,7 +175,7 @@
                <a href="{{ route('enrollments.index') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                   Cancel
                </a>
-               <button type="submit" class="btn btn-sm btn-primary w-40 rounded-lg px-6">
+               <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-40 rounded-lg px-6">
                   Enroll Student
                </button>
             </div>

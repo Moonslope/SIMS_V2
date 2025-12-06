@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Edit Announcement</h1>
    </div>
 
@@ -52,7 +52,7 @@
             <div class="flex justify-end">
                <div class="flex gap-3">
                   <a href="{{route('announcements.index')}}" class="btn btn-sm w-40 rounded-lg">Cancel</a>
-                  <button type="submit" class="btn btn-primary btn-sm w-40 rounded-lg">Save Changes</button>
+                  <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white btn-sm w-40 rounded-lg">Save Changes</button>
                </div>
             </div>
          </div>

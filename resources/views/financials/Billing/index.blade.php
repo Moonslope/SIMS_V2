@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Billing</h1>
    </div>
 
@@ -96,14 +96,14 @@
                <td class="w-35">
                   <div class="flex gap-2">
                      <a href="{{route('billings.show', $billing->id)}}"
-                        class="btn rounded-lg btn-soft text-primary  bg-primary-content btn-xs tooltip"
+                        class="btn rounded-lg btn-soft text-blue-600  bg-blue-600-content btn-xs tooltip"
                         data-tip="View Payment History">
                         <i class="fi fi-sr-eye text-lg pt-1"></i>
                      </a>
 
                      @if($billing->status !== 'paid')
                      <a href="{{route('billings.edit', $billing->id)}}"
-                        class="btn rounded-lg btn-soft text-primary  bg-primary-content btn-xs tooltip"
+                        class="btn rounded-lg btn-soft text-blue-600  bg-blue-600-content btn-xs tooltip"
                         data-tip="Make Payment">
                         <i class="fi fi-sr-expense text-lg pt-1"></i>
                      </a>

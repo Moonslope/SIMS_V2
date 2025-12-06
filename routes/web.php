@@ -67,7 +67,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
 
     // Enrollment Management
-    // Custom routes must come BEFORE resource route to avoid being caught by {enrollment} parameter
     Route::get('/enrollments/sections-by-grade', [EnrollmentController::class, 'getSectionsByGradeLevel'])->name('enrollments.sections-by-grade');
     Route::get('/enrollments/re-enrollment/form', [EnrollmentController::class, 'reEnrollmentForm'])->name('enrollments.re-enrollment');
     Route::post('/enrollments/search', [EnrollmentController::class, 'searchStudents'])->name('enrollments.search-students');

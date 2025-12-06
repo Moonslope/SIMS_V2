@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - Regular</h1>
    </div>
 
@@ -26,11 +26,11 @@
    <div class="rounded-lg bg-base-100 shadow-md p-8">
       <div class="flex items-center justify-between mb-6">
          <div class="flex items-center gap-3">
-            <div class="w-1 h-8 bg-primary rounded"></div>
+            <div class="w-1 h-8 bg-blue-600 rounded"></div>
             <h2 class="text-2xl font-semibold">Guardian/Parent Information</h2>
          </div>
          <div class="flex gap-2">
-            <button type="button" id="addGuardianBtn" class="btn btn-sm btn-primary rounded-lg">
+            <button type="button" id="addGuardianBtn" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -59,7 +59,7 @@
             <a href="{{ route('students.registration.step1') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                Previous
             </a>
-            <button type="submit" class="btn btn-sm btn-primary w-40 rounded-lg px-6">
+            <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-40 rounded-lg px-6">
                Next
             </button>
          </div>

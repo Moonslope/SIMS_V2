@@ -9,7 +9,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - Regular</h1>
    </div>
 
@@ -25,7 +25,7 @@
 
    <div class="rounded-lg bg-base-100 shadow-md p-8">
       <div class="flex items-center gap-3 mb-6">
-         <div class="w-1 h-8 bg-primary rounded"></div>
+         <div class="w-1 h-8 bg-blue-600 rounded"></div>
          <h2 class="text-2xl font-semibold">Required Documents</h2>
       </div>
 
@@ -37,7 +37,7 @@
          <div class="card bg-base-200 shadow-sm">
             <div class="card-body p-6">
                <h3 class="card-title text-lg mb-3">
-                  <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
+                  <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -64,7 +64,7 @@
          <div class="card bg-base-200 shadow-sm">
             <div class="card-body p-6">
                <h3 class="card-title text-lg mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -91,7 +91,7 @@
          <div class="card bg-base-200 shadow-sm">
             <div class="card-body p-6">
                <h3 class="card-title text-lg mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -119,7 +119,7 @@
          <div class="card bg-base-200 shadow-sm">
             <div class="card-body p-6">
                <h3 class="card-title text-lg mb-3">
-                  <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
+                  <svg xmlns="http://www.w3. org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -129,7 +129,7 @@
                <div id="additional-docs" class="space-y-3">
                   <!-- Dynamic docs will be added here -->
                </div>
-               <button type="button" onclick="addAdditionalDoc()" class="btn btn-sm btn-outline btn-primary mt-3">
+               <button type="button" onclick="addAdditionalDoc()" class="btn btn-sm btn-outline bg-blue-600 hover:bg-blue-700 text-white mt-3">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -147,7 +147,7 @@
             <a href="{{ route('students.registration.step2') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                Previous
             </a>
-            <button type="submit" class="btn btn-sm btn-primary w-35 rounded-lg px-6">
+            <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-35 rounded-lg px-6">
                Review
             </button>
          </div>

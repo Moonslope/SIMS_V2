@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Profile</h1>
       <a href="{{ route('students.index') }}" class="btn btn-sm btn-ghost text-base-300 me-3 rounded-lg">
          <svg xmlns="http://www.w3. org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,7 +25,7 @@
       <div class="card-body p-6">
          <div class="flex items-center gap-4">
             <div class="avatar placeholder">
-               <div class="bg-primary flex justify-center items-center text-primary-content rounded-full w-20">
+               <div class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-20">
                   <span class="text-3xl">{{ substr($student->first_name, 0, 1) }}{{ substr($student->last_name, 0, 1)
                      }}</span>
                </div>
@@ -37,7 +37,7 @@
                </h2>
                <p class="text-sm text-gray-500">LRN: {{ $student->learner_reference_number }}</p>
                <div class="flex gap-2 mt-2">
-                  <span class="badge badge-primary badge-sm">{{ ucfirst($student->gender) }}</span>
+                  <span class="badge badge badge-info badge-sm">{{ ucfirst($student->gender) }}</span>
                   @if($student->birthdate)
                   <span class="badge badge-ghost badge-sm">
                      Age: {{ \Carbon\Carbon::parse($student->birthdate)->age }} years old
@@ -46,7 +46,7 @@
                </div>
             </div>
             <div class="flex gap-2">
-               <a href="{{ route('students.edit', $student->id) }}" class="btn btn-primary btn-sm rounded-lg">
+               <a href="{{ route('students.edit', $student->id) }}" class="btn bg-blue-600 hover:bg-blue-700 text-white btn-sm rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -64,7 +64,7 @@
       <div class="card bg-base-100 shadow-md col-span-2 rounded-lg">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Personal Information</h2>
             </div>
 
@@ -135,7 +135,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Current Enrollment</h2>
             </div>
 
@@ -183,7 +183,7 @@
       <div class="card bg-base-100 shadow-md">
          <div class="card-body p-6">
             <div class="flex items-center gap-3 mb-4">
-               <div class="w-1 h-8 bg-primary rounded"></div>
+               <div class="w-1 h-8 bg-blue-600 rounded"></div>
                <h2 class="text-xl font-semibold">Guardian Information</h2>
             </div>
 
@@ -232,16 +232,16 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Documents</h2>
                </div>
                <div class="flex items-center gap-2">
                   @if($documents->count() > 0)
-                  <span class="badge badge-primary">{{ $documents->count() }} {{ $documents->count() === 1 ? 'File' :
+                  <span class="badge badge badge-info">{{ $documents->count() }} {{ $documents->count() === 1 ? 'File' :
                      'Files' }}</span>
                   @endif
                   <button type="button" onclick="document.getElementById('upload_modal').showModal()" 
-                     class="btn btn-primary btn-sm rounded-lg">
+                     class="btn bg-blue-600 hover:bg-blue-700 text-white btn-sm rounded-lg">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                      </svg>
@@ -286,7 +286,7 @@
 
                      <div class="flex gap-2 mt-3">
                         <a href="{{ route('students.view-document', [$student->id, $document->id]) }}" target="_blank"
-                           class="btn btn-xs btn-primary flex-1 rounded-lg">
+                           class="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white flex-1 rounded-lg">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                               stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -386,7 +386,7 @@
                <button type="button" onclick="document.getElementById('upload_modal').close()" class="btn btn-ghost rounded-lg">
                   Cancel
                </button>
-               <button type="submit" id="upload_btn" class="btn btn-primary rounded-lg">
+               <button type="submit" id="upload_btn" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>

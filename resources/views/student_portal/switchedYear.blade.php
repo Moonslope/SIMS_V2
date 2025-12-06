@@ -29,11 +29,11 @@
 
    <!-- Student Info Section -->
    <div class="p-4 sm:p-10 rounded-lg bg-white shadow-sm mb-6">
-      <p class="text-lg sm:text-2xl font-bold text-primary mb-2 text-center">{{ $student->learner_reference_number }}
+      <p class="text-lg sm:text-2xl font-bold text-blue-600 mb-2 text-center">{{ $student->learner_reference_number }}
       </p>
       <p class="text-xl sm:text-3xl font-bold text-center mb-2">{{ $student->last_name }}, {{ $student->first_name }}
       </p>
-      <p class="text-lg sm:text-2xl font-semibold text-center text-primary">School Year {{ $academicYear->year_name }}
+      <p class="text-lg sm:text-2xl font-semibold text-center text-blue-600">School Year {{ $academicYear->year_name }}
       </p>
       <p class="text-lg sm:text-2xl font-semibold text-center">{{ $enrollment->gradeLevel->grade_name ?? 'N/A' }}</p>
    </div>
@@ -52,21 +52,21 @@
    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
       <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
-            <p class="text-2xl sm:text-3xl font-bold text-primary">₱{{ number_format($totalAssessment, 2) }}</p>
+            <p class="text-2xl sm:text-3xl font-bold text-blue-600">₱{{ number_format($totalAssessment, 2) }}</p>
             <p class="text-sm sm:text-base">Total Assessment</p>
          </div>
       </div>
 
       <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
-            <p class="text-2xl sm:text-3xl font-bold text-primary">₱{{ number_format($totalPaid, 2) }}</p>
+            <p class="text-2xl sm:text-3xl font-bold text-blue-600">₱{{ number_format($totalPaid, 2) }}</p>
             <p class="text-sm sm:text-base">Total Payment</p>
          </div>
       </div>
 
       <div class="card bg-base-100 shadow rounded-lg">
          <div class="card-body text-center sm:text-left">
-            <p class="text-2xl sm:text-3xl font-bold text-primary">₱{{ number_format($currentBalance, 2) }}</p>
+            <p class="text-2xl sm:text-3xl font-bold text-blue-600">₱{{ number_format($currentBalance, 2) }}</p>
             <p class="text-sm sm:text-base">Current Balance</p>
          </div>
       </div>

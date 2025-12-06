@@ -18,7 +18,7 @@
 
    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Total Students -->
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
+      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-600">
          <div class="flex items-center justify-between">
             <div>
                <p class="text-sm font-medium text-gray-600">Total Students</p>
@@ -46,7 +46,7 @@
       </div>
 
       <!-- Regular Students -->
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
+      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-600">
          <div class="flex items-center justify-between">
             <div>
                <p class="text-sm font-medium text-gray-600">Regular Students</p>
@@ -63,7 +63,7 @@
       </div>
 
       <!-- SPED Students -->
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-primary">
+      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-600">
          <div class="flex items-center justify-between">
             <div>
                <p class="text-sm font-medium text-gray-600">SPED Students</p>
@@ -145,7 +145,7 @@
             $maxStudents = is_array($gradeLevelDistribution) || $gradeLevelDistribution->isEmpty() ? 1 :
             ($gradeLevelDistribution->max('student_count') ?: 1);
             $colors = [
-            'bg-primary', 'bg-blue-600', 'bg-blue-500', 'bg-blue-700',
+            'bg-blue-600', 'bg-blue-600', 'bg-blue-500', 'bg-blue-700',
             'bg-[#1E13A0]', 'bg-blue-800', 'bg-blue-400', 'bg-[#3B2FE8]',
             'bg-blue-900', 'bg-[#4D3FF5]', 'bg-blue-300', 'bg-[#5A4CF7]'
             ];
@@ -180,7 +180,7 @@
    <div class="bg-white rounded-lg shadow-md p-6">
       <div class="flex justify-between items-center mb-6">
          <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
-         <a href="{{ route('activity-logs.index') }}" class="text-sm text-primary hover:text-primary-focus">View
+         <a href="{{ route('activity-logs.index') }}" class="text-sm text-blue-600 hover:text-blue-600-focus">View
             All</a>
       </div>
       <div class="overflow-x-auto">

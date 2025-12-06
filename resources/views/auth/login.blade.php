@@ -20,7 +20,7 @@
 <body>
    <div class="flex min-h-screen">
 
-      <div class="hidden md:flex md:w-1/2 bg-primary relative">
+      <div class="hidden md:flex md:w-1/2 bg-blue-600 relative">
          <div class="flex flex-col justify-center items-center w-full h-full px-8 py-8">
             <div class="text-center text-white max-w-lg w-full">
 
@@ -97,7 +97,7 @@
 
             <div class="md:hidden text-center mb-6">
                <img src="{{ asset('images/logo-f.png') }}" height="100" width="100" alt="Logo" class="mx-auto mb-3">
-               <h1 class="text-2xl font-bold text-primary mb-1">Student Portal</h1>
+               <h1 class="text-2xl font-bold text-blue-600 mb-1">Student Portal</h1>
                <p class="text-sm text-gray-500">Sign in to continue</p>
             </div>
 
@@ -173,7 +173,7 @@
 
                      <div class="form-control mt-6">
                         <button type="submit"
-                           class="btn h-12 rounded-xl w-full bg-primary hover:bg-blue-800 text-white font-bold border-none shadow-lg hover:shadow-xl transition-all duration-300">
+                           class="btn h-12 rounded-xl w-full bg-blue-600 hover:bg-blue-800 text-white font-bold border-none shadow-lg hover:shadow-xl transition-all duration-300">
                            Sign In
                            <i class="fi fi-sr-sign-in-alt text-base pt-1 ml-1"></i>
                         </button>
@@ -181,7 +181,7 @@
 
                      <div class="text-center pt-4 border-t border-gray-100 mt-2">
                         <p class="text-xs text-gray-500 flex items-center justify-center gap-2">
-                           <i class="fi fi-sr-info text-primary opacity-70"></i>
+                           <i class="fi fi-sr-info text-blue-600 opacity-70"></i>
                            <span>Need help? Contact the school administration.</span>
                         </p>
                      </div>

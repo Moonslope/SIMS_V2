@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Student Registration - SPED</h1>
    </div>
 
@@ -43,7 +43,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Student Information</h2>
                </div>
                <a href="{{ route('students.sped-registration.step1') }}" class="btn btn-xs btn-ghost rounded-lg">
@@ -173,7 +173,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Guardian Information</h2>
                </div>
                <a href="{{ route('students.sped-registration.step2') }}" class="btn btn-xs btn-ghost rounded-lg">
@@ -189,7 +189,7 @@
             @if(isset($registrationData['guardians']) && is_array($registrationData['guardians']))
             @foreach($registrationData['guardians'] as $index => $guardian)
             <div class="{{ $index > 0 ? 'border-t pt-4 mt-4' : '' }}">
-               <h4 class="font-semibold text-sm mb-3 text-primary">Guardian #{{ $index + 1 }}</h4>
+               <h4 class="font-semibold text-sm mb-3 text-blue-600">Guardian #{{ $index + 1 }}</h4>
                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="form-control">
                      <label class="label">
@@ -204,7 +204,7 @@
                         <span class="label-text font-semibold">Relationship</span>
                      </label>
                      <p class="pl-2">
-                        <span class="badge badge-primary badge-sm">{{ $guardian['relation'] }}</span>
+                        <span class="badge badge badge-info badge-sm">{{ $guardian['relation'] }}</span>
                      </p>
                   </div>
 
@@ -240,7 +240,7 @@
          <div class="card-body p-6">
             <div class="flex items-center justify-between mb-4">
                <div class="flex items-center gap-3">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Uploaded Documents</h2>
                </div>
                <a href="{{ route('students.sped-registration.step3') }}" class="btn btn-xs btn-ghost rounded-lg">
@@ -260,7 +260,7 @@
                @foreach($document as $additional)
                <div class="flex justify-between items-center py-3 px-4 bg-base-200 rounded-lg">
                   <div class="flex items-center gap-3">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none"
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -273,7 +273,7 @@
                @else
                <div class="flex justify-between items-center py-3 px-4 bg-base-200 rounded-lg">
                   <div class="flex items-center gap-3">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none"
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01. 707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -306,7 +306,7 @@
       </a>
       <form action="{{ route('students.sped-registration.store-final') }}" method="POST">
          @csrf
-         <button type="submit" class="btn btn-sm bg-primary text-base-300 hover:bg-primary-focus rounded-lg px-6">
+         <button type="submit" class="btn btn-sm bg-blue-600 text-base-300 hover:bg-blue-700-focus rounded-lg px-6">
             Proceed to Enrollment
          </button>
       </form>

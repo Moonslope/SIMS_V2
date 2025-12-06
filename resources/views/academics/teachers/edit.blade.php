@@ -10,7 +10,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg">
+   <div class="rounded-lg bg-blue-600 shadow-lg">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Edit Teacher Details</h1>
    </div>
 
@@ -95,7 +95,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3">
                <a href="{{route('teachers.index')}}" class="btn btn-sm btn-ghost w-35 rounded-lg">Cancel</a>
-               <button type="submit" class="btn btn-primary w-35 btn-sm rounded-lg">Save Changes</button>
+               <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white w-35 btn-sm rounded-lg">Save Changes</button>
             </div>
          </div>
       </form>

@@ -11,7 +11,7 @@
       </ul>
    </div>
 
-   <div class="rounded-lg bg-primary shadow-lg flex justify-between items-center">
+   <div class="rounded-lg bg-blue-600 shadow-lg flex justify-between items-center">
       <h1 class="text-[24px] font-semibold text-base-300 ms-3 p-2">Enrollment for Old Students</h1>
    </div>
 
@@ -21,7 +21,7 @@
          <div class="card bg-base-100 shadow-md">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Search Student</h2>
                </div>
 
@@ -30,9 +30,9 @@
                   <div class="form-control">
                      <div class="flex gap-2">
                         <input type="text" name="query" placeholder="Enter name or LRN..."
-                           class="input input-bordered flex-1 rounded-lg focus:outline-none focus:border-primary"
+                           class="input input-bordered flex-1 rounded-lg focus:outline-none focus:border-blue-600"
                            minlength="2" required>
-                        <button type="submit" class="btn btn-primary rounded-lg">
+                        <button type="submit" class="btn bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                            <svg xmlns="http://www.w3. org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                               stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,7 +89,7 @@
                         <div class="flex items-center gap-3">
                            <div class="avatar placeholder">
                               <div
-                                 class="bg-primary flex justify-center items-center text-primary-content rounded-full w-10">
+                                 class="bg-blue-600 flex justify-center items-center text-blue-600-content rounded-full w-10">
                                  <span class="text-sm">{{ substr($student->first_name, 0, 1) }}{{
                                     substr($student->last_name, 0, 1) }}</span>
                               </div>
@@ -133,7 +133,7 @@
          <div class="card bg-base-100 shadow-md">
             <div class="card-body p-6">
                <div class="flex items-center gap-3 mb-6">
-                  <div class="w-1 h-8 bg-primary rounded"></div>
+                  <div class="w-1 h-8 bg-blue-600 rounded"></div>
                   <h2 class="text-xl font-semibold">Enrollment Details</h2>
                </div>
 
@@ -143,7 +143,7 @@
 
                   <!-- Selected Student Info -->
                   <div id="studentInfo" class="hidden w-full">
-                     <div class="card bg-base-200 shadow-sm border-2 border-primary">
+                     <div class="card bg-base-200 shadow-sm border-2 border-blue-600">
                         <div class="card-body p-4">
                            <div class="flex items-center gap-4">
                               <div class="flex-1">
@@ -203,7 +203,7 @@
                            </span>
                         </label>
                         <select name="program_type_id" id="programTypeSelect"
-                           class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary"
+                           class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600"
                            required>
                            <option value="">Select Program Type</option>
                            @foreach ($programTypes as $program)
@@ -220,7 +220,7 @@
                            </span>
                         </label>
                         <select name="grade_level_id" id="gradeLevelSelect"
-                           class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary"
+                           class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600"
                            required>
                            <option value="">Select Grade Level</option>
                            @foreach ($gradeLevels as $grade)
@@ -237,7 +237,7 @@
                            </span>
                         </label>
                         <select name="section_id" id="sectionSelect"
-                           class="select select-bordered rounded-lg w-full focus:outline-none focus:border-primary"
+                           class="select select-bordered rounded-lg w-full focus:outline-none focus:border-blue-600"
                            required>
                            <option value="">Select Grade Level First</option>
                         </select>
@@ -268,7 +268,7 @@
                      <a href="{{ route('enrollments.index') }}" class="btn btn-sm btn-ghost w-35 rounded-lg">
                         Cancel
                      </a>
-                     <button type="submit" class="btn btn-sm btn-primary w-40 rounded-lg" id="submitBtn" disabled>
+                     <button type="submit" class="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white w-40 rounded-lg" id="submitBtn" disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                            stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
