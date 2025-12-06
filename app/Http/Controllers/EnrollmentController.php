@@ -181,33 +181,34 @@ class EnrollmentController extends Controller
         $enrollments = Enrollment::with(['student', 'gradeLevel', 'programType', 'section', 'academicYear'])
             // Search filter
             ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->whereHas('student', function ($q) use ($search) {
-                        $q->where('first_name', 'like', "%{$search}%")
-                            ->orWhere('middle_name', 'like', "%{$search}%")
-                            ->orWhere('last_name', 'like', "%{$search}%")
-                            ->orWhere('learner_reference_number', 'like', "%{$search}%")
-                            ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ? ", ["%{$search}%"])
-                            ->orWhereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ["%{$search}%"]);
+                $searchLower = strtolower("%{$search}%");
+                $query->where(function ($q) use ($searchLower) {
+                    $q->whereHas('student', function ($q) use ($searchLower) {
+                        $q->whereRaw('LOWER(first_name) LIKE ?', [$searchLower])
+                            ->orWhereRaw('LOWER(middle_name) LIKE ?', [$searchLower])
+                            ->orWhereRaw('LOWER(last_name) LIKE ?', [$searchLower])
+                            ->orWhereRaw('LOWER(learner_reference_number) LIKE ?', [$searchLower])
+                            ->orWhereRaw("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", [$searchLower])
+                            ->orWhereRaw("LOWER(CONCAT(first_name, ' ', middle_name, ' ', last_name)) LIKE ?", [$searchLower]);
                     })
                         // Search in section
-                        ->orWhereHas('section', function ($q) use ($search) {
-                            $q->where('section_name', 'LIKE', "%{$search}%");
+                        ->orWhereHas('section', function ($q) use ($searchLower) {
+                            $q->whereRaw('LOWER(section_name) LIKE ?', [$searchLower]);
                         })
                         // Search in grade level
-                        ->orWhereHas('gradeLevel', function ($q) use ($search) {
-                            $q->where('grade_name', 'LIKE', "%{$search}%");
+                        ->orWhereHas('gradeLevel', function ($q) use ($searchLower) {
+                            $q->whereRaw('LOWER(grade_name) LIKE ?', [$searchLower]);
                         })
                         // Search in program type
-                        ->orWhereHas('programType', function ($q) use ($search) {
-                            $q->where('program_name', 'LIKE', "%{$search}%");
+                        ->orWhereHas('programType', function ($q) use ($searchLower) {
+                            $q->whereRaw('LOWER(program_name) LIKE ?', [$searchLower]);
                         })
                         // Search in academic year
-                        ->orWhereHas('academicYear', function ($q) use ($search) {
-                            $q->where('year_name', 'LIKE', "%{$search}%");
+                        ->orWhereHas('academicYear', function ($q) use ($searchLower) {
+                            $q->whereRaw('LOWER(year_name) LIKE ?', [$searchLower]);
                         })
                         // Search enrollment status
-                        ->orWhere('enrollment_status', 'LIKE', "%{$search}%");
+                        ->orWhereRaw('LOWER(enrollment_status) LIKE ?', [$searchLower]);
                 });
             })
             // Academic Year filter

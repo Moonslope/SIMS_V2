@@ -427,14 +427,15 @@ class StudentController extends Controller
 
         $students = Student::query()
             ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('first_name', 'LIKE', "%{$search}%")
-                        ->orWhere('middle_name', 'LIKE', "%{$search}%")
-                        ->orWhere('last_name', 'LIKE', "%{$search}%")
-                        ->orWhere('learner_reference_number', 'LIKE', "%{$search}%")
-                        ->orWhere('nickname', 'LIKE', "%{$search}%")
-                        ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ? ", ["%{$search}%"])
-                        ->orWhereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ["%{$search}%"]);
+                $searchLower = strtolower("%{$search}%");
+                $query->where(function ($q) use ($searchLower) {
+                    $q->whereRaw('LOWER(first_name) LIKE ?', [$searchLower])
+                        ->orWhereRaw('LOWER(middle_name) LIKE ?', [$searchLower])
+                        ->orWhereRaw('LOWER(last_name) LIKE ?', [$searchLower])
+                        ->orWhereRaw('LOWER(learner_reference_number) LIKE ?', [$searchLower])
+                        ->orWhereRaw('LOWER(nickname) LIKE ?', [$searchLower])
+                        ->orWhereRaw("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", [$searchLower])
+                        ->orWhereRaw("LOWER(CONCAT(first_name, ' ', middle_name, ' ', last_name)) LIKE ?", [$searchLower]);
                 });
             })
             ->orderBy('last_name', 'asc')
